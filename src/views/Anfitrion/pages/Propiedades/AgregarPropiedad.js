@@ -16,6 +16,13 @@ import Input from '@material-ui/core/Input';
 import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
 import image from '../../../../assets/noImage.jpeg'
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +53,8 @@ function AgregarPropiedad() {
   const { getAccessTokenSilently } = useAuth0();
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState(image)
-  
+  const [open, setOpen] = React.useState(false);////open snackbar
+  const [errorMsg, setErrorMsg] = React.useState("")
 
   const [propName, setPropName] = useState("")
   const [adress, setAdress] = useState("")
@@ -57,37 +65,44 @@ function AgregarPropiedad() {
     
     
   }
-  
 
   const handleAgregar = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-      const post = {
-          "propertyName": propName,
-          "address": adress
-      }
+      try {
+        const token = await getAccessTokenSilently();
+        const post = {
+            "propertyName": propName,
+            "address": adress
+        }
 
-      const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties", {
-        method: 'POST',
-        body: JSON.stringify(post),
+        const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties", {
+          method: 'POST',
+          body: JSON.stringify(post),
           headers: {
             Authorization: `Bearer ${token}`
-          }
-      });
-      const responseData = await response.json();      
-      let propertyId = responseData.newItem.propertyId
-      if(file){
-        subirFoto(propertyId)      
-      }
-      
-      
-      history.push(`/AgregarArea/${propertyId}`);   
-      
+            }
+          });
+        if(response.status !== 201){
+          const responseData = await response.text();      
+          console.log(responseData)
+          setErrorMsg(responseData)
+          setOpen(true);
 
-    } catch (error) {
-      console.error(error);
-    }
-  };
+        }else{
+          const responseData = await response.json();      
+          let propertyId = responseData.newItem.propertyId
+          if(file){
+            subirFoto(propertyId)      
+          }
+          
+          
+          history.push(`/AgregarArea/${propertyId}`);   
+
+        }
+
+      } catch (error) {
+        console.error("error=>", error);
+      }
+    };
 
 
   const subirFoto = async (propId) =>{
@@ -154,12 +169,24 @@ function AgregarPropiedad() {
       return true
     }    
   }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   
 
   
   return(
     <div>
       <h1 className={classes.root}>AgregarPropiedad</h1>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          {errorMsg}
+        </Alert>
+      </Snackbar>
 
       <form noValidate autoComplete="off" className={classes.root}>
       	<TextField   
