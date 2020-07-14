@@ -4,13 +4,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Button from '@material-ui/core/Button';
 import image from "./apartment-contemporary-couch-curtains-275484.jpg"
 
-
-
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import { Link, useHistory} from "react-router-dom";
@@ -18,8 +15,7 @@ import { Link, useHistory} from "react-router-dom";
 
 function AreasRegistradas({match}){
 	let history = useHistory();
-	const [showResult, setShowResult] = useState(false);
-	const [apiMessage, setApiMessage] = useState("");
+	
 	const { getAccessTokenSilently } = useAuth0();
 	const [areaNum, setAreaNum] = useState()
 	const {propertyId} = match.params
@@ -46,10 +42,6 @@ function AreasRegistradas({match}){
 	  });
 
 	  const responseData = await response.json();
-
-
-	  setShowResult(true);
-	  setApiMessage(responseData);
 	  setData(responseData.items)	  
 	  setAreaNum(responseData.items.length)
 	} catch (error) {

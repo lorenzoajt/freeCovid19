@@ -1,15 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import AreasRegistradas from './AreasRegistradas'
+import { Link } from "react-router-dom";
 
 function AgregarArea({match}){
 	const { getAccessTokenSilently } = useAuth0();	

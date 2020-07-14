@@ -13,7 +13,7 @@ import Anfitrion from '../views/Anfitrion/'
 import Inspector from '../views/Inspector/'
 
 const Profile = () => {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
   const [userType, setUserType] = useState("")
 
 
@@ -28,8 +28,6 @@ const Profile = () => {
       }
     })();
   }, []);
-
-  
     
 
   return(

@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
-
-
-
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -14,15 +12,40 @@ import {
 } from "react-router-dom";
 import FormData from 'form-data'
 import axios from 'axios'
+import Input from '@material-ui/core/Input';
+import CardMedia from '@material-ui/core/CardMedia';
+import Card from '@material-ui/core/Card';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: 200,
+    },  
+  },
+  card: {
+    maxWidth: 345,
+    margin: theme.spacing(1),
+  },
+  image: {
+    maxWidth:"100%", 
+    height:"auto",
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
 
 
 
 function AgregarPropiedad() {
   let history = useHistory();
-  
+  const classes = useStyles();
+
   const { getAccessTokenSilently } = useAuth0();
   const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState()
+  const [preview, setPreview] = useState("https://images.pexels.com/photos/4226869/pexels-photo-4226869.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500")
   
 
   const [propName, setPropName] = useState("")
@@ -30,8 +53,6 @@ function AgregarPropiedad() {
   
   const fileSelectedHandler = event =>{
     setPreview(URL.createObjectURL(event.target.files[0]))
-    ////aqui habia una validacion, si false enviar imagen fefault
-    console.log("true")
     setFile(event.target.files[0])  
     
     
@@ -126,29 +147,37 @@ function AgregarPropiedad() {
   }
 
 
-  
+  const check = () => {
+    if(propName !== "" && adress !== ""){
+      return false
+    }else{
+      return true
+    }    
+  }
   
 
   
   return(
     <div>
-      <h1>AgregarPropiedad</h1>
+      <h1 className={classes.root}>AgregarPropiedad</h1>
 
-      <form noValidate autoComplete="off">
+      <form noValidate autoComplete="off" className={classes.root}>
       	<TextField   
+          error={propName === ""}          
       		id="standard-basic" 
       		label="Nombre"    		
       		onChange={e => setPropName(e.target.value)}
-      		defaultValue={propName}
-      		
+      		defaultValue={propName} 
+          helperText="Este campo es obligatorio"     		
       	/>
       	<br/>
       	<TextField
+          error={adress === ""}          
       		id="standard-basic" 
       		label="Direccion"       		
       		onChange={e => setAdress(e.target.value)}
       		defaultValue={adress}
-      		
+          helperText="Este campo es obligatorio"      		
       	/>
               
       </form>
@@ -156,16 +185,44 @@ function AgregarPropiedad() {
      <br/>
      <br/>
 
-     <Button 
-       onClick={() => handleAgregar()}       
-     >Siguiente
+     <Button
+       component="label"
+       color='primary'
+       variant="outlined"
+       className={classes.button}
+     >
+       Añadir foto
+       <input
+         type="file"
+         onChange={fileSelectedHandler}
+         style={{ display: "none" }}
+         accept="image/*"
+       />
      </Button>
 
-     <input type="file" onChange={fileSelectedHandler}/>
+     <Button 
+        disabled={check() && true } 
+        onClick={() => handleAgregar()} 
+        color='primary'   
+        variant="contained"   
+        className={classes.button}
+     >Siguiente
+     </Button>
+     
+     
      <br/>
      <br/>
-     <img src={preview} alt="usrImg" />;
-
+     
+     <Card className={classes.card}>
+     <CardMedia
+          component="img"
+          alt="usrImg"
+          height="140"
+          image={preview}
+          title="preview"
+          className={classes.image}
+        />
+      </Card>
 
      
       

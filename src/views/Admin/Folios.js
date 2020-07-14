@@ -1,8 +1,6 @@
-import React, { useMemo, useState, useEffect } from "react";
-import TableComponent from './TableComponent'
+import React, { useState, useEffect } from "react";
 
-import Button from '@material-ui/core/Button';
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import './Anfitriones.css'
 import Loader from '../../components/Loader'
