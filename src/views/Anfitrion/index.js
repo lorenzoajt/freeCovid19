@@ -25,7 +25,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Desinfeccion from './pages/Desinfeccion'
 import Folios from './pages/Folios'
 import Historial from './pages/Historial'
-import Propiedades from './pages/Propiedades/Propiedades'
+import PropiedadesRegistradas from './pages/Propiedades/PropiedadesRegistradas'
 import Supervisores from './pages/Supervisores/'
 import MultiStep from './pages/Propiedades/MultiStep'
 import AgregarPropiedad from './pages/Propiedades/AgregarPropiedad'
@@ -33,7 +33,8 @@ import AreasRegistradas from './pages/Propiedades/AreasRegistradas'
 import ElementosDeArea from './pages/Propiedades/ElementosDeArea'
 import Logout from "../../components/Logout";
 import AgregarArea from './pages/Propiedades/AgregarArea/'
-
+import AgregarSupervisor from './pages/Supervisores/AgregarSupervisor'
+import Detalle from '../../components/Detalle.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -182,7 +183,7 @@ export default function DashboardAnfitrion() {
         <div className={classes.appBarSpacer} />
         <Switch>
 
-            <Route exact path="/Anfitrion" component={Propiedades}/>
+            <Route exact path="/Anfitrion" component={PropiedadesRegistradas}/>
             <Route path='/AgregarPropiedad' component={AgregarPropiedad} />
             <Route path= "/AreasRegistradas/:propertyId" component={AreasRegistradas}/>            
             <Route path="/ElementosDeArea/:areaId" component = {ElementosDeArea} />
@@ -194,6 +195,8 @@ export default function DashboardAnfitrion() {
             <Route path="/folios" component={Folios}/>    
 
             <Route path="/areasRegistradas" component={AreasRegistradas}/>
+            <Route path= "/agregarSupervisor" component={AgregarSupervisor}/>
+            <Route path="/detalle/:servicio/:hostId" component={Detalle} />
             <Route render={()=> <h3>Not found</h3>}/>
 
           </Switch>

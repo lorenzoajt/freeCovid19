@@ -12,12 +12,14 @@ import AreasRegistradas from './AreasRegistradas'
 import Tile from './Tile'
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
+import Loader from './../../../../components/Loader'
 
-import defaultImage from './brown-and-white-wooden-house-164558.jpg'
+
 function PropiedadesRegistradas(props){
   const { getAccessTokenSilently } = useAuth0();
   const [data, setData] = useState([])
   const [imgUrl, setImgUrl] = useState("")  
+  const [loading, setLoading] = useState(true)
 
   const {values, handleChange, nextNextStep, getPropertyId} = props
 
@@ -40,7 +42,8 @@ function PropiedadesRegistradas(props){
           }
       });      
       const responseData = await response.json();           
-      setData(responseData.items)      
+      setData(responseData.items)  
+      setLoading(false)     
     } catch (error) {
       console.error(error);
     }
@@ -65,34 +68,40 @@ function PropiedadesRegistradas(props){
     icon: {
       color: 'rgba(255, 255, 255, 0.54)',
     },
+    button: {
+    margin: theme.spacing(1)
+  },
   }));
   const classes = useStyles();
  
+  if(loading){
+    return <Loader />
+  }else{
+    return(
+      <div>
+        <div className={classes.root}>
+                
+            <GridList cellHeight={180} className={classes.gridList}>
+              <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+                
+              </GridListTile>
+              
+              {data && data.map((tile) => (            
+                  <div key={tile.propertyId}> 
+                    <Tile tile={tile} />
+                  </div>
+                ))
+              }
+            </GridList>    
+            
+        </div>
+        <Button className={classes.button} variant="contained" component={Link} to={'/AgregarPropiedad'}>Agregar Propiedad</Button>
+      </div>
+    )
+
+  }
   
   
-  return(
-
-
-
-    <div className={classes.root}>
-            
-        <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-            
-          </GridListTile>
-          
-          {data && data.map((tile) => (            
-              <div key={tile.propertyId}> 
-                <Tile tile={tile} />
-              </div>
-            ))
-          }
-        </GridList>
-
-      
-
-    </div>
-  )
 }
 
 export default PropiedadesRegistradas

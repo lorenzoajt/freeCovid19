@@ -15,7 +15,7 @@ import axios from 'axios'
 import Input from '@material-ui/core/Input';
 import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
-
+import image from '../../../../assets/noImage.jpeg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +45,7 @@ function AgregarPropiedad() {
 
   const { getAccessTokenSilently } = useAuth0();
   const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState("https://images.pexels.com/photos/4226869/pexels-photo-4226869.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500")
+  const [preview, setPreview] = useState(image)
   
 
   const [propName, setPropName] = useState("")
