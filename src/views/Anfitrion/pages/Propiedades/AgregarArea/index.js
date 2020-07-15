@@ -8,6 +8,8 @@ import columnData from './columnData'
 import Column from './Column'
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
+import Dropdown from './Dropdown.js'
+import {defaultAreas} from './defaultAreas'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -19,18 +21,25 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function AreasRegistradasDnD({match}) {
-  const [areas, setAreas] = useState([]);
+  const [areas, setAreas] = useState(defaultAreas);
   const [newArea, setNewArea] = useState("")
   const { getAccessTokenSilently } = useAuth0();
   const {propertyId} = match.params
+  const [areaType, setAreaType] = React.useState('');
+
+  const handleChangeAreaType = (event) => {
+    setAreaType(event.target.value);
+  };
   
 
   const addArea = () => {
     setAreas([
       ...areas,
       {
+        name: newArea,
         id: areas.length.toString(),
-        name: newArea
+        type: areaType
+        
       }
     ]);
   };
@@ -55,7 +64,7 @@ export default function AreasRegistradasDnD({match}) {
   
   function fillAPI(){
     areas.forEach(area => {
-      sendToAPI(areas.indexOf(area), area.name ) 
+      sendToAPI(areas.indexOf(area), area.name ) //mandarle area.type
     }  
     )        
   }
@@ -67,7 +76,7 @@ export default function AreasRegistradasDnD({match}) {
     const token = await getAccessTokenSilently();  
     const post = {
         "name": name, 
-        "orderIndex": id.toString()
+        "orderIndex": id.toString() /////recibir area.type
     }
     const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/propertyareas/${propertyId}`, {
       method: 'POST',
@@ -83,7 +92,13 @@ export default function AreasRegistradasDnD({match}) {
     console.error(error);
     }
   };
-
+  const check = () => {
+    if(  areaType === "" || newArea === "" ){
+      return true
+    }else{
+      return false
+    }
+  }
 
   return (
     <>      
@@ -96,8 +111,15 @@ export default function AreasRegistradasDnD({match}) {
     </DragDropContext>
       <form  noValidate autoComplete="off">
     
-    <TextField id="standard-basic" label="Standard" onChange={handleChange}/>    
-    <Button variant="contained" onClick={addArea}>Agregar</Button>
+    <TextField id="standard-basic" label="Standard" onChange={handleChange}/>
+
+    <Dropdown areaType={areaType} handleChangeAreaType={handleChangeAreaType}/>
+
+    <Button 
+      variant="contained" 
+      onClick={addArea}
+      disabled={check()}
+    >Agregar</Button>    
     <Button 
       variant="contained" 
       onClick={fillAPI}
