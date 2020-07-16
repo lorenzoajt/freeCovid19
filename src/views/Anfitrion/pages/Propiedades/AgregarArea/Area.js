@@ -24,7 +24,12 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 });
 
 
+
+
 function Area(props) {
+  const {area, index, removeItem} = props
+
+ 
   
   return (
     <Draggable draggableId={props.area.id} index={props.index}>
@@ -45,11 +50,8 @@ function Area(props) {
         <ListItemText
           primary={props.area.name}          
         />
-        <ListItemSecondaryAction>
-          <IconButton onClick={()=>console.log("edit")}>
-            <EditIcon />
-          </IconButton>
-          <IconButton onClick={()=>console.log("delete")}>
+        <ListItemSecondaryAction>          
+          <IconButton onClick={()=>removeItem(index)}>
             <DeleteForeverIcon />
           </IconButton>
         </ListItemSecondaryAction>

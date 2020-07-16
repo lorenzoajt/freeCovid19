@@ -21,7 +21,7 @@ export default function Column(props) {
         {provided => (
           <AreasList ref={provided.innerRef} {...provided.droppableProps}>
             {props.areas.map((area, index) => (
-              <Area key={area.id} area={area} index={index} />
+              <Area key={area.id} area={area} index={index} removeItem={props.removeItem}/>
             ))}
 
             {provided.placeholder}

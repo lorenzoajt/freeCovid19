@@ -43,6 +43,11 @@ export default function AreasRegistradasDnD({match}) {
       }
     ]);
   };
+  const removeItem = (itemIndex) => { 
+    const newlist = [].concat(areas) 
+    newlist.splice(itemIndex, 1);
+    setAreas(newlist)
+  }
 
   const handleChange = event =>{
     setNewArea(event.target.value)
@@ -99,6 +104,7 @@ export default function AreasRegistradasDnD({match}) {
       return false
     }
   }
+  
 
   return (
     <>      
@@ -106,7 +112,7 @@ export default function AreasRegistradasDnD({match}) {
       {areas && columnData.columnOrder.map(columnId => {
         const column = columnData.columns[columnId];
 
-        return <Column key={columnId} column={column} areas={areas} />;
+        return <Column key={columnId} column={column} areas={areas} removeItem={removeItem}/>;
       })}
     </DragDropContext>
       <form  noValidate autoComplete="off">
