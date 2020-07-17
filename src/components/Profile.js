@@ -34,7 +34,7 @@ const Profile = () => {
 
     <Router>      
         {userType === "Admin" && <> <Redirect to= "/Admin" /></>}
-        {userType === "Anfitrion" && <Redirect to= "/Anfitrion" /> }
+        {userType === "Anfitrion" && <Redirect to= "/Anfitrion" /> }   
         {userType === "Inspector" && <Redirect to="/Inspector" /> }
 
         <Switch>

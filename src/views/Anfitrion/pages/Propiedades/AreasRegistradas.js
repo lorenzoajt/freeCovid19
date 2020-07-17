@@ -11,7 +11,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import { Link, useHistory} from "react-router-dom";
-
+import Loader from '../../../../components/Loader.js'
 
 function AreasRegistradas({match}){
 	let history = useHistory();
@@ -19,7 +19,7 @@ function AreasRegistradas({match}){
 	const { getAccessTokenSilently } = useAuth0();
 	const [areaNum, setAreaNum] = useState()
 	const {propertyId} = match.params
-	
+	const [loading, setLoading] = useState(true)
 
 	const [data, setData] = useState()
 
@@ -44,6 +44,7 @@ function AreasRegistradas({match}){
 	  const responseData = await response.json();
 	  setData(responseData.items)	  
 	  setAreaNum(responseData.items.length)
+	  setLoading(false)
 	} catch (error) {
 	  console.error(error);
 	}
@@ -68,54 +69,60 @@ function AreasRegistradas({match}){
 	}));
 	const classes = useStyles();
 
-	return(	
-		<div>	
-			<h1>Areas Registradas</h1>	
-			{areaNum > 0 ? <div className={classes.root}>
-							
-						        
-						    <GridList cellHeight={180} className={classes.gridList}>
-						      <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-						        
-						      </GridListTile>
-						      {data && data.map((tile) => (
-						        <GridListTile key={tile.propertyAreaId}>  
-						                                                     
-						        
-						        <Link to={`/ElementosDeArea/${tile.propertyAreaId}`}>
-						        	<img src={image} alt={tile.propertyAreaId} 			        		 
-						        		 className={"MuiGridListTile-tile"}
-						        	/>
-						        </Link>
-						        
-						          
-						          <GridListTileBar
-						            title={tile.name}						            
-          							subtitle={<span> {tile.orderIndex}</span>}
-						            
-						            actionIcon={
-						              <IconButton aria-label={`info about ${tile.name}`} className={classes.icon}>
-						                <InfoIcon />
-						              </IconButton>                  
-						            }
-						          />
-						        </GridListTile>
-						      ))
-						    }
-						    </GridList>
-						    
-						</div>
-						:
-						<h1>No hay áreas para mostrar</h1>
-					}
-			<div>
-				<Button onClick={() => history.goBack()}>Atras</Button>
-			    {/*<Button component={Link} to={`/AgregarArea/${propertyId}`}>Agregar Area</Button>*/}
-			</div>
+	if(loading){
+		return <Loader />
+	}else{
+			return(	
+				<div>	
+					<h1>Areas Registradas</h1>	
+					{areaNum > 0 ? <div className={classes.root}>
+									
+								        
+								    <GridList cellHeight={180} className={classes.gridList}>
+								      <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+								        
+								      </GridListTile>
+								      {data && data.map((tile) => (
+								        <GridListTile key={tile.propertyAreaId}>  
+								                                                     
+								        
+								        <Link to={`/ElementosDeArea/${tile.propertyAreaId}`}>
+								        	<img src={image} alt={tile.propertyAreaId} 			        		 
+								        		 className={"MuiGridListTile-tile"}
+								        	/>
+								        </Link>
+								        
+								          
+								          <GridListTileBar
+								            title={tile.name}						            
+		          							subtitle={<span> {tile.orderIndex}</span>}
+								            
+								            actionIcon={
+								              <IconButton aria-label={`info about ${tile.name}`} className={classes.icon}>
+								                <InfoIcon />
+								              </IconButton>                  
+								            }
+								          />
+								        </GridListTile>
+								      ))
+								    }
+								    </GridList>
+								    
+								</div>
+								:
+								<h1>No hay áreas para mostrar</h1>
+							}
+					<div>
+						<Button onClick={() => history.goBack()}>Atras</Button>
+					    {/*<Button component={Link} to={`/AgregarArea/${propertyId}`}>Agregar Area</Button>*/}
+					</div>
 
 
-		</div>
-	)
+				</div>
+			)
+
+	}
+	
 }
 
 export default AreasRegistradas

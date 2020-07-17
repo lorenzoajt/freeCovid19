@@ -27,7 +27,6 @@ import Folios from './pages/Folios'
 import Historial from './pages/Historial'
 import PropiedadesRegistradas from './pages/Propiedades/PropiedadesRegistradas'
 import Supervisores from './pages/Supervisores/'
-import MultiStep from './pages/Propiedades/MultiStep'
 import AgregarPropiedad from './pages/Propiedades/AgregarPropiedad'
 import AreasRegistradas from './pages/Propiedades/AreasRegistradas'
 import ElementosDeArea from './pages/Propiedades/ElementosDeArea'
@@ -35,6 +34,9 @@ import Logout from "../../components/Logout";
 import AgregarArea from './pages/Propiedades/AgregarArea/'
 import AgregarSupervisor from './pages/Supervisores/AgregarSupervisor'
 import Detalle from '../../components/Detalle.js'
+import ItemsAreasRegistradas from './pages/Propiedades/AgregarArea/ItemsAreasRegistradas'
+import AgregarItems from './pages/Propiedades/AgregarArea/AgregarItems'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -183,20 +185,22 @@ export default function DashboardAnfitrion() {
         <div className={classes.appBarSpacer} />
         <Switch>
 
-            <Route exact path="/Anfitrion" component={PropiedadesRegistradas}/>
-            <Route path='/AgregarPropiedad' component={AgregarPropiedad} />
-            <Route path= "/AreasRegistradas/:propertyId" component={AreasRegistradas}/>            
-            <Route path="/ElementosDeArea/:areaId" component = {ElementosDeArea} />
-            <Route path="/AgregarArea/:propertyId" component = {AgregarArea} />
+            <Route path="/Anfitrion" component={PropiedadesRegistradas}/>
+            <Route exact path='/AgregarPropiedad' component={AgregarPropiedad} />
+            <Route exact path= "/AreasRegistradas/:propertyId" component={AreasRegistradas}/>
+            <Route exact path= "/ItemsAreasRegistradas/:propertyId" component={ItemsAreasRegistradas}/>            
+            <Route exact path="/ElementosDeArea/:areaId" component = {ElementosDeArea} />
+            <Route exact path="/AgregarItems/:areaType/:areaId/:propertyId" component = {AgregarItems} />
+            <Route exact path="/AgregarArea/:propertyId" component = {AgregarArea} />
 
-            <Route path="/supervisores" component={Supervisores}/>
-            <Route path="/historial" component={Historial}/>
-            <Route path="/desinfeccion" component={Desinfeccion}/>
-            <Route path="/folios" component={Folios}/>    
+            <Route exact path="/Supervisores" component={Supervisores}/>
+            <Route exact path="/historial" component={Historial}/>
+            <Route exact path="/Desinfeccion" component={Desinfeccion}/>
+            <Route exact path="/Folios" component={Folios}/>    
 
-            <Route path="/areasRegistradas" component={AreasRegistradas}/>
-            <Route path= "/agregarSupervisor" component={AgregarSupervisor}/>
-            <Route path="/detalle/:servicio/:hostId" component={Detalle} />
+            <Route exact path="/areasRegistradas" component={AreasRegistradas}/>
+            <Route exact path= "/agregarSupervisor" component={AgregarSupervisor}/>
+            <Route exact path="/detalle/:servicio/:hostId" component={Detalle} />
             <Route render={()=> <h3>Not found</h3>}/>
 
           </Switch>

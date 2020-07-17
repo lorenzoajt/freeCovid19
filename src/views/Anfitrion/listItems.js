@@ -38,7 +38,7 @@ export default function SelectedListItem() {
           </ListItem>
 
 
-          <ListItem component={Link} to="/supervisores"
+          <ListItem component={Link} to="/Supervisores"
                     button 
                     selected={selectedIndex === 1}
                     onClick={(event) => handleListItemClick(event, 1)}>
@@ -49,7 +49,7 @@ export default function SelectedListItem() {
 
 
           </ListItem>
-          <ListItem component={Link} to="/historial"
+          <ListItem component={Link} to="/Historial"
                     button 
                     selected={selectedIndex === 2}
                     onClick={(event) => handleListItemClick(event, 2)}>
@@ -60,7 +60,7 @@ export default function SelectedListItem() {
           </ListItem>
 
 
-          <ListItem component={Link} to="/folios"
+          <ListItem component={Link} to="/Folios"
                     button
                     selected={selectedIndex === 4}
                     onClick={(event) => handleListItemClick(event, 4)}  

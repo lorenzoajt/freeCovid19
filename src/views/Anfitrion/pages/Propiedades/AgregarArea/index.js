@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "@atlaskit/css-reset";
@@ -20,12 +21,24 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(3),
+  },
+  button: {
+    margin: theme.spacing(1, 1, 0, 0),
+  },
+  textArea:{
+    margin: theme.spacing(1),
+  }
+}));
 export default function AreasRegistradasDnD({match}) {
   const [areas, setAreas] = useState(defaultAreas);
   const [newArea, setNewArea] = useState("")
   const { getAccessTokenSilently } = useAuth0();
   const {propertyId} = match.params
   const [areaType, setAreaType] = React.useState('');
+  const classes = useStyles();
 
   const handleChangeAreaType = (event) => {
     setAreaType(event.target.value);
@@ -91,7 +104,6 @@ export default function AreasRegistradasDnD({match}) {
         }
     });
     const responseData = await response.json();
-    console.log(responseData)
     
     } catch (error) {
     console.error(error);
@@ -117,7 +129,7 @@ export default function AreasRegistradasDnD({match}) {
     </DragDropContext>
       <form  noValidate autoComplete="off">
     
-    <TextField id="standard-basic" label="Standard" onChange={handleChange}/>
+    <TextField id="standard-basic" label="Nombre del Area" onChange={handleChange} className={classes.textArea}/>
 
     <Dropdown areaType={areaType} handleChangeAreaType={handleChangeAreaType}/>
 
@@ -125,11 +137,13 @@ export default function AreasRegistradasDnD({match}) {
       variant="contained" 
       onClick={addArea}
       disabled={check()}
+      className={classes.button}
     >Agregar</Button>    
     <Button 
       variant="contained" 
       onClick={fillAPI}
-      component={Link} to={`/AreasRegistradas/${propertyId}`}
+      component={Link} to={`/ItemsAreasRegistradas/${propertyId}`}
+      color="primary" className={classes.button}
       >Confirmar orden
       </Button>
   </form>

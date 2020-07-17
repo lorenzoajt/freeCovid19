@@ -13,14 +13,25 @@ import EditIcon from "@material-ui/icons/Edit";
 import WeekendIcon from '@material-ui/icons/Weekend';
 import "@atlaskit/css-reset";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import BathtubIcon from '@material-ui/icons/Bathtub';
+import KitchenIcon from '@material-ui/icons/Kitchen';
+import HotelIcon from '@material-ui/icons/Hotel';
+import TvIcon from '@material-ui/icons/Tv';
+import LocalFloristIcon from '@material-ui/icons/LocalFlorist';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import RoomIcon from '@material-ui/icons/Room';
 
+let AreaIcon = ""
+let AreaColor =""
 const getItemStyle = (isDragging, draggableStyle) => ({
+  background: `${AreaColor}`,
   // styles we need to apply on draggables
   ...draggableStyle,
 
   ...(isDragging && {
     background: "rgb(235,235,235)"
   })
+  
 });
 
 
@@ -29,7 +40,44 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 function Area(props) {
   const {area, index, removeItem} = props
 
- 
+  
+
+  switch (area.type){
+    case "baño":
+      AreaIcon = <BathtubIcon />
+      AreaColor = "#2196f3"
+      break;
+    case "cocina":
+      AreaIcon = <KitchenIcon />
+      AreaColor = "#ff9800"
+      break;
+    case "dormitorio":
+      AreaIcon = <HotelIcon />
+      AreaColor = "#00bcd4"
+      break;
+    case "zonasComunes":
+      AreaIcon = <TvIcon />
+      AreaColor = "#3f51b5"
+      break;
+    case "zonasAireLibre":
+      AreaIcon = <LocalFloristIcon />
+      AreaColor = "#ffc107"
+      break;
+    case "entradaRecibidor":      
+      AreaIcon = <MeetingRoomIcon />
+      AreaColor = "#4caf50"
+      break;
+    case "otros":      
+      AreaIcon = <RoomIcon />
+      AreaColor = "#9c27b0"
+      break;
+    default:
+      AreaIcon = <WeekendIcon />      
+      break;
+
+  }
+
+
   
   return (
     <Draggable draggableId={props.area.id} index={props.index}>
@@ -45,7 +93,7 @@ function Area(props) {
         )}      
       >
         <ListItemIcon>
-          <WeekendIcon />
+          {AreaIcon}
         </ListItemIcon>
         <ListItemText
           primary={props.area.name}          
