@@ -9,6 +9,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import {bano, comunes, cocina, dormitorio, aireLibre, entrada, otros} from './defaultItems'
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Switch from '@material-ui/core/Switch';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(3),
+  },
+  card: {
+    marginBottom: 12,
   },
 }));
 
@@ -86,17 +93,34 @@ function AgregarItems({match}, props){
 			    label={"Seleccionar Todo"} />
 
 			  {state.list.map((item) => {
-			    return (
-			    <FormControlLabel
-			    control={<Checkbox checked={item.isChecked} onChange={handleChange} name={item.name} />}
-			    label={item.name}
-			    />
-			    )
-			  })}
+			              return (
+			                <Card className={classes.card}>
+			                <CardContent>      
+			                <FormControlLabel
+			                  control={<Checkbox checked={item.isChecked} onChange={handleChange} name={item.name} />}
+			                  label={item.name}
+			                  />                     
+			                </CardContent>
+			                <CardActions>
+			                <FormControl>
+			                <FormGroup>        
+			                  <FormControlLabel
+			                    value="end"
+			                    control={<Switch color="primary" />}
+			                    label="Requiere evidencia"
+			                    labelPlacement="start"
+			                  />
+			                </FormGroup>
+			              </FormControl>
+			                </CardActions>
+			              </Card>
+			              )
+			            })}
 			</FormGroup>
 		</FormControl> 
 		<div>
 			<Button component={Link} to={`/ItemsAreasRegistradas/${propertyId}`}>Atrás</Button>
+			<Button onClick={()=>console.log("aceptar")}>Aceptar</Button>
 		</div>
 		</div>
 	)
