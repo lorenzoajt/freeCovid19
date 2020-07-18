@@ -33,7 +33,8 @@ import ElementosDeArea from './pages/Propiedades/ElementosDeArea'
 import Logout from "../../components/Logout";
 import AgregarArea from './pages/Propiedades/AgregarArea/'
 import AgregarSupervisor from './pages/Supervisores/AgregarSupervisor'
-import Detalle from '../../components/Detalle.js'
+import Detalle from '../../components/Detalle'
+import DetalleUsed from '../../components/DetalleUsed'
 import ItemsAreasRegistradas from './pages/Propiedades/AgregarArea/ItemsAreasRegistradas'
 import AgregarItems from './pages/Propiedades/AgregarArea/AgregarItems'
 
@@ -190,7 +191,7 @@ export default function DashboardAnfitrion() {
             <Route exact path= "/AreasRegistradas/:propertyId" component={AreasRegistradas}/>
             <Route exact path= "/ItemsAreasRegistradas/:propertyId" component={ItemsAreasRegistradas}/>            
             <Route exact path="/ElementosDeArea/:areaId" component = {ElementosDeArea} />
-            <Route exact path="/AgregarItems/:areaType/:areaId/:propertyId" component = {AgregarItems} />
+            <Route exact path="/AgregarItems/:areaName/:areaType/:areaId/:propertyId" component = {AgregarItems} />
             <Route exact path="/AgregarArea/:propertyId" component = {AgregarArea} />
 
             <Route exact path="/Supervisores" component={Supervisores}/>
@@ -201,6 +202,7 @@ export default function DashboardAnfitrion() {
             <Route exact path="/areasRegistradas" component={AreasRegistradas}/>
             <Route exact path= "/agregarSupervisor" component={AgregarSupervisor}/>
             <Route exact path="/detalle/:servicio/:hostId" component={Detalle} />
+            <Route exact path="/detalleUsed/:servicio/:hostId" component={DetalleUsed} />
             <Route render={()=> <h3>Not found</h3>}/>
 
           </Switch>

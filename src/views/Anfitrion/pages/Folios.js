@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CardFolios from '../../Admin/CardFolios'
+import CardFoliosUsed from '../../../components/CardFoliosUsed.js'
 import { Link } from "react-router-dom";
 import Loader from '../../../components/Loader.js'
 import * as jwt_decode from 'jwt-decode';
@@ -73,8 +74,8 @@ function Folios(){
 				<CardFolios servicio={"Dengue"} numFolios={FoliosDengue.length} hostId={hostId}/>
 				<CardFolios servicio={"Limpieza"} numFolios={FoliosLimpieza.length} hostId={hostId}/>
 				<CardFolios servicio={"Desinfeccion"} numFolios={FoliosDesinfeccion.length} hostId={hostId}/>
-				<CardFolios servicio={"Usados"} numFolios={usado.length} hostId={hostId}/>
-				<CardFolios servicio={"Sin Usar"} numFolios={sinUsar.length} hostId={hostId}/>				
+				<CardFoliosUsed servicio={"Usados"} numFolios={usado.length} hostId={hostId}/>
+				<CardFoliosUsed servicio={"Sin Usar"} numFolios={sinUsar.length} hostId={hostId}/>				
 			</div>
 		)
 

@@ -8,9 +8,10 @@ import TextField from '@material-ui/core/TextField';
 import columnData from './columnData'
 import Column from './Column'
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Dropdown from './Dropdown.js'
 import {defaultAreas} from './defaultAreas'
+import Loader from '../../../../../components/Loader'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -33,12 +34,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 export default function AreasRegistradasDnD({match}) {
-  const [areas, setAreas] = useState(defaultAreas);
+  const defAreas = defaultAreas.items
+  const [areas, setAreas] = useState(defAreas);
   const [newArea, setNewArea] = useState("")
   const { getAccessTokenSilently } = useAuth0();
   const {propertyId} = match.params
   const [areaType, setAreaType] = React.useState('');
   const classes = useStyles();
+  const history = useHistory()
+  const [loading, setLoading] = useState(false)
 
   const handleChangeAreaType = (event) => {
     setAreaType(event.target.value);
@@ -46,15 +50,15 @@ export default function AreasRegistradasDnD({match}) {
   
 
   const addArea = () => {
-    setAreas([
-      ...areas,
-      {
+    const newlist = [].concat(areas) 
+    newlist.push({
         name: newArea,
-        id: areas.length.toString(),
+        orderIndex: areas.length.toString(),
         type: areaType
         
-      }
-    ]);
+      })
+    setAreas(newlist)
+    
   };
   const removeItem = (itemIndex) => { 
     const newlist = [].concat(areas) 
@@ -80,21 +84,14 @@ export default function AreasRegistradasDnD({match}) {
     setAreas( items );
   }
   
-  function fillAPI(){
-    areas.forEach(area => {
-      sendToAPI(areas.indexOf(area), area.name ) //mandarle area.type
-    }  
-    )        
-  }
-  
             
 
   async function sendToAPI (id, name){
+    setLoading(true)
     try {  
     const token = await getAccessTokenSilently();  
     const post = {
-        "name": name, 
-        "orderIndex": id.toString() /////recibir area.type
+        items: areas
     }
     const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/propertyareas/${propertyId}`, {
       method: 'POST',
@@ -103,7 +100,10 @@ export default function AreasRegistradasDnD({match}) {
           Authorization: `Bearer ${token}`
         }
     });
-    const responseData = await response.json();
+    setLoading(false)
+    history.push(`/ItemsAreasRegistradas/${propertyId}`)
+
+    
     
     } catch (error) {
     console.error(error);
@@ -117,38 +117,43 @@ export default function AreasRegistradasDnD({match}) {
     }
   }
   
+  if(loading){
+    return <Loader/>
 
-  return (
-    <>      
-    <DragDropContext onDragEnd={onDragEnd}>
-      {areas && columnData.columnOrder.map(columnId => {
-        const column = columnData.columns[columnId];
+  }else{
+    return (
+      <>      
+      <DragDropContext onDragEnd={onDragEnd}>
+        {areas && columnData.columnOrder.map(columnId => {
+          const column = columnData.columns[columnId];
 
-        return <Column key={columnId} column={column} areas={areas} removeItem={removeItem}/>;
-      })}
-    </DragDropContext>
-      <form  noValidate autoComplete="off">
-    
-    <TextField id="standard-basic" label="Nombre del Area" onChange={handleChange} className={classes.textArea}/>
+          return <Column key={columnId} column={column} areas={areas} removeItem={removeItem}/>;
+        })}
+      </DragDropContext>
+        <form  noValidate autoComplete="off">
+      
+      <TextField id="standard-basic" label="Nombre del Area" onChange={handleChange} className={classes.textArea}/>
 
-    <Dropdown areaType={areaType} handleChangeAreaType={handleChangeAreaType}/>
+      <Dropdown areaType={areaType} handleChangeAreaType={handleChangeAreaType}/>
 
-    <Button 
-      variant="contained" 
-      onClick={addArea}
-      disabled={check()}
-      className={classes.button}
-    >Agregar</Button>    
-    <Button 
-      variant="contained" 
-      onClick={fillAPI}
-      component={Link} to={`/ItemsAreasRegistradas/${propertyId}`}
-      color="primary" className={classes.button}
-      >Confirmar orden
-      </Button>
-  </form>
+      <Button 
+        variant="contained" 
+        onClick={addArea}
+        disabled={check()}
+        className={classes.button}
+      >Agregar</Button>    
+      <Button 
+        variant="contained" 
+        onClick={sendToAPI}      
+        color="primary" className={classes.button}
+        >Confirmar orden
+        </Button>
+    </form>
 
-    </>
-  );
+      </>
+    );
+
+  }
+  
 }
 

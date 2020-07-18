@@ -1,11 +1,17 @@
 import React, {useEffect, useState} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
+import { makeStyles } from '@material-ui/core/styles';
 
 import TablePerPage from './TablePerPage'
 
+const useStyles = makeStyles((theme) => ({  
+  root: {
+    margin: theme.spacing(1),
+  },
+}));
 function Detalle({match}){
 	const {servicio, hostId} = match.params
-	
+	const classes = useStyles();
 	const { getAccessTokenSilently } = useAuth0();
 	const [folios, setFolios] = useState([])
 	useEffect(() => {
@@ -34,7 +40,7 @@ function Detalle({match}){
     ]
 	
 	return(
-		<div style={{width:"90%", margin: "0 auto"}}>
+		<div className={classes.root}>
 			<TablePerPage data={data} columns={columns} title={"Folios Registrados"}/>			
 		</div>
 	)

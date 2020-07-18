@@ -1,39 +1,42 @@
-export const defaultAreas = [
+export const defaultAreas = {
+	items: [
 	{
 		"name": "Baño", 
-		"id": "0",
-		"type": "baño"
+		"orderIndex": "0",
+		"type": "bano"
 	},
 	{
 		"name": "Cocina", 
-		"id": "1",
+		"orderIndex": "1",
 		"type": "cocina"
 	},
 	{
 		"name": "Dormitorio", 
-		"id": "2",
+		"orderIndex": "2",
 		"type": "dormitorio"
 	},
 	{
 		"name": "Zonas Comunes", 
-		"id": "3",
-		"type": "zonasComunes"
+		"orderIndex": "3",
+		"type": "comunes"
 	},
 	{
 		"name": "Zonas Aire Libre", 
-		"id": "4",
-		"type": "zonasAireLibre"
+		"orderIndex": "4",
+		"type": "aireLibre"
 	},
 	{
 		"name": "Entrada y recibidor", 
-		"id": "5",
-		"type": "entradaRecibidor"
+		"orderIndex": "5",
+		"type": "entrada"
 	},
 	{
 		"name": "Otros", 
-		"id": "6",
+		"orderIndex": "6",
 		"type": "otros"
 	},
 
 ]
 
+
+}

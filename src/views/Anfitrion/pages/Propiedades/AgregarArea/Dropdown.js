@@ -31,12 +31,12 @@ export default function Dropdown(props){
         onChange={handleChangeAreaType}
       >
         
-        <MenuItem value={"baño"}>Baño</MenuItem>
+        <MenuItem value={"bano"}>Baño</MenuItem>
         <MenuItem value={"cocina"}>Cocina</MenuItem>
         <MenuItem value={"dormitorio"}>Dormitorio</MenuItem>
-        <MenuItem value={"zonasComunes"}>Zonas Comunes</MenuItem>
-        <MenuItem value={"zonasAireLibre"}>Zonas AireLibre</MenuItem>
-        <MenuItem value={"entradaRecibidor"}>Entrada y Recibidor</MenuItem>
+        <MenuItem value={"comunes"}>Zonas Comunes</MenuItem>
+        <MenuItem value={"aireLibre"}>Zonas AireLibre</MenuItem>
+        <MenuItem value={"entrada"}>Entrada y Recibidor</MenuItem>
         <MenuItem value={"otros"}>Otros</MenuItem>
       </Select>
       <FormHelperText>Seleccione el tipo de área que desea agregar</FormHelperText>

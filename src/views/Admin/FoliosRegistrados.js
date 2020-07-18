@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CardFolios from './CardFolios'
 import { Link } from "react-router-dom";
 import Loader from '../../components/Loader'
-
+import CardFoliosUsed from '../../components/CardFoliosUsed'
 
 const useStyles = makeStyles({
   root: {
@@ -73,8 +73,8 @@ function FoliosRegistrados({match}){
 				<CardFolios servicio={"Dengue"} numFolios={FoliosDengue.length} hostId={hostId}/>
 				<CardFolios servicio={"Limpieza"} numFolios={FoliosLimpieza.length} hostId={hostId}/>
 				<CardFolios servicio={"Desinfeccion"} numFolios={FoliosDesinfeccion.length} hostId={hostId}/>
-				<CardFolios servicio={"Usados"} numFolios={usado.length} hostId={hostId}/>
-				<CardFolios servicio={"Sin Usar"} numFolios={sinUsar.length} hostId={hostId}/>
+				<CardFoliosUsed servicio={"Usados"} numFolios={usado.length} hostId={hostId}/>
+				<CardFoliosUsed servicio={"Sin Usar"} numFolios={sinUsar.length} hostId={hostId}/>
 				<Button component={Link} to={"/anfitriones"}>Atrás</Button>
 			</div>
 		)

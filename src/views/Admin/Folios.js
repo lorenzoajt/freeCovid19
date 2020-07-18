@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
-
+import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import './Anfitriones.css'
 import Loader from '../../components/Loader'
 import TablePerPage from './TablePerPage'
 
+const useStyles = makeStyles((theme) => ({  
+  root: {
+    margin: theme.spacing(1),
+  },
+}));
 
 export default function Folios() {
   let history = useHistory();
+  const classes = useStyles();
   const { getAccessTokenSilently } = useAuth0();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true)
@@ -52,7 +58,7 @@ export default function Folios() {
     return <Loader />
   }else{
     return (      
-      <div>
+      <div className={classes.root}>
         <TablePerPage data={data} title={"Agregar Folio"} actions={actions} columns={columns}/>
       </div>
     );

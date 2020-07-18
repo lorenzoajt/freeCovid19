@@ -43,7 +43,7 @@ function Area(props) {
   
 
   switch (area.type){
-    case "baño":
+    case "bano":
       AreaIcon = <BathtubIcon />
       AreaColor = "#2196f3"
       break;
@@ -55,15 +55,15 @@ function Area(props) {
       AreaIcon = <HotelIcon />
       AreaColor = "#00bcd4"
       break;
-    case "zonasComunes":
+    case "comunes":
       AreaIcon = <TvIcon />
       AreaColor = "#3f51b5"
       break;
-    case "zonasAireLibre":
+    case "aireLibre":
       AreaIcon = <LocalFloristIcon />
       AreaColor = "#ffc107"
       break;
-    case "entradaRecibidor":      
+    case "entrada":      
       AreaIcon = <MeetingRoomIcon />
       AreaColor = "#4caf50"
       break;
@@ -80,7 +80,7 @@ function Area(props) {
 
   
   return (
-    <Draggable draggableId={props.area.id} index={props.index}>
+    <Draggable draggableId={props.area.orderIndex} index={props.index}>
       {(provided, snapshot) => (
         <ListItem
         ContainerComponent="li"

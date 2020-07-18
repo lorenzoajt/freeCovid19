@@ -1,5 +1,6 @@
 import React, {  useState, useEffect } from "react";
 import TablePerPage from './TablePerPage'
+import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 import { Link, useHistory } from "react-router-dom";
@@ -7,9 +8,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import './Anfitriones.css'
 import Loader from '../../components/Loader'
 
+const useStyles = makeStyles((theme) => ({  
+  root: {
+    margin: theme.spacing(1),
+  },
+}));
 
 export default function Anfitriones() {
 	let history = useHistory();
+	const classes = useStyles();
 	const [data, setData] = useState([]);
 	const { getAccessTokenSilently } = useAuth0();
 	const [loading, setLoading] = useState(true)
@@ -58,7 +65,7 @@ export default function Anfitriones() {
 		return <Loader />
 	}else{
 	  return (
-	  	<div>	  		
+	  	<div className={classes.root}>	  		
 	  		
 		    <TablePerPage data={data} title={"Anfitriones Registrados"} actions={actions} columns={columns}/>
 		    <Button 

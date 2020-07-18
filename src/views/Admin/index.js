@@ -34,7 +34,10 @@ import Anfitriones from './Anfitriones';
 import Folios  from './Folios';
 import Logout from "../../components/Logout";
 import FoliosRegistrados from './FoliosRegistrados'
-import Detalle from './Detalle.js'
+import Detalle from '../../components/Detalle'
+import DetalleUsed from '../../components/DetalleUsed'
+
+
 const drawerWidth = 240;
 
 
@@ -190,6 +193,9 @@ export default function DashboardAdmin() {
             <Route path="/agregarAnfitrion" component={AgregarAnfitrion}/>
             <Route path="/nuevoFolio/:hostId/:hostName" component={NuevoFolio}/>
             <Route path="/detalle/:servicio/:hostId" component={Detalle} />
+            <Route path="/detalleUsed/:servicio/:hostId" component={DetalleUsed} />
+
+            
             <Route render={()=> <h3>Not found 404</h3>}/>
 
           </Switch>
