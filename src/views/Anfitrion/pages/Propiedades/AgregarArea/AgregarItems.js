@@ -4,7 +4,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import {bano, comunes, cocina, dormitorio, aireLibre, entrada, otros} from './defaultItems'
 import Button from '@material-ui/core/Button';
@@ -241,7 +240,7 @@ function AgregarItems({match}){
 		</FormControl> 
 		<div>
 			<Button component={Link} to={`/ItemsAreasRegistradas/${propertyId}`}>Atrás</Button>
-			<Button disabled={selectedElements.length === 0} onClick={handlePost}>Conritmar</Button>
+			<Button disabled={selectedElements.length === 0} onClick={handlePost}>Confirmar</Button>
 		</div>
 		<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 		  <Alert onClose={handleClose} severity={status=== 201 ? "success" : "warning" }>

@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
-import {InputLabel, Button} from '@material-ui/core/';
-import {Input} from '@material-ui/core/';
-import Loader from '../../components/Loader'
+import {Button} from '@material-ui/core/';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -41,7 +40,7 @@ export default function AgregarAnfitrion() {
         }
       });
 
-      const responseData = await response.json();
+      
       history.push('/anfitriones');       
 
     } catch (error) {

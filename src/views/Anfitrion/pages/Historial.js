@@ -4,9 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
-import ListSubheader from '@material-ui/core/ListSubheader';
 
-import AreasRegistradas from '../pages/Propiedades/AreasRegistradas'
+
+
 
 import Tile from '../pages/Propiedades/Tile'
 import Button from '@material-ui/core/Button';
@@ -14,14 +14,11 @@ import { Link } from "react-router-dom";
 import Loader from './../../../components/Loader'
 
 
-function PropiedadesRegistradas(props){
+function PropiedadesRegistradas(){
   const { getAccessTokenSilently } = useAuth0();
   const [data, setData] = useState([])
-  const [imgUrl, setImgUrl] = useState("")  
   const [loading, setLoading] = useState(true)
-
-  const {values, handleChange, nextNextStep, getPropertyId} = props
-
+  
   useEffect(() => {
     let mounted = true
     if (mounted){

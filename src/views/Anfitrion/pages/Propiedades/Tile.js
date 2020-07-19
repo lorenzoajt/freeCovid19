@@ -112,9 +112,6 @@ function Tile(props){
             Authorization: `Bearer ${token}`
           }
       });
-      const responseData = await response.json();
-      
-
       } catch (error) {
       console.error(error);
       }

@@ -14,24 +14,27 @@ function Detalle({match}){
 	const classes = useStyles();
 	const { getAccessTokenSilently } = useAuth0();
 	const [folios, setFolios] = useState([])
+	
 	useEffect(() => {
-	  (async () => {
-	    try {
-	      const token = await getAccessTokenSilently();	      	      
-	      const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/retrieve/${hostId}`, {
-				headers: {
-				Authorization: `Bearer ${token}`
-				}
+	    const fetchData = async () => {
+			try {
+				const token = await getAccessTokenSilently();	      	      
+				const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/retrieve/${hostId}`, {
+					headers: {
+					Authorization: `Bearer ${token}`
+					}
 			});
-
-			const responseData = await response.json();
-			
+			const responseData = await response.json();			
 			setFolios(responseData.items)
 			} catch (error) {
 			console.error(error);
 			}
-	  })();
-	}, []);
+		};
+	 
+	    fetchData();
+	  }, []);
+
+
 	const data = folios.filter(item => item.tipoServicio === `${servicio}`)
 	const columns = [
       { title: 'Folio', field: 'ticketId' },

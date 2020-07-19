@@ -1,15 +1,12 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import {
-  List,
+import {  
   ListItem,
   ListItemText,
   ListItemIcon,
   IconButton,
   ListItemSecondaryAction
 } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/Inbox";
-import EditIcon from "@material-ui/icons/Edit";
 import WeekendIcon from '@material-ui/icons/Weekend';
 import "@atlaskit/css-reset";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';

@@ -1,21 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
+
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import RestorePageIcon from '@material-ui/icons/RestorePage';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default function SelectedListItem() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);

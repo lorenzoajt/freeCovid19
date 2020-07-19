@@ -55,7 +55,6 @@ export default function NuevoFolio({match}) {
   const [numFoliosLimpieza, setNumFoliosLimpieza] = React.useState(0);
   const { getAccessTokenSilently } = useAuth0();
   const {hostId, hostName} = match.params
-  const numTickets = 50
 
   const agregarFolios = async () => {
 
@@ -77,7 +76,6 @@ export default function NuevoFolio({match}) {
             "Authorization": "Bearer "+ token
           }
         });
-        const responseData = await response.json();
       }
       //Crear Folios de desinfeccion
       if(numFoliosDesinfeccion > 0){
@@ -94,7 +92,6 @@ export default function NuevoFolio({match}) {
             "Authorization": "Bearer "+ token
           }
         });
-        const responseData = await response.json();
       }
       //Crear Folios de Limpieza
       if(numFoliosLimpieza > 0){
@@ -111,7 +108,6 @@ export default function NuevoFolio({match}) {
             "Authorization": "Bearer "+ token
           }
         });
-        const responseData = await response.json();
       }
       
     } catch (error) {

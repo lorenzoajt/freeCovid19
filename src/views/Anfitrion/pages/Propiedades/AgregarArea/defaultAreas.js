@@ -21,7 +21,7 @@ export const defaultAreas = {
 		"type": "comunes"
 	},
 	{
-		"name": "Zonas Aire Libre", 
+		"name": "Espacios al Aire Libre", 
 		"orderIndex": "4",
 		"type": "aireLibre"
 	},

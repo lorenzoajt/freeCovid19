@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import ReactDOM from "react-dom";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+import { DragDropContext } from "react-beautiful-dnd";
 import "@atlaskit/css-reset";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import columnData from './columnData'
 import Column from './Column'
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Dropdown from './Dropdown.js'
 import {defaultAreas} from './defaultAreas'
 import Loader from '../../../../../components/Loader'
@@ -100,6 +100,8 @@ export default function AreasRegistradasDnD({match}) {
           Authorization: `Bearer ${token}`
         }
     });
+    const responseData = response.text()
+    console.log(responseData)
     setLoading(false)
     history.push(`/ItemsAreasRegistradas/${propertyId}`)
 

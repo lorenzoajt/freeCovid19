@@ -22,33 +22,29 @@ function AreasRegistradas({match}){
 	const [loading, setLoading] = useState(true)
 
 	const [data, setData] = useState()
-
+	
 	useEffect(() => {
-		let mounted = true;
-		if(mounted){
-			getAreas()	
-		}
-		return () => mounted = false;
-	},[data]);
+	    const getAreas = async () => {
+    	try {
+    	  const token = await getAccessTokenSilently();	  
+    	  const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/propertyareas/${propertyId}`, {
+    	    headers: {
+    	      Authorization: `Bearer ${token}`
+    	    }
+    	  });
 
-
-	const getAreas = async () => {
-	try {
-	  const token = await getAccessTokenSilently();	  
-	  const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/propertyareas/${propertyId}`, {
-	    headers: {
-	      Authorization: `Bearer ${token}`
-	    }
-	  });
-
-	  const responseData = await response.json();
-	  setData(responseData.items)	  
-	  setAreaNum(responseData.items.length)
-	  setLoading(false)
-	} catch (error) {
-	  console.error(error);
-	}
-	};
+    	  const responseData = await response.json();
+    	  setData(responseData.items)	  
+    	  setAreaNum(responseData.items.length)
+    	  setLoading(false)
+    	} catch (error) {
+    	  console.error(error);
+    	}
+    	};
+	 
+	    getAreas();
+	  }, [data]);
+	
 
 
 	const useStyles = makeStyles((theme) => ({

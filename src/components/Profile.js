@@ -17,8 +17,12 @@ const Profile = () => {
   const [userType, setUserType] = useState("")
 
 
+
+
+
+
   useEffect(() => {
-    (async () => {
+    const fetchData = async () => {
       try {
         const token = await getAccessTokenSilently();      
         var decoded = jwt_decode(token);      
@@ -26,7 +30,9 @@ const Profile = () => {
       } catch (error) {
         console.error(error);
       }
-    })();
+    };
+ 
+    fetchData();
   }, []);
     
 

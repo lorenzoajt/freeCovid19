@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
-
-import Button from '@material-ui/core/Button';
 import image from "../apartment-contemporary-couch-curtains-275484.jpg"
-
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
