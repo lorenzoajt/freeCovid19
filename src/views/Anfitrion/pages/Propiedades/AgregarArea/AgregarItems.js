@@ -17,6 +17,12 @@ import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import { useAuth0 } from "@auth0/auth0-react";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +45,9 @@ const useStyles = makeStyles((theme) => ({
 function AgregarItems({match}){
 	const { getAccessTokenSilently } = useAuth0();	
 	const {areaId, propertyId, areaType, areaName} = match.params
-
+	const [open, setOpen] = useState(false);//snackbar open hook
+	const [message, setMessage] = useState("")
+	const [status, setStatus] = useState()
 	
 	const classes = useStyles();
 	let listType;
@@ -139,33 +147,42 @@ function AgregarItems({match}){
 		  return { list, allChecked };
 		});
 	}
-	const handlePost = async () => {
+
+	const handleClose = (event, reason) => {// snackbar close function
+	    if (reason === 'clickaway') {
+	      return;
+	    }
+
+	    setOpen(false);
+	  };
+
+
+	const handlePost = async () => {		
+		try {		
 		const listToAPI = selectedElements.map(item =>( // removing unwanted property
-	      {
-	        name: item.name,     
-	        evidence: item.evidence 
-	      }
-	    ))
+		      {
+		        name: item.name,     
+		        evidence: item.evidence 
+		      }
+		    ))
 	    let post = {items: listToAPI}
-	    console.log(post)
-			// try {
-			// const items = state.list.filter(items => items.isChecked)
-			// const token = await getAccessTokenSilently();
-			// const post = state
+	    console.log("post", post)	    
+		const token = await getAccessTokenSilently();		
+		const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev//propertyareaitems/${areaId}/${propertyId}`, {
+			method: 'POST',
+			body: JSON.stringify(post),
+		  	headers: {
+		    	Authorization: `Bearer ${token}`
+		  	}
+		});
+		setStatus(response.status)
+		const responseData = await response.text();		
+		setOpen(true)
+		setMessage(responseData)			
 
-			// const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev//propertyareaitems/${areaId}/${propertyId}`, {
-			// 	method: 'POST',
-			// 	body: JSON.stringify(post),
-			//   	headers: {
-			//     	Authorization: `Bearer ${token}`
-			//   	}
-			// });
-			// const responseData = await response.json();
-			// console.log(responseData)			
-
-			// } catch (error) {
-			// console.error(error);
-			// }
+		} catch (error) {
+		console.error(error);
+		}
 		};
 
 
@@ -226,6 +243,11 @@ function AgregarItems({match}){
 			<Button component={Link} to={`/ItemsAreasRegistradas/${propertyId}`}>Atrás</Button>
 			<Button disabled={selectedElements.length === 0} onClick={handlePost}>Conritmar</Button>
 		</div>
+		<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+		  <Alert onClose={handleClose} severity={status=== 201 ? "success" : "warning" }>
+		    {message}
+		  </Alert>
+		</Snackbar>
 		</div>
 	)
 }

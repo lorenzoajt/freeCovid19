@@ -41,7 +41,7 @@ function Detalle({match}){
 	
 	return(
 		<div className={classes.root}>
-			<TablePerPage data={data} columns={columns} title={"Folios Registrados"}/>			
+			<TablePerPage data={data} columns={columns} title={`Folios Registrados ${servicio}`}/>			
 		</div>
 	)
 }

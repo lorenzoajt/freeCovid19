@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import CardFolios from '../../Admin/CardFolios'
+import CardFolios from '../../../components/CardFolios'
 import CardFoliosUsed from '../../../components/CardFoliosUsed.js'
 import { Link } from "react-router-dom";
 import Loader from '../../../components/Loader.js'
