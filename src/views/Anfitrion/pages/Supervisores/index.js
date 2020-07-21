@@ -22,26 +22,27 @@ function Supervisores(){
 
 	
 	useEffect(() => {
-	getSupervisores()
+		const getSupervisores = async () => {
+		  try {
+		    const token = await getAccessTokenSilently();	    
+		    const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/users/inspectors", {
+		      headers: {
+		        Authorization: `Bearer ${token}`
+		      }
+		    });
+
+		    const responseData = await response.json();
+
+		    setSupervisores(responseData);	   
+		    setLoading(false) 	    
+		  } catch (error) {
+		    console.log("error", error);
+		  }
+		};
+		getSupervisores()
 	},[]);
 
-	const getSupervisores = async () => {
-	  try {
-	    const token = await getAccessTokenSilently();	    
-	    const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/users/inspectors", {
-	      headers: {
-	        Authorization: `Bearer ${token}`
-	      }
-	    });
-
-	    const responseData = await response.json();
-
-	    setSupervisores(responseData);	   
-	    setLoading(false) 	    
-	  } catch (error) {
-	    console.log("error", error);
-	  }
-	};
+	
 	
 
 	const columns = [

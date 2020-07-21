@@ -213,7 +213,7 @@ function Tile(props){
 
 
       <Dialog open={openEdit} onClose={handleCloseEdit} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Editar Area</DialogTitle>
+        <DialogTitle id="form-dialog-title">Editar Propiedad</DialogTitle>
         <DialogContent>
           
         <TextField  onChange={e => setPropName(e.target.value)} id="standard-disabled1" margin="dense" label="Nombre" defaultValue={tile.propertyName} fullWidth/>

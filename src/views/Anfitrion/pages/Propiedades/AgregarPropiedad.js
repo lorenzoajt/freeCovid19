@@ -10,7 +10,8 @@ import Card from '@material-ui/core/Card';
 import image from '../../../../assets/noImage.jpeg'
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
-
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
 
@@ -50,6 +55,7 @@ function AgregarPropiedad() {
 
   const [propName, setPropName] = useState("")
   const [adress, setAdress] = useState("")
+  const [loading, setLoading] = useState(false)
   
   const fileSelectedHandler = event =>{
     setPreview(URL.createObjectURL(event.target.files[0]))
@@ -59,6 +65,8 @@ function AgregarPropiedad() {
   }
 
   const handleAgregar = async () => {
+    setLoading(true)
+
       try {
         const token = await getAccessTokenSilently();
         const post = {
@@ -85,7 +93,7 @@ function AgregarPropiedad() {
             subirFoto(propertyId)      
           }
           
-          
+          setLoading(false)
           history.push(`/Anfitrion/AgregarArea/${propertyId}`);   
 
         }
@@ -125,29 +133,11 @@ function AgregarPropiedad() {
       }
     };
         
-    axios.put(url, file, options).then(getFoto(propId))
-    
+    axios.put(url, file, options)
+    setLoading(false)
       
   }
-
-  const getFoto = async (propId) =>{
-    try{
-      const token = await getAccessTokenSilently()    
-      const url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propId}/images`      
-      const response = await fetch(url, {
-            method: 'GET',
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
-          });
-      const responseData = await response.json()      
-    }catch(error){
-      console.log(error)
-    }
-    
-  }
-
-
+ 
   const check = () => {
     if(propName !== "" && adress !== ""){
       return false
@@ -167,6 +157,9 @@ function AgregarPropiedad() {
   
   return(
     <div>
+      <Backdrop className={classes.backdrop} open={loading} >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <h1 className={classes.root}>AgregarPropiedad</h1>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">

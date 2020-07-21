@@ -24,6 +24,7 @@ function AreasRegistradas({match}){
 	const [data, setData] = useState()
 	
 	useEffect(() => {
+		console.log("por que chingados")
 	    const getAreas = async () => {
     	try {
     	  const token = await getAccessTokenSilently();	  
@@ -43,7 +44,7 @@ function AreasRegistradas({match}){
     	};
 	 
 	    getAreas();
-	  }, [data]);
+	  }, []);
 	
 
 

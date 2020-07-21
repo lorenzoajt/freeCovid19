@@ -19,27 +19,28 @@ function Folios(){
 
 
 	useEffect(() => {
-    const fetchData = async () => {    	
-		try {
-		  const token = await getAccessTokenSilently();		      
-		  var decoded = await jwt_decode(token);	      
-		  setHostId(decoded.sub)
-		  const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/retrieve/${decoded.sub}`, {
-		    headers: {
-		      Authorization: `Bearer ${token}`
-		    }
-		  });
+		console.log("folios por que chingados")
+		const fetchData = async () => {    	
+			try {
+			  const token = await getAccessTokenSilently();		      
+			  var decoded = await jwt_decode(token);	      
+			  setHostId(decoded.sub)
+			  const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/retrieve/${decoded.sub}`, {
+			    headers: {
+			      Authorization: `Bearer ${token}`
+			    }
+			  });
 
-		  const responseData = await response.json();	      
-		  setFolios(responseData.items)
-		  setLoading(false)
-		} catch (error) {
-		  console.error(error);
+			  const responseData = await response.json();	      
+			  setFolios(responseData.items)
+			  setLoading(false)
+			} catch (error) {
+			  console.error(error);
+			}
 		}
-	}
- 
-    fetchData();
-  }, []);
+
+		fetchData();
+	}, []);
 
 
 

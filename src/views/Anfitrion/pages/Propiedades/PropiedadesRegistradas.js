@@ -7,7 +7,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Tile from './Tile'
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
-import Loader from './../../../../components/Loader'
+import Loader from '../../../../components/Loader'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,11 +34,12 @@ function PropiedadesRegistradas(){
   const [data, setData] = useState()
   const [loading, setLoading] = useState(true)
   const classes = useStyles();
-  useEffect(() => {             
+  useEffect(() => {           
       getPropiedades();      
     }, []);
     
     const getPropiedades = async () => {
+      
         try {
           const token = await getAccessTokenSilently();  
           const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties",{
@@ -49,7 +50,7 @@ function PropiedadesRegistradas(){
           });      
           const responseData = await response.json();    
           setData(responseData.items)  
-          setLoading(false)     
+          setLoading(false)
         } catch (error) {
           console.error(error);
         }

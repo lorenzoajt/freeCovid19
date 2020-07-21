@@ -15,7 +15,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import SelectedListItem from './listItems';
 import {Theme} from '../../components/Theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
-import Desinfeccion from './pages/Desinfeccion'
+
 import Folios from './pages/Folios'
 import Historial from './pages/Historial'
 import PropiedadesRegistradas from './pages/Propiedades/PropiedadesRegistradas'
@@ -186,7 +186,7 @@ export default function DashboardAnfitrion() {
             <Route path = "/Anfitrion/AgregarArea/:propertyId" component = {AgregarArea} />
             <Route path = "/Anfitrion/Supervisores" component={Supervisores}/>
             <Route path = "/Anfitrion/historial" component={Historial}/>
-            <Route path = "/Anfitrion/Desinfeccion" component={Desinfeccion}/>
+            
             <Route path = "/Anfitrion/Folios" component={Folios}/>    
             <Route path = "/Anfitrion/areasRegistradas" component={AreasRegistradas}/>
             <Route path = "/Anfitrion/agregarSupervisor" component={AgregarSupervisor}/>
