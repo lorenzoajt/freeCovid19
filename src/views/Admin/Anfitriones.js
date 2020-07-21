@@ -20,32 +20,32 @@ export default function Anfitriones() {
 	const [data, setData] = useState([]);
 	const { getAccessTokenSilently } = useAuth0();
 	const [loading, setLoading] = useState(true)
-	
+		
+
 	useEffect(() => {
-	  (async () => {
+	    const fetchData = async () => {
 	    try {
-	      const token = await getAccessTokenSilently();
-	      const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/users/hosts", {
-	        headers: {
-	          Authorization: `Bearer ${token}`
-	        }
-	      });
+		  const token = await getAccessTokenSilently();
+		  const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/users/hosts", {
+		    headers: {
+		      Authorization: `Bearer ${token}`
+		    }
+		  });
 
-	      const responseData = await response.json();
+		  const responseData = await response.json();
 
-	      setData(responseData);
-	      setLoading(false)
-	    } catch (error) {
-	      console.error(error);
-	    }
-	  })();
-	}, []);
+		  setData(responseData);
+		  setLoading(false)
+		} catch (error) {
+		  console.error(error);
+		}
+		};
+	 
+	    fetchData();
+	  }, []);
 
 	
-    const buttonStyle = { float: 'right',
-                          marginRight: '20px',
-                          marginTop: '10px',
-    }   
+   
     const columns = [
       
       { title: 'Nombre', field: 'name' },
@@ -57,7 +57,7 @@ export default function Anfitriones() {
 		{
 		  icon: 'search',
 		  tooltip: 'Ver Folios',
-		  onClick: (event, rowData) => history.push(`/foliosRegistrados/${rowData.user_id}/${rowData.name}`)
+		  onClick: (event, rowData) => history.push(`/Admin/foliosRegistrados/${rowData.user_id}/${rowData.name}`)
 		}
 	]
 	
@@ -65,17 +65,20 @@ export default function Anfitriones() {
 		return <Loader />
 	}else{
 	  return (
-	  	<div className={classes.root}>	  		
-	  		
-		    <TablePerPage data={data} title={"Anfitriones Registrados"} actions={actions} columns={columns}/>
-		    <Button 
+	  	<div>
+	  		<Button 
 	  		  variant="contained" 
 	  		  color="primary"
-	  		  component={Link} to="/agregarAnfitrion"
-	  		  style={buttonStyle}
+	  		  component={Link} to="/Admin/agregarAnfitrion"
+	  		  className={classes.root}
 	  		  >Agregar Anfitrion
 	  		</Button>
+		  	<div className={classes.root}>	  		
+		  		
+			    <TablePerPage data={data} title={"Anfitriones Registrados"} actions={actions} columns={columns}/>
+			    
 
+		    </div>
 	    </div>
 	  );
 	}

@@ -29,14 +29,7 @@ const opcionesFolios = [
     value: '1000',
     label: '1,000',
   },
-  {
-    value: '10000',
-    label: '10,000',
-  },
-  {
-    value: '1000000',
-    label: '1,000,000',
-  },
+  
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -48,13 +41,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NuevoFolio({match}) {
+export default function NuevoFolio({match}) {  
   const classes = useStyles();
   const [numFoliosDengue, setNumFoliosDengue] = React.useState(0);
   const [numFoliosDesinfeccion, setNumFoliosDesinfeccion] = React.useState(0);
   const [numFoliosLimpieza, setNumFoliosLimpieza] = React.useState(0);
   const { getAccessTokenSilently } = useAuth0();
   const {hostId, hostName} = match.params
+
 
   const agregarFolios = async () => {
 
@@ -63,22 +57,25 @@ export default function NuevoFolio({match}) {
 
       //Crear Folios de dengue
       if(numFoliosDengue > 0){
+        console.log("numFoliosDengue",numFoliosDengue)
         let url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/create/${numFoliosDengue}` //agregar el num de tickets
         const post = {
             createdFor: hostId,
             "tipoServicio": "Dengue" 
         }
-        
         const response = await fetch(url, {
           method: 'POST',
           body: JSON.stringify(post),
           headers: {          
             "Authorization": "Bearer "+ token
           }
-        });
+        }
+        );
+        console.log(response.status)
       }
       //Crear Folios de desinfeccion
       if(numFoliosDesinfeccion > 0){
+        console.log("numFoliosDesinfeccion",numFoliosDesinfeccion)
         let url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/create/${numFoliosDesinfeccion}` //agregar el num de tickets
         const post = {
             createdFor: hostId, 
@@ -92,9 +89,11 @@ export default function NuevoFolio({match}) {
             "Authorization": "Bearer "+ token
           }
         });
+        console.log(response.status)
       }
       //Crear Folios de Limpieza
       if(numFoliosLimpieza > 0){
+        console.log("numFoliosLimpieza",numFoliosLimpieza)
         let url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/create/${numFoliosLimpieza}` //agregar el num de tickets
         const post = {
             createdFor: hostId, 
@@ -108,6 +107,7 @@ export default function NuevoFolio({match}) {
             "Authorization": "Bearer "+ token
           }
         });
+        console.log(response.status)
       }
       
     } catch (error) {
@@ -204,8 +204,7 @@ export default function NuevoFolio({match}) {
       <CardNoactions servicio={"Limpieza"} numFolios={numFoliosLimpieza}/>      
       <Button 
         variant="contained" 
-        color="primary"
-        component={Link} to="Admin/folios"
+        color="primary"        
         onClick={agregarFolios}
         disabled={check() && true }
         >Agregar Folios

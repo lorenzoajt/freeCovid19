@@ -7,7 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {bano, comunes, cocina, dormitorio, aireLibre, entrada, otros} from './defaultItems'
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -18,6 +18,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { useAuth0 } from "@auth0/auth0-react";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -38,16 +40,24 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     margin: theme.spacing(1),
-  }
+  },
+    backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },    
 }));
 
 function AgregarItems({match}){
 	const { getAccessTokenSilently } = useAuth0();	
 	const {areaId, propertyId, areaType, areaName} = match.params
 	const [open, setOpen] = useState(false);//snackbar open hook
+	const [openError, setOpenError] = useState(false);//snackbar open hook
 	const [message, setMessage] = useState("")
 	const [status, setStatus] = useState()
-	
+	const [loading, setLoading] = useState(false)
+
+	let history = useHistory()
+
 	const classes = useStyles();
 	let listType;
 	switch(areaType){
@@ -84,7 +94,7 @@ function AgregarItems({match}){
 	}
 
 	const [state, setState] = useState({
-		allChecked: false,
+		allChecked: true,
 		list: listType////aqui esta el bug
 	})
 	const [name, setName] = useState("")
@@ -108,20 +118,32 @@ function AgregarItems({match}){
 	    });
 	  };
 
+	const nameIsRepeated = () => {
+	    const names = state.list.map(item => item.name)
+	    if(names.includes(name)){
+	      return true
+	    }else{
+	      return false
+	    }
+	  }
 	const addItem = () => {
-		const newList = [].concat(state.list)
-		newList.push({
-		  name: name,
-		  isChecked: false,     
-		  evidence: false
-		})
-		setName("")
-		setState(prevState=>      
-		  ({
-		    allChecked: prevState.allChecked,
-		    list: newList,
+		if(nameIsRepeated()){
+		  setOpenError(true)
+		}else{
+		  const newList = [].concat(state.list)
+		  newList.push({
+		    name: name,
+		    isChecked: false,     
+		    evidence: false
 		  })
-		);    
+		  setName("")
+		  setState(prevState=>      
+		    ({
+		      allChecked: prevState.allChecked,
+		      list: newList,
+		    })
+		  );    
+		} 
 	}
 
 	const handleDelete = (itemIndex) =>{ 
@@ -153,10 +175,12 @@ function AgregarItems({match}){
 	    }
 
 	    setOpen(false);
+	    setOpenError(false);
 	  };
 
 
-	const handlePost = async () => {		
+	const handlePost = async () => {
+		setLoading(true)
 		try {		
 		const listToAPI = selectedElements.map(item =>( // removing unwanted property
 		      {
@@ -165,7 +189,7 @@ function AgregarItems({match}){
 		      }
 		    ))
 	    let post = {items: listToAPI}
-	    console.log("post", post)	    
+	        
 		const token = await getAccessTokenSilently();		
 		const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev//propertyareaitems/${areaId}/${propertyId}`, {
 			method: 'POST',
@@ -177,7 +201,9 @@ function AgregarItems({match}){
 		setStatus(response.status)
 		const responseData = await response.text();		
 		setOpen(true)
-		setMessage(responseData)			
+		setMessage(responseData)	
+		setLoading(false)
+		history.goBack()		
 
 		} catch (error) {
 		console.error(error);
@@ -186,7 +212,9 @@ function AgregarItems({match}){
 
 
 	return(
+
 		<div>
+
 		
 		<TextField		            
 		  value={name}
@@ -239,7 +267,7 @@ function AgregarItems({match}){
 			</FormGroup>
 		</FormControl> 
 		<div>
-			<Button component={Link} to={`/ItemsAreasRegistradas/${propertyId}`}>Atrás</Button>
+			<Button component={Link} to={`/Admin/ItemsAreasRegistradas/${propertyId}`}>Atrás</Button>
 			<Button disabled={selectedElements.length === 0} onClick={handlePost}>Confirmar</Button>
 		</div>
 		<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
@@ -247,6 +275,14 @@ function AgregarItems({match}){
 		    {message}
 		  </Alert>
 		</Snackbar>
+		<Snackbar open={openError} autoHideDuration={6000} onClose={handleClose}>
+			<Alert onClose={handleClose} severity="error">
+			  No se pueden tener elementos con el mismo nombre
+			</Alert>
+		</Snackbar>		
+			<Backdrop className={classes.backdrop} open={loading}>
+			  <CircularProgress color="inherit" />
+			</Backdrop>		
 		</div>
 	)
 }

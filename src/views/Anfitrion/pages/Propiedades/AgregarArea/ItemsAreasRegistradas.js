@@ -7,9 +7,15 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import { Link} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { withRouter } from 'react-router-dom'
 import Loader from '../../../../../components/Loader'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 function AreasRegistradas({match}){
 	
@@ -18,8 +24,11 @@ function AreasRegistradas({match}){
 	const [areaNum, setAreaNum] = useState()
 	const {propertyId} = match.params
 	const [loading, setLoading] = useState(true)
-
+	const [openTerminar, setOpenTerminar] = useState(false)
 	const [data, setData] = useState()
+	let history = useHistory()
+	
+
 
 	useEffect(() => {
 		
@@ -38,8 +47,7 @@ function AreasRegistradas({match}){
 	      Authorization: `Bearer ${token}`
 	    }
 	  });
-	  const responseData = await response.json();
-	  console.log("tipos de area", responseData)
+	  const responseData = await response.json();	  
 	  setData(responseData.items)	  
 	  setAreaNum(responseData.items.length)
 	  setLoading(false)
@@ -47,7 +55,16 @@ function AreasRegistradas({match}){
 	  console.error(error);
 	}
 	};
+	const handleClickTerminar = () => {
+	    setOpenTerminar(true);
+	  };
 
+	const handleCloseTerminar = () => {
+		setOpenTerminar(false);
+	};
+	const handleAccept = () => {
+		history.push('/Anfitrion')
+	}
 
 	const useStyles = makeStyles((theme) => ({
 	  root: {
@@ -72,40 +89,63 @@ function AreasRegistradas({match}){
 		return(	
 			<div>	
 				<h1>Areas Registradas</h1>	
-				{areaNum > 0 ? <div className={classes.root}>
-								
-							        
-							    <GridList cellHeight={180} className={classes.gridList}>
-							      <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-							        
-							      </GridListTile>
-							      {data && data.map((tile) => (
-							        <GridListTile key={tile.orderIndex}>  
-							                                                     
-							        
-							        <Link to={`/AgregarItems/${tile.name}/${tile.type}/${tile.propertyAreaId}/${propertyId}`}>
-							        	<img src={image} alt={tile.propertyAreaId} 			        		 
-							        		 className={"MuiGridListTile-tile"}
-							        	/>
-							        </Link>
-							        
-							          
-							          <GridListTileBar
-							            title={tile.name}						            
-	          							subtitle={<span> {tile.type}</span>}
-							            
-							            actionIcon={
-							              <IconButton aria-label={`info about ${tile.name}`} className={classes.icon}>
-							                <InfoIcon />
-							              </IconButton>                  
-							            }
-							          />
-							        </GridListTile>
-							      ))
-							    }
-							    </GridList>
-							    
-							</div>
+				{areaNum > 0 ? <div>
+								<div className={classes.root}>
+								    <GridList cellHeight={180} className={classes.gridList}>
+								      <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+								        
+								      </GridListTile>
+								      {data && data.map((tile) => (
+								        <GridListTile key={tile.orderIndex}>  
+								                                                     
+								        
+								        <Link to={`/Anfitrion/AgregarItems/${tile.name}/${tile.type}/${tile.propertyAreaId}/${propertyId}`}>
+								        	<img src={image} alt={tile.propertyAreaId} 			        		 
+								        		 className={"MuiGridListTile-tile"}
+								        	/>
+								        </Link>
+								        
+								          
+								          <GridListTileBar
+								            title={tile.name}						            
+		          							subtitle={<span> {tile.type}</span>}
+								            
+								            actionIcon={
+								              <IconButton aria-label={`info about ${tile.name}`} className={classes.icon}>
+								                <InfoIcon />
+								              </IconButton>                  
+								            }
+								          />
+								        </GridListTile>
+								      ))
+								    }
+								    </GridList>
+								</div>
+								<div>
+									<Button variant="outlined" color="primary" onClick={handleClickTerminar} >Terminar Registro</Button>
+									<Dialog
+									    open={openTerminar}
+									    onClose={handleCloseTerminar}
+									    aria-labelledby="alert-dialog-title"
+									    aria-describedby="alert-dialog-description"
+									  >
+									    <DialogTitle id="alert-dialog-title">{"Está seguro que desea terminar el registro?"}</DialogTitle>
+									    <DialogContent>
+									      <DialogContentText id="alert-dialog-description">
+									        Una vez terminado el registro, no podrá volver a editar la propiedad ni sus elementos
+									      </DialogContentText>
+									    </DialogContent>
+									    <DialogActions>
+									      <Button onClick={handleCloseTerminar} color="primary">
+									        Cancelar
+									      </Button>
+									      <Button onClick={handleAccept} color="primary" autoFocus>
+									        Aceptar
+									      </Button>
+									    </DialogActions>
+									  </Dialog>
+								</div>
+								</div>
 							:
 							<h1>No hay áreas para mostrar</h1>
 						}

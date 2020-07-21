@@ -3,23 +3,18 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-
-
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SelectedListItem from './listItems';
 import {Theme} from '../../components/Theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
-
 import Desinfeccion from './pages/Desinfeccion'
 import Folios from './pages/Folios'
 import Historial from './pages/Historial'
@@ -137,8 +132,6 @@ export default function DashboardAnfitrion() {
   
 
   return (
-
-    <Router >
     <ThemeProvider theme={Theme}>
     <div className={classes.root}>      
       <CssBaseline />
@@ -184,29 +177,26 @@ export default function DashboardAnfitrion() {
         <div className={classes.appBarSpacer} />
         <Switch>
 
-            <Route path="/Anfitrion" component={PropiedadesRegistradas}/>
-            <Route exact path='/AgregarPropiedad' component={AgregarPropiedad} />
-            <Route exact path= "/AreasRegistradas/:propertyId" component={AreasRegistradas}/>
-            <Route exact path= "/ItemsAreasRegistradas/:propertyId" component={ItemsAreasRegistradas}/>            
-            <Route exact path="/ElementosDeArea/:areaId" component = {ElementosDeArea} />
-            <Route exact path="/AgregarItems/:areaName/:areaType/:areaId/:propertyId" component = {AgregarItems} />
-            <Route exact path="/AgregarArea/:propertyId" component = {AgregarArea} />
-
-            <Route exact path="/Supervisores" component={Supervisores}/>
-            <Route exact path="/historial" component={Historial}/>
-            <Route exact path="/Desinfeccion" component={Desinfeccion}/>
-            <Route exact path="/Folios" component={Folios}/>    
-
-            <Route exact path="/areasRegistradas" component={AreasRegistradas}/>
-            <Route exact path= "/agregarSupervisor" component={AgregarSupervisor}/>
-            <Route exact path="/detalle/:servicio/:hostId" component={Detalle} />
-            <Route exact path="/detalleUsed/:servicio/:hostId" component={DetalleUsed} />
+            <Route exact path ="/Anfitrion" component={PropiedadesRegistradas}/>
+            <Route path = '/Anfitrion/AgregarPropiedad' component={AgregarPropiedad} />
+            <Route path = "/Anfitrion/AreasRegistradas/:propertyId" component={AreasRegistradas}/>
+            <Route path = "/Anfitrion/ItemsAreasRegistradas/:propertyId" component={ItemsAreasRegistradas}/>            
+            <Route path = "/Anfitrion/ElementosDeArea/:areaId" component = {ElementosDeArea} />
+            <Route path = "/Anfitrion/AgregarItems/:areaName/:areaType/:areaId/:propertyId" component = {AgregarItems} />
+            <Route path = "/Anfitrion/AgregarArea/:propertyId" component = {AgregarArea} />
+            <Route path = "/Anfitrion/Supervisores" component={Supervisores}/>
+            <Route path = "/Anfitrion/historial" component={Historial}/>
+            <Route path = "/Anfitrion/Desinfeccion" component={Desinfeccion}/>
+            <Route path = "/Anfitrion/Folios" component={Folios}/>    
+            <Route path = "/Anfitrion/areasRegistradas" component={AreasRegistradas}/>
+            <Route path = "/Anfitrion/agregarSupervisor" component={AgregarSupervisor}/>
+            <Route path = "/Anfitrion/detalle/:servicio/:hostId" component={Detalle} />
+            <Route path = "/Anfitrion/detalleUsed/:servicio/:hostId" component={DetalleUsed} />
             <Route render={()=> <h3>Not found</h3>}/>
 
           </Switch>
       </main>
     </div>
     </ThemeProvider>
-    </Router>
   );
 }

@@ -135,7 +135,6 @@ export default function DashboardAdmin() {
   };
 
   return (
-    <Router>
     <ThemeProvider theme={Theme}>
       <div className={classes.root}>
         <CssBaseline />
@@ -186,14 +185,13 @@ export default function DashboardAdmin() {
           <div className={classes.appBarSpacer} />
         <Switch>
             
-            <Route path="/Admin" component={Home}/>
-            <Route path="/anfitriones" component={Anfitriones}/>
-            <Route path="/folios" component={Folios}/>
-            <Route path="/foliosRegistrados/:hostId/:hostName" component={FoliosRegistrados}/>
-            <Route path="/agregarAnfitrion" component={AgregarAnfitrion}/>
-            <Route path="/nuevoFolio/:hostId/:hostName" component={NuevoFolio}/>
-            <Route path="/detalle/:servicio/:hostId" component={Detalle} />
-            <Route path="/detalleUsed/:servicio/:hostId" component={DetalleUsed} />
+            <Route exact path="/Admin" component={Anfitriones}/>            
+            <Route path="/Admin/folios" component={Folios}/>
+            <Route path="/Admin/foliosRegistrados/:hostId/:hostName" component={FoliosRegistrados}/>
+            <Route path="/Admin/agregarAnfitrion" component={AgregarAnfitrion}/>
+            <Route path="/Admin/nuevoFolio/:hostId/:hostName" component={NuevoFolio}/>
+            <Route path="/Admin/detalle/:servicio/:hostId" component={Detalle} />
+            <Route path="/Admin/detalleUsed/:servicio/:hostId" component={DetalleUsed} />
 
             
             <Route render={()=> <h3>Not found 404</h3>}/>
@@ -203,7 +201,6 @@ export default function DashboardAdmin() {
         </main>
       </div>
       </ThemeProvider >
-    </Router>
 
   );
 }

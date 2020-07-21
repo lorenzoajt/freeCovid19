@@ -15,10 +15,35 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
+
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      backgroundColor: theme.palette.background.paper,
+    },
+    gridList: {
+      width: 500,
+      height: 450,
+    },
+    icon: {
+      color: 'rgba(255, 255, 255, 0.54)',
+    },
+    backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },    
+  }));
 
 function Tile(props){
   const { getAccessTokenSilently } = useAuth0();
-  const {tile} = props  
+  const {tile, getPropiedades} = props  
   const [imgSrc, setImgSrc] = useState('');
   const [tilesNum, setTilesNum] = useState()
   const defaultImage = "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
@@ -26,6 +51,8 @@ function Tile(props){
   const [openEdit, setOpenEdit] = React.useState(false); // para el alert dialog
   const [propName, setPropName] = useState("")
   const [propAdress, setPropAdress] = useState("")
+  const [open, setOpen] = React.useState(false);
+
 
   useEffect(() => {
     const getFoto = async (propId) =>{          
@@ -57,22 +84,7 @@ function Tile(props){
   }, [tilesNum]);
 
 
-    const useStyles = makeStyles((theme) => ({
-      root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
-      },
-      gridList: {
-        width: 500,
-        height: 450,
-      },
-      icon: {
-        color: 'rgba(255, 255, 255, 0.54)',
-      },
-    }));
+    
     const classes = useStyles();
 
 
@@ -80,6 +92,7 @@ function Tile(props){
     ///////////eliminar
 
     const eliminar = async (propertyId) => {
+      setOpen(true)
       handleCloseDelete() 
       try {
         const URL = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propertyId}`
@@ -87,8 +100,10 @@ function Tile(props){
         const response = await axios.delete(URL, {
           headers: {
             Authorization: `Bearer ${token}`
-          }          
-        });                
+          }                    
+        });     
+        setOpen(false) 
+        getPropiedades()//update properties
       } catch (error) {
       console.error(error);
       }
@@ -97,6 +112,7 @@ function Tile(props){
     ///////////editar
     
     const editar = async (propertyId) => {
+      setOpen(true)
       handleCloseEdit()
       try {
       const token = await getAccessTokenSilently();
@@ -112,6 +128,8 @@ function Tile(props){
             Authorization: `Bearer ${token}`
           }
       });
+      setOpen(false)
+      getPropiedades()//update properties
       } catch (error) {
       console.error(error);
       }
@@ -137,14 +155,22 @@ function Tile(props){
 
   return(
     <div className={"MuiGridListTile-tile"}>
-      <GridListTile className={"MuiGridListTile-tile"}>  
+      <GridListTile className={"MuiGridListTile-tile"} >  
                                                  
-        <Link to={`/AreasRegistradas/${tile.propertyId}`}>
-
+        <Link to={`/Anfitrion/AreasRegistradas/${tile.propertyId}`}>
+        
           <img  src={imgSrc}                    
-                alt={tile.propertyName} 
-                className={"MuiGridListTile-tile"}
+                alt={tile.propertyName}                                 
+                style={{
+                  height: "100%",
+                  display: "block",
+                  overflow: "hidden",
+                  position: "relative",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
           />
+        
         </Link>          
           <GridListTileBar
             title={tile.propertyName}
@@ -203,6 +229,9 @@ function Tile(props){
           </Button>
         </DialogActions>
       </Dialog>
+      <Backdrop className={classes.backdrop} open={open} >
+        <CircularProgress color="inherit" />
+      </Backdrop>
   </div>
       
     

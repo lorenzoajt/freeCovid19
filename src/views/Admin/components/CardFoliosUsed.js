@@ -47,7 +47,7 @@ export default function CardFolios(props) {
       </Typography>
     </CardContent>
     <CardActions>
-      <Button disabled={numFolios === 0 && true } size="small" component={Link} to ={`/detalleUsed/${servicio}/${hostId}`}>Ver Detalle</Button>
+      <Button disabled={numFolios === 0 && true } size="small" component={Link} to ={`/Admin/detalleUsed/${servicio}/${hostId}`}>Ver Detalle</Button>
     </CardActions>
   </Card>  
   );

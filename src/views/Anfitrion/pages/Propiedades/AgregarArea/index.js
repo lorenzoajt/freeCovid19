@@ -12,10 +12,16 @@ import { useHistory } from "react-router-dom";
 import Dropdown from './Dropdown.js'
 import {defaultAreas} from './defaultAreas'
 import Loader from '../../../../../components/Loader'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { Prompt } from 'react-router'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
-  console.log("result", result)
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
 
@@ -43,23 +49,47 @@ export default function AreasRegistradasDnD({match}) {
   const classes = useStyles();
   const history = useHistory()
   const [loading, setLoading] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  // window.addEventListener('popstate', (event) => {
+    
+  //   alert("La propiedad está incompleta tendrá que empezar de nuevo");    
+  //   history.push('/Anfitrion')
+  // });
 
   const handleChangeAreaType = (event) => {
     setAreaType(event.target.value);
   };
   
 
-  const addArea = () => {
-    const newlist = [].concat(areas) 
-    newlist.push({
-        name: newArea,
-        orderIndex: areas.length.toString(),
-        type: areaType
-        
-      })
-    setAreas(newlist)
-    
-  };
+
+  const areaIsRepeated = () => {
+      const names = areas.map(item => item.name)
+      if(names.includes(newArea)){
+        return true
+      }else{
+        return false
+      }
+    }
+    const addArea = () => {
+      if(areaIsRepeated()){
+        setOpen(true)
+      }else{
+        const newlist = [].concat(areas) 
+        newlist.push({
+            name: newArea,
+            orderIndex: areas.length.toString(),
+            type: areaType
+            
+          })
+        setAreas(newlist)  
+        setNewArea("")   
+        setAreaType("")      
+      } 
+    }
+
+
+
   const removeItem = (itemIndex) => { 
     const newlist = [].concat(areas) 
     newlist.splice(itemIndex, 1);
@@ -80,8 +110,19 @@ export default function AreasRegistradasDnD({match}) {
       result.source.index,
       result.destination.index
     );
-    console.log(items)
-    setAreas( items );
+    // console.log(items)
+    const newList = [].concat(items) 
+    // const pos = newList.map(function(e) { return e.orderIndex; }).indexOf('6');
+    // console.log("pos", pos)
+
+    const post = newList.map(item => ({
+      name: item.name,
+      orderIndex: newList.map(function(e) { return e.orderIndex; }).indexOf(item.orderIndex).toString(),////mejorar esto
+      type: item.type
+    }))
+    
+    
+    setAreas( post );
   }
   
             
@@ -100,10 +141,9 @@ export default function AreasRegistradasDnD({match}) {
           Authorization: `Bearer ${token}`
         }
     });
-    const responseData = response.text()
-    console.log(responseData)
+    const responseData = response.text()    
     setLoading(false)
-    history.push(`/ItemsAreasRegistradas/${propertyId}`)
+    history.push(`/Anfitrion/ItemsAreasRegistradas/${propertyId}`)
 
     
     
@@ -118,6 +158,13 @@ export default function AreasRegistradasDnD({match}) {
       return false
     }
   }
+  const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+
+      setOpen(false);
+    };
   
   if(loading){
     return <Loader/>
@@ -134,7 +181,12 @@ export default function AreasRegistradasDnD({match}) {
       </DragDropContext>
         <form  noValidate autoComplete="off">
       
-      <TextField id="standard-basic" label="Nombre del Area" onChange={handleChange} className={classes.textArea}/>
+      <TextField 
+        value={newArea} 
+        id="standard-basic" 
+        label="Nombre del Area" 
+        onChange={handleChange} 
+        className={classes.textArea}/>
 
       <Dropdown areaType={areaType} handleChangeAreaType={handleChangeAreaType}/>
 
@@ -151,7 +203,11 @@ export default function AreasRegistradasDnD({match}) {
         >Confirmar orden
         </Button>
     </form>
-
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          No se pueden tener áreas con el mismo nombre
+        </Alert>
+      </Snackbar>
       </>
     );
 

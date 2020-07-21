@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CardFolios from './CardFolios'
 import { Link } from "react-router-dom";
 import Loader from '../../components/Loader'
-import CardFoliosUsed from '../../components/CardFoliosUsed'
+import CardFoliosUsed from './components/CardFoliosUsed'
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +27,8 @@ const useStyles = makeStyles({
 function FoliosRegistrados({match}){
 	
 	const {hostId, hostName} = match.params
+	console.log(hostId)
+	console.log(hostName)
 	const { getAccessTokenSilently } = useAuth0();
 	const [folios, setFolios] = useState([])
 	const [loading, setLoading] = useState(true)
@@ -54,7 +56,9 @@ function FoliosRegistrados({match}){
 	const FoliosDengue = folios.filter(item => item.tipoServicio === "Dengue")
 	const FoliosLimpieza = folios.filter(item => item.tipoServicio === "Limpieza")
 	const FoliosDesinfeccion = folios.filter(item=> item.tipoServicio === "Desinfeccion" )
-
+	console.log("FoliosDengue", FoliosDengue.length)
+	console.log("FoliosLimpieza", FoliosLimpieza.length)
+	console.log("FoliosDesinfeccion", FoliosDesinfeccion.length)
 	const usado = folios.filter(item => item.used === true)
 	const sinUsar = folios.filter(item => item.used === false)
 
@@ -70,7 +74,7 @@ function FoliosRegistrados({match}){
 				<CardFolios servicio={"Desinfeccion"} numFolios={FoliosDesinfeccion.length} hostId={hostId}/>
 				<CardFoliosUsed servicio={"Usados"} numFolios={usado.length} hostId={hostId}/>
 				<CardFoliosUsed servicio={"Sin Usar"} numFolios={sinUsar.length} hostId={hostId}/>
-				<Button component={Link} to={"/anfitriones"}>Atrás</Button>
+				<Button component={Link} to={"/Admin"}>Atrás</Button>
 			</div>
 		)
 

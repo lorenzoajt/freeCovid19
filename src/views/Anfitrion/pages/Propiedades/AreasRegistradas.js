@@ -82,7 +82,7 @@ function AreasRegistradas({match}){
 								        <GridListTile key={tile.propertyAreaId}>  
 								                                                     
 								        
-								        <Link to={`/ElementosDeArea/${tile.propertyAreaId}`}>
+								        <Link to={`/Anfitrion/ElementosDeArea/${tile.propertyAreaId}`}>
 								        	<img src={image} alt={tile.propertyAreaId} 			        		 
 								        		 className={"MuiGridListTile-tile"}
 								        	/>

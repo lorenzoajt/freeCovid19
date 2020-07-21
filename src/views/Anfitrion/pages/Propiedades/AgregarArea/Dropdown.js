@@ -30,7 +30,9 @@ export default function Dropdown(props){
         value={areaType}
         onChange={handleChangeAreaType}
       >
-        
+        <MenuItem value="">
+          <em>Seleccione una opción</em>
+        </MenuItem>
         <MenuItem value={"bano"}>Baño</MenuItem>
         <MenuItem value={"cocina"}>Cocina</MenuItem>
         <MenuItem value={"dormitorio"}>Dormitorio</MenuItem>

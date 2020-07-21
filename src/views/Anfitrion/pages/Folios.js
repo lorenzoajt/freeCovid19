@@ -1,28 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
-import { makeStyles } from '@material-ui/core/styles';
-import CardFolios from '../../../components/CardFolios'
-import CardFoliosUsed from '../../../components/CardFoliosUsed.js'
+import CardFolios from '..//components/CardFolios.js'
+import CardFoliosUsed from '../components/CardFoliosUsed'
 import Loader from '../../../components/Loader.js'
 import * as jwt_decode from 'jwt-decode';
 
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
+
 
 function Folios(){
 	const { getAccessTokenSilently } = useAuth0();
@@ -31,26 +15,33 @@ function Folios(){
 	const [folios, setFolios] = useState([])
 	const [loading, setLoading] = useState(true)
 
-	useEffect(() => {
-	  (async () => {
-	    try {
-	      const token = await getAccessTokenSilently();		      
-	      var decoded = await jwt_decode(token);	      
-	      setHostId(decoded.sub)
-	      const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/retrieve/${decoded.sub}`, {
-	        headers: {
-	          Authorization: `Bearer ${token}`
-	        }
-	      });
+	
 
-	      const responseData = await response.json();	      
-	      setFolios(responseData.items)
-	      setLoading(false)
-	    } catch (error) {
-	      console.error(error);
-	    }
-	  })();
-	}, []);
+
+	useEffect(() => {
+    const fetchData = async () => {    	
+		try {
+		  const token = await getAccessTokenSilently();		      
+		  var decoded = await jwt_decode(token);	      
+		  setHostId(decoded.sub)
+		  const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/retrieve/${decoded.sub}`, {
+		    headers: {
+		      Authorization: `Bearer ${token}`
+		    }
+		  });
+
+		  const responseData = await response.json();	      
+		  setFolios(responseData.items)
+		  setLoading(false)
+		} catch (error) {
+		  console.error(error);
+		}
+	}
+ 
+    fetchData();
+  }, []);
+
+
 
 	const FoliosDengue = folios.filter(item => item.tipoServicio === "Dengue")
 	const FoliosLimpieza = folios.filter(item => item.tipoServicio === "Limpieza")

@@ -5,8 +5,9 @@ import {Button} from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
-
-
+import Loader from '../../components/Loader'
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +16,13 @@ const useStyles = makeStyles((theme) => ({
       width: 200,
     },
   },
+  button:{
+    margin: theme.spacing(1),
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
 export default function AgregarAnfitrion() {
@@ -22,10 +30,11 @@ export default function AgregarAnfitrion() {
   const classes = useStyles();
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  
+  const [loading, setLoading] = useState(false)
   const { getAccessTokenSilently } = useAuth0();
   
   const postToAPI = async () => {
+    setLoading(true)
     try {
       const token = await getAccessTokenSilently();	
       const post = {
@@ -39,9 +48,9 @@ export default function AgregarAnfitrion() {
           Authorization: `Bearer ${token}`
         }
       });
-
+      setLoading(false)
       
-      history.push('/anfitriones');       
+      history.push('/Admin');       
 
     } catch (error) {
       console.error(error);
@@ -59,6 +68,9 @@ export default function AgregarAnfitrion() {
 
   return (
     <div>
+      <Backdrop className={classes.backdrop} open={loading} >
+        <CircularProgress color="inherit" />
+      </Backdrop>
 
       <form className={classes.root} autoComplete="off" >
           <TextField
@@ -81,6 +93,7 @@ export default function AgregarAnfitrion() {
               value="Agregar" 
               disabled={check() && true}                        
               onClick={postToAPI}
+              className={classes.button}
         >
         Confirmar
       </Button>

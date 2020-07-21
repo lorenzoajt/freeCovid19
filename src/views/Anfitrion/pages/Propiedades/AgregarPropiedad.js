@@ -74,8 +74,7 @@ function AgregarPropiedad() {
             }
           });
         if(response.status !== 201){
-          const responseData = await response.text();      
-          console.log(responseData)
+          const responseData = await response.text();                
           setErrorMsg(responseData)
           setOpen(true);
 
@@ -87,7 +86,7 @@ function AgregarPropiedad() {
           }
           
           
-          history.push(`/AgregarArea/${propertyId}`);   
+          history.push(`/Anfitrion/AgregarArea/${propertyId}`);   
 
         }
 
@@ -100,17 +99,14 @@ function AgregarPropiedad() {
   const subirFoto = async (propId) =>{
     try{
       const token = await getAccessTokenSilently()    
-      const url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propId}/images`
-      console.log("url a la que se manda a subir la foto: ", url)
+      const url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propId}/images`      
       const response = await fetch(url, {
             method: 'POST',
               headers: {
                 Authorization: `Bearer ${token}`
               }
           });
-      const responseData = await response.json()
-      console.log("respuesta para subur foto: ", responseData)
-      
+      const responseData = await response.json()            
       putFoto(responseData.uploadUrl, propId)  
       
       
@@ -129,7 +125,7 @@ function AgregarPropiedad() {
       }
     };
         
-    axios.put(url, file, options).then(res=>console.log("Respuesta del put: ", res)).then(getFoto(propId))
+    axios.put(url, file, options).then(getFoto(propId))
     
       
   }
@@ -137,16 +133,14 @@ function AgregarPropiedad() {
   const getFoto = async (propId) =>{
     try{
       const token = await getAccessTokenSilently()    
-      const url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propId}/images`
-      console.log("url a la que se manda a subir la foto: ", url)
+      const url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propId}/images`      
       const response = await fetch(url, {
             method: 'GET',
               headers: {
                 Authorization: `Bearer ${token}`
               }
           });
-      const responseData = await response.json()
-      console.log("respuesta del get de la foto: ", responseData)
+      const responseData = await response.json()      
     }catch(error){
       console.log(error)
     }

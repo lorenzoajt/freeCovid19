@@ -18,27 +18,31 @@ export default function Folios() {
   const { getAccessTokenSilently } = useAuth0();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true)
-  
-  
+    
+
   useEffect(() => {
-    (async () => {
+      const fetchData = async () => {
       try {
-        const token = await getAccessTokenSilently();
-        const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/users/hosts", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+          const token = await getAccessTokenSilently();
+          const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/users/hosts", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
 
-        const responseData = await response.json();
+          const responseData = await response.json();
 
-        setData(responseData);
-        setLoading(false)
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, []);
+          setData(responseData);
+          setLoading(false)
+        } catch (error) {
+          console.error(error);
+        }
+      };
+   
+      fetchData();
+    }, []);
+
+
   const columns = [
       
       { title: 'Nombre', field: 'name' },
@@ -50,7 +54,7 @@ export default function Folios() {
     {
       icon: 'library_add',
       tooltip: 'Agregar Folio',
-      onClick: (event, rowData) => history.push(`/nuevoFolio/${rowData.user_id}/${rowData.name}`)
+      onClick: (event, rowData) => history.push(`/Admin/nuevoFolio/${rowData.user_id}/${rowData.name}`)
     }
   ]
   

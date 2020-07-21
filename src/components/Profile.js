@@ -11,7 +11,7 @@ import {
 import Admin from '../views/Admin/'
 import Anfitrion from '../views/Anfitrion/'
 import Inspector from '../views/Inspector/'
-
+import PrivateRoute from './PrivateRoute'
 const Profile = () => {
   const { getAccessTokenSilently } = useAuth0();
   const [userType, setUserType] = useState("")
@@ -39,20 +39,17 @@ const Profile = () => {
   return(
 
     <Router>      
-        {userType === "Admin" && <> <Redirect to= "/Admin" /></>}
+        {userType === "Admin" && <Redirect to= "/Admin" />}
         {userType === "Anfitrion" && <Redirect to= "/Anfitrion" /> }   
         {userType === "Inspector" && <Redirect to="/Inspector" /> }
 
         <Switch>
-          <Route path="/Admin">
+          <PrivateRoute path="/Admin">
             <Admin />
-          </Route>
-          <Route path="/Anfitrion">
+          </PrivateRoute>
+          <PrivateRoute path="/Anfitrion">
             <Anfitrion />
-          </Route>
-          <Route path="/Inspector">
-            <Inspector />
-          </Route>
+          </PrivateRoute>          
         </Switch>
     </Router>
   )
