@@ -15,7 +15,7 @@ import Loader from '../../../../../components/Loader'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Prompt } from 'react-router'
-
+import TipOrdenar from './TipOrdenar'
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3),
   },
   button: {
-    margin: theme.spacing(1, 1, 0, 0),
+    margin: theme.spacing(1),
   },
   textArea:{
     margin: theme.spacing(1),
@@ -171,7 +171,33 @@ export default function AreasRegistradasDnD({match}) {
 
   }else{
     return (
-      <>      
+      <>    
+      <TipOrdenar />  
+      <form  noValidate autoComplete="off">
+        
+        <TextField 
+          value={newArea} 
+          id="standard-basic" 
+          label="Nombre del Area" 
+          onChange={handleChange} 
+          className={classes.textArea}/>
+
+        <Dropdown areaType={areaType} handleChangeAreaType={handleChangeAreaType}/>
+
+        <Button 
+          variant="contained" 
+          onClick={addArea}
+          disabled={check()}
+          className={classes.button}
+        >Agregar</Button>   
+        <br/> 
+        <Button 
+          variant="contained" 
+          onClick={sendToAPI}      
+          color="primary" className={classes.button}
+          >Confirmar orden
+          </Button>
+      </form>
       <DragDropContext onDragEnd={onDragEnd}>
         {areas && columnData.columnOrder.map(columnId => {
           const column = columnData.columns[columnId];
@@ -179,30 +205,7 @@ export default function AreasRegistradasDnD({match}) {
           return <Column key={columnId} column={column} areas={areas} removeItem={removeItem}/>;
         })}
       </DragDropContext>
-        <form  noValidate autoComplete="off">
-      
-      <TextField 
-        value={newArea} 
-        id="standard-basic" 
-        label="Nombre del Area" 
-        onChange={handleChange} 
-        className={classes.textArea}/>
-
-      <Dropdown areaType={areaType} handleChangeAreaType={handleChangeAreaType}/>
-
-      <Button 
-        variant="contained" 
-        onClick={addArea}
-        disabled={check()}
-        className={classes.button}
-      >Agregar</Button>    
-      <Button 
-        variant="contained" 
-        onClick={sendToAPI}      
-        color="primary" className={classes.button}
-        >Confirmar orden
-        </Button>
-    </form>
+    
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
           No se pueden tener áreas con el mismo nombre

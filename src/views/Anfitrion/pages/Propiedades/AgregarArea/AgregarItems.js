@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },    
 }));
 
-function AgregarItems({match}){
+function AgregarItems({handleAreasTerminadas, match}){
 	const { getAccessTokenSilently } = useAuth0();	
 	const {areaId, propertyId, areaType, areaName} = match.params
 	const [open, setOpen] = useState(false);//snackbar open hook
@@ -189,7 +189,7 @@ function AgregarItems({match}){
 		      }
 		    ))
 	    let post = {items: listToAPI}
-	        
+	    handleAreasTerminadas(areaName)
 		const token = await getAccessTokenSilently();		
 		const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev//propertyareaitems/${areaId}/${propertyId}`, {
 			method: 'POST',
@@ -223,6 +223,7 @@ function AgregarItems({match}){
 		  onChange={event=> setName(event.target.value)}
 		  className={classes.text}
 		/>
+		
 		<Button 
 	    	className={classes.button}
 	        variant="contained"            

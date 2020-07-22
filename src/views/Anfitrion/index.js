@@ -123,13 +123,23 @@ const useStyles = makeStyles((theme) => ({
 export default function DashboardAnfitrion() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [areasTerminadas, setAreasTerminadas] = React.useState([])
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  
+  const handleClick = () => {
+    console.log("clicked")
+  }
+
+  const handleAreasTerminadas = (area) => {
+    setAreasTerminadas([...areasTerminadas, area])    
+  }
+
+
 
   return (
     <ThemeProvider theme={Theme}>
@@ -180,9 +190,10 @@ export default function DashboardAnfitrion() {
             <Route exact path ="/Anfitrion" component={PropiedadesRegistradas}/>
             <Route path = '/Anfitrion/AgregarPropiedad' component={AgregarPropiedad} />
             <Route path = "/Anfitrion/AreasRegistradas/:propertyId" component={AreasRegistradas}/>
-            <Route path = "/Anfitrion/ItemsAreasRegistradas/:propertyId" component={ItemsAreasRegistradas}/>            
+            <Route path = "/Anfitrion/ItemsAreasRegistradas/:propertyId" render = {props => <ItemsAreasRegistradas {...props} areasTerminadas={areasTerminadas} /> } />            
+            <Route path = "/Anfitrion/AgregarItems/:areaName/:areaType/:areaId/:propertyId" render = {props => <AgregarItems {...props} handleAreasTerminadas={handleAreasTerminadas} /> } />            
             <Route path = "/Anfitrion/ElementosDeArea/:areaId" component = {ElementosDeArea} />
-            <Route path = "/Anfitrion/AgregarItems/:areaName/:areaType/:areaId/:propertyId" component = {AgregarItems} />
+            
             <Route path = "/Anfitrion/AgregarArea/:propertyId" component = {AgregarArea} />
             <Route path = "/Anfitrion/Supervisores" component={Supervisores}/>
             <Route path = "/Anfitrion/historial" component={Historial}/>

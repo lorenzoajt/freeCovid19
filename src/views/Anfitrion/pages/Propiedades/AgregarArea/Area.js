@@ -17,21 +17,17 @@ import TvIcon from '@material-ui/icons/Tv';
 import LocalFloristIcon from '@material-ui/icons/LocalFlorist';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import RoomIcon from '@material-ui/icons/Room';
+import styled from "styled-components";
 
-let AreaIcon = ""
-let AreaColor =""
-const getItemStyle = (isDragging, draggableStyle) => ({
-  background: `${AreaColor}`,
-  // styles we need to apply on draggables
-  ...draggableStyle,
+var AreaIcon = ""
+var AreaColor =""
 
-  ...(isDragging && {
-    background: "rgb(235,235,235)"
-  })
-  
-});
-
-
+const Container = styled.div`
+  border: 1px solid lightgray;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: ${props => props.inputColor || "palevioletred"};
+`;
 
 
 function Area(props) {
@@ -74,37 +70,39 @@ function Area(props) {
 
   }
 
+  
+const finalIcon = AreaIcon
+const finalColor = AreaColor
 
   
   return (
-    <Draggable draggableId={props.area.orderIndex} index={props.index}>
-      {(provided, snapshot) => (
-        <ListItem
-        ContainerComponent="li"
-        ContainerProps={{ ref: provided.innerRef }}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}  
-        style={getItemStyle(
-          snapshot.isDragging,
-          provided.draggableProps.style
-        )}      
-      >
-        <ListItemIcon>
-          {AreaIcon}
-        </ListItemIcon>
-        <ListItemText
-          primary={props.area.name}          
-        />
-        <ListItemSecondaryAction>          
-          <IconButton onClick={()=>removeItem(index)}>
-            <DeleteForeverIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
-        
-      </ListItem>
-      )}
-    </Draggable>
-  );
+      <Draggable draggableId={props.area.orderIndex} index={props.index}>
+        {provided => (
+          <Container
+            inputColor={finalColor}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+      <ListItem >
+          <ListItemIcon>
+            {finalIcon}
+          </ListItemIcon>
+          <ListItemText
+            primary={props.area.name}          
+          />
+          <ListItemSecondaryAction>          
+            <IconButton onClick={()=>removeItem(index)}>
+              <DeleteForeverIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+          
+          
+        </ListItem>
+          </Container>
+        )}
+      </Draggable>
+    )
 }
 
 export default Area;

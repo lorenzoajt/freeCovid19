@@ -84,6 +84,7 @@ function AgregarPropiedad() {
         if(response.status !== 201){
           const responseData = await response.text();                
           setErrorMsg(responseData)
+          setLoading(false)
           setOpen(true);
 
         }else{
@@ -147,10 +148,11 @@ function AgregarPropiedad() {
   }
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
-      return;
-    }
-
+      setLoading(false)
+    }    
     setOpen(false);
+
+
   };
   
 

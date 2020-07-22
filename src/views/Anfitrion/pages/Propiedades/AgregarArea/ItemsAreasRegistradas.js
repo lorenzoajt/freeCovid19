@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
-import image from "../apartment-contemporary-couch-curtains-275484.jpg"
+import image from "../../../../../assets/ICONO con circulo_Mesa de trabajo 1.png"
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
+import DoneIcon from '@material-ui/icons/Done';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import { Link, useHistory } from "react-router-dom";
 import { withRouter } from 'react-router-dom'
 import Loader from '../../../../../components/Loader'
@@ -17,7 +18,27 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
-function AreasRegistradas({match}){
+const useStyles = makeStyles((theme) => ({
+	  root: {
+	    display: 'flex',
+	    flexWrap: 'wrap',
+	    justifyContent: 'space-around',
+	    overflow: 'hidden',
+	    backgroundColor: theme.palette.background.paper,
+	  },
+	  gridList: {
+	    width: 500,
+	    height: 450,
+	  },
+	  icon: {
+	    color: 'rgba(255, 255, 255, 0.54)',
+	  },
+	  disableLink: {
+	    pointerEvents: "none"
+	  }
+	}));
+
+function AreasRegistradas({areasTerminadas, match}){
 	
 	
 	const { getAccessTokenSilently } = useAuth0();
@@ -27,15 +48,11 @@ function AreasRegistradas({match}){
 	const [openTerminar, setOpenTerminar] = useState(false)
 	const [data, setData] = useState()
 	let history = useHistory()
-	
+	const [areasArray, setAreasArray] = useState([])
 
 
 	useEffect(() => {
-		
-		
-			getAreas()	
-		
-		
+		getAreas()	
 	},[]);
 
 
@@ -66,22 +83,7 @@ function AreasRegistradas({match}){
 		history.push('/Anfitrion')
 	}
 
-	const useStyles = makeStyles((theme) => ({
-	  root: {
-	    display: 'flex',
-	    flexWrap: 'wrap',
-	    justifyContent: 'space-around',
-	    overflow: 'hidden',
-	    backgroundColor: theme.palette.background.paper,
-	  },
-	  gridList: {
-	    width: 500,
-	    height: 450,
-	  },
-	  icon: {
-	    color: 'rgba(255, 255, 255, 0.54)',
-	  },
-	}));
+	
 	const classes = useStyles();
 	if(loading){
 		return <Loader />
@@ -99,7 +101,7 @@ function AreasRegistradas({match}){
 								        <GridListTile key={tile.orderIndex}>  
 								                                                     
 								        
-								        <Link to={`/Anfitrion/AgregarItems/${tile.name}/${tile.type}/${tile.propertyAreaId}/${propertyId}`}>
+								        <Link className={areasTerminadas.includes(tile.name)? classes.disableLink : ""} to={`/Anfitrion/AgregarItems/${tile.name}/${tile.type}/${tile.propertyAreaId}/${propertyId}`}>
 								        	<img src={image} alt={tile.propertyAreaId} 			        		 
 								        		 className={"MuiGridListTile-tile"}
 								        	/>
@@ -112,7 +114,7 @@ function AreasRegistradas({match}){
 								            
 								            actionIcon={
 								              <IconButton aria-label={`info about ${tile.name}`} className={classes.icon}>
-								                <InfoIcon />
+								                {areasTerminadas.includes(tile.name) ? <DoneIcon /> : <CheckBoxOutlineBlankIcon/>}
 								              </IconButton>                  
 								            }
 								          />
@@ -122,7 +124,10 @@ function AreasRegistradas({match}){
 								    </GridList>
 								</div>
 								<div>
-									<Button variant="outlined" color="primary" onClick={handleClickTerminar} >Terminar Registro</Button>
+									<Button disabled={areasTerminadas.length === data.length ? false : true }variant="outlined" color="primary" onClick={handleClickTerminar} >Terminar Registro</Button>
+									
+									
+									
 									<Dialog
 									    open={openTerminar}
 									    onClose={handleCloseTerminar}
@@ -144,6 +149,7 @@ function AreasRegistradas({match}){
 									      </Button>
 									    </DialogActions>
 									  </Dialog>
+
 								</div>
 								</div>
 							:

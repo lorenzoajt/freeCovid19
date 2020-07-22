@@ -60,7 +60,7 @@ function Supervisores(){
 	    	<Button 
 	  		  variant="contained" 
 	  		  color="primary"
-	  		  component={Link} to="/agregarSupervisor"	  		  
+	  		  component={Link} to="/Anfitrion/agregarSupervisor"	  		  
 	  		  >Agregar Supervisor
 	  		</Button>  	    
 	    	

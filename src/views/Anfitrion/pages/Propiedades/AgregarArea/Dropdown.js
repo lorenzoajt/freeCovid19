@@ -37,7 +37,7 @@ export default function Dropdown(props){
         <MenuItem value={"cocina"}>Cocina</MenuItem>
         <MenuItem value={"dormitorio"}>Dormitorio</MenuItem>
         <MenuItem value={"comunes"}>Zonas Comunes</MenuItem>
-        <MenuItem value={"aireLibre"}>Zonas AireLibre</MenuItem>
+        <MenuItem value={"aireLibre"}>Áreas al aire libre</MenuItem>
         <MenuItem value={"entrada"}>Entrada y Recibidor</MenuItem>
         <MenuItem value={"otros"}>Otros</MenuItem>
       </Select>

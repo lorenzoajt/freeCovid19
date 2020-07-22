@@ -22,8 +22,6 @@ function Historial(){
      <div>
      Historial
       </div>
-
-
     )
 
   }

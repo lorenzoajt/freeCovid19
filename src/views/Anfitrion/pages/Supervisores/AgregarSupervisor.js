@@ -5,7 +5,7 @@ import { Button} from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
-
+import Loader from '../../../../components/Loader'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
       width: 200,
     },
   },
+  boton: {
+    margin: theme.spacing(1),
+  }
 }));
 
 export default function AgregarSupervisor() {
@@ -22,10 +25,12 @@ export default function AgregarSupervisor() {
   const classes = useStyles();
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  
+  const [loading, setLoading ] = useState(false)
+
   const { getAccessTokenSilently } = useAuth0();
   
   const postToAPI = async () => {
+    setLoading(true)
     try {
       const token = await getAccessTokenSilently();	
       const post = {
@@ -39,10 +44,13 @@ export default function AgregarSupervisor() {
           Authorization: `Bearer ${token}`
         }
       });
-
-      history.push('/supervisores');       
+      const responseData = await response.text()
+      
+      setLoading(false)
+      history.push('/Anfitrion/supervisores');       
 
     } catch (error) {
+      setLoading(false)
       console.error(error);
     }
   };
@@ -56,37 +64,39 @@ export default function AgregarSupervisor() {
     }    
   }
 
-  return (
-    <div>
+  if(loading){
+    return <Loader />
+  }else{
+    return (
+      <div>
 
-      <form className={classes.root} autoComplete="off" >
-          <TextField
-            error={name === ""}          
-            label="Nombre"
-            helperText="Este campo es obligatorio"
-            onChange={event=> setName(event.target.value)}
-          />
-          <TextField
-            error={email.includes("@") === false}        
-            label="E-mail"
-            helperText="Este campo es obligatorio"
-            onChange={event=> setEmail(event.target.value)}
-          />
-          
-      </form>
-      <Button type="submit" 
-              variant="outlined" 
-              color="primary"
-              value="Agregar" 
-              disabled={check() && true}                        
-              onClick={postToAPI}
-        >
-        Confirmar
-      </Button>
-
-   
-
-    </div>
-
-  );
+        <form className={classes.root} autoComplete="off" >
+            <TextField
+              error={name === ""}          
+              label="Nombre"
+              helperText="Este campo es obligatorio"
+              onChange={event=> setName(event.target.value)}
+            />
+            <TextField
+              error={email.includes("@") === false}        
+              label="E-mail"
+              helperText="Este campo es obligatorio"
+              onChange={event=> setEmail(event.target.value)}
+            />
+            
+        </form>
+        <Button type="submit" 
+                variant="outlined" 
+                color="primary"
+                value="Agregar" 
+                disabled={check() && true}                        
+                onClick={postToAPI}
+                className= {classes.boton}
+          >
+          Confirmar
+        </Button>    
+      </div>
+    );
+  }
+  
 }
