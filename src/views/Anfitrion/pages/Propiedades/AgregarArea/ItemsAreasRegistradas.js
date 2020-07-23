@@ -17,7 +17,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-
+import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
 	  root: {
 	    display: 'flex',
@@ -35,6 +35,12 @@ const useStyles = makeStyles((theme) => ({
 	  },
 	  disableLink: {
 	    pointerEvents: "none"
+	  },
+	  texto: {
+	    margin: theme.spacing(1),
+	  },
+	  boton: {
+	    margin: theme.spacing(1),
 	  }
 	}));
 
@@ -89,8 +95,11 @@ function AreasRegistradas({areasTerminadas, match}){
 		return <Loader />
 	}else{
 		return(	
-			<div>	
-				<h1>Areas Registradas</h1>	
+			<div>
+				<Typography variant="h3" className={classes.texto}gutterBottom>
+			       Areas Registradas
+			     </Typography>		
+				
 				{areaNum > 0 ? <div>
 								<div className={classes.root}>
 								    <GridList cellHeight={180} className={classes.gridList}>
@@ -124,7 +133,13 @@ function AreasRegistradas({areasTerminadas, match}){
 								    </GridList>
 								</div>
 								<div>
-									<Button disabled={areasTerminadas.length === data.length ? false : true }variant="outlined" color="primary" onClick={handleClickTerminar} >Terminar Registro</Button>
+									<Button 
+										disabled={areasTerminadas.length === data.length ? false : true }
+										variant="outlined" color="primary" 
+										onClick={handleClickTerminar}
+										className={classes.boton}
+										 >Terminar Registro</Button>
+										
 									
 									
 									

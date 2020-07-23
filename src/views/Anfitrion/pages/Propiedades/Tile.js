@@ -81,7 +81,7 @@ function Tile(props){
       }
 
     getFoto(tile.propertyId);
-  }, [tilesNum]);
+  }, []);
 
 
     
@@ -157,7 +157,7 @@ function Tile(props){
     <div className={"MuiGridListTile-tile"}>
       <GridListTile className={"MuiGridListTile-tile"} >  
                                                  
-        <Link to={`/Anfitrion/AreasRegistradas/${tile.propertyId}`}>
+        <Link to={`/Anfitrion/AreasRegistradas/${tile.propertyId}/${tile.propertyName}`}>
         
           <img  src={imgSrc}                    
                 alt={tile.propertyName}                                 

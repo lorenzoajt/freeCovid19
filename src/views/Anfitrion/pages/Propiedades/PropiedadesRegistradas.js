@@ -3,11 +3,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-
 import Tile from './Tile'
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 import Loader from '../../../../components/Loader'
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,8 +25,11 @@ const useStyles = makeStyles((theme) => ({
       color: 'rgba(255, 255, 255, 0.54)',
     },
     button: {
-    margin: theme.spacing(1)
-  },
+      margin: theme.spacing(1)
+    },
+    texto: {
+      margin: theme.spacing(1),
+    },
   }));
 
 function PropiedadesRegistradas(){
@@ -48,18 +51,19 @@ function PropiedadesRegistradas(){
                 Authorization: `Bearer ${token}`
               }
           });      
-          const responseData = await response.json();    
+          const responseData = await response.json();              
           setData(responseData.items)  
           setLoading(false)
         } catch (error) {
           console.error(error);
         }
       };
-  
- if(data){
-  if(loading){
-    return <Loader />
+
+
+ if(loading){
+    return <Loader /> 
   }else{
+    if(data.length){
     return(
       <div>
       <Button color= 'primary' className={classes.button} variant="contained" component={Link} to={'/Anfitrion/AgregarPropiedad'}>Agregar Propiedad</Button>
@@ -79,12 +83,18 @@ function PropiedadesRegistradas(){
       </div>
     )
 
+  }else{
+    return (
+      <div>
+        <Button color= 'primary' className={classes.button} variant="contained" component={Link} to={'/Anfitrion/AgregarPropiedad'}>Agregar Propiedad</Button>
+         <Typography variant="h3" className={classes.texto}gutterBottom>
+           No hay propiedades Registradas
+         </Typography>          
+      </div>
+    )
   }
 
- }else{
-  return(<Button color= 'primary' className={classes.button} variant="contained" component={Link} to={'/AgregarPropiedad'}>Agregar Propiedad</Button>)
  }
-  
   
   
 }

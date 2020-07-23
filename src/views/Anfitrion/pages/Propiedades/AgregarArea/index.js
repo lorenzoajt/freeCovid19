@@ -16,6 +16,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Prompt } from 'react-router'
 import TipOrdenar from './TipOrdenar'
+import Typography from '@material-ui/core/Typography';
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -37,7 +39,10 @@ const useStyles = makeStyles((theme) => ({
   },
   textArea:{
     margin: theme.spacing(1),
-  }
+  },
+  texto: {
+    margin: theme.spacing(1),
+  },
 }));
 export default function AreasRegistradasDnD({match}) {
   const defAreas = defaultAreas.items
@@ -109,11 +114,9 @@ export default function AreasRegistradasDnD({match}) {
       areas,
       result.source.index,
       result.destination.index
-    );
-    // console.log(items)
+    );    
     const newList = [].concat(items) 
-    // const pos = newList.map(function(e) { return e.orderIndex; }).indexOf('6');
-    // console.log("pos", pos)
+    
 
     const post = newList.map(item => ({
       name: item.name,
@@ -122,7 +125,7 @@ export default function AreasRegistradasDnD({match}) {
     }))
     
     
-    setAreas( post );
+    setAreas(post);
   }
   
             
@@ -158,6 +161,13 @@ export default function AreasRegistradasDnD({match}) {
       return false
     }
   }
+  const checkNum = () => {
+    if(areas.length === 0){
+      return true
+    }else{
+      return false
+    }
+  }
   const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
         return;
@@ -171,7 +181,10 @@ export default function AreasRegistradasDnD({match}) {
 
   }else{
     return (
-      <>    
+      <>      
+      <Typography variant="h3" className={classes.texto}gutterBottom>
+         Areas de propiedad
+       </Typography>  
       <TipOrdenar />  
       <form  noValidate autoComplete="off">
         
@@ -195,6 +208,7 @@ export default function AreasRegistradasDnD({match}) {
           variant="contained" 
           onClick={sendToAPI}      
           color="primary" className={classes.button}
+          disabled ={checkNum()}
           >Confirmar orden
           </Button>
       </form>

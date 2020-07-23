@@ -189,10 +189,10 @@ export default function DashboardAnfitrion() {
 
             <Route exact path ="/Anfitrion" component={PropiedadesRegistradas}/>
             <Route path = '/Anfitrion/AgregarPropiedad' component={AgregarPropiedad} />
-            <Route path = "/Anfitrion/AreasRegistradas/:propertyId" component={AreasRegistradas}/>
+            <Route path = "/Anfitrion/AreasRegistradas/:propertyId/:propertyName" component={AreasRegistradas}/>
             <Route path = "/Anfitrion/ItemsAreasRegistradas/:propertyId" render = {props => <ItemsAreasRegistradas {...props} areasTerminadas={areasTerminadas} /> } />            
             <Route path = "/Anfitrion/AgregarItems/:areaName/:areaType/:areaId/:propertyId" render = {props => <AgregarItems {...props} handleAreasTerminadas={handleAreasTerminadas} /> } />            
-            <Route path = "/Anfitrion/ElementosDeArea/:areaId" component = {ElementosDeArea} />
+            <Route path = "/Anfitrion/ElementosDeArea/:areaId/:areaName" component = {ElementosDeArea} />
             
             <Route path = "/Anfitrion/AgregarArea/:propertyId" component = {AgregarArea} />
             <Route path = "/Anfitrion/Supervisores" component={Supervisores}/>

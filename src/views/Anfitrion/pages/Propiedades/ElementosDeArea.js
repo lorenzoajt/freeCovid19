@@ -8,29 +8,34 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-    margin: '0 10px 10px 10px',
-    display: 'inline-block',    
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
+const useStyles = makeStyles((theme) => ({
+	root: {
+	  minWidth: 275,
+	  margin: '0 10px 10px 10px',
+	  display: 'inline-block',    
+	},
+	bullet: {
+	  display: 'inline-block',
+	  margin: '0 2px',
+	  transform: 'scale(0.8)',
+	},
+	title: {
+	  fontSize: 14,
+	},
+	pos: {
+	  marginBottom: 12,
+	},
+	texto: {
+	  margin: theme.spacing(1),
+	}
+  
+}));
 
 
 function ElementosDeArea({match}){	
-	const {areaId} = match.params
+	const {areaId, areaName} = match.params
 	const { getAccessTokenSilently } = useAuth0();
 	const [data, setData] = useState()
 	const [loading, setLoading] = useState(true)
@@ -61,29 +66,50 @@ function ElementosDeArea({match}){
 	if(loading){
 		return <Loader />
 	}else{
-		return(
-			<div>
-				<h1>ElementosDeArea {areaId}</h1>
-				{data.map(item => (
-					<Card key = {item.propertyAreaItemId} className={classes.root}>
-					      <CardContent>      
-					        <Typography variant="h5" component="h2">
-					        {item.name}
-					        </Typography>                       
-					      </CardContent>
-					      <CardActions>
-					        <Typography variant="body2" component="p">
-					          Requiere Evidencia 
-					        </Typography> 
-					        {item.evidence ? <CheckCircleIcon /> : <CancelIcon /> }
-					      </CardActions>
-					    </Card>
+		if(data.length > 0){
+			return(
+				<div>
+					<Typography variant="h3"className={classes.texto} gutterBottom>
+				       Elementos de {areaName}
+				     </Typography>		
+				     <Grid container 
+				     	   justify="flex-start"
+	  					   alignItems="flex-start"
+	  					   spacing={3}>    
+	  					   
+					{data.map(item => (
+						<Grid item xs={3}>
+						<Card key = {item.propertyAreaItemId} className={classes.root}>
+						      <CardContent>      
+						        <Typography variant="h5" component="h2">
+						        {item.name}
+						        </Typography>                       
+						      </CardContent>
+						      <CardActions>
+						        <Typography variant="body2" component="p">
+						          Requiere Evidencia 
+						        </Typography> 
+						        {item.evidence ? <CheckCircleIcon /> : <CancelIcon /> }
+						      </CardActions>
+						    </Card>
+						   </Grid>
 
-				)					
-				)}
+					)					
+					)}
+					</Grid>
 
-			</div>
-		)
+				</div>
+			)
+
+		}else{
+			return(
+					<Typography variant="h3"className={classes.texto} gutterBottom>
+				       {areaName} no tiene elementos registrados
+				     </Typography>	
+
+			)
+		}
+		
 
 	}
 	

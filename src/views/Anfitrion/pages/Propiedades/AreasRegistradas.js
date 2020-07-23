@@ -12,19 +12,39 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import { Link, useHistory} from "react-router-dom";
 import Loader from '../../../../components/Loader.js'
+import Typography from '@material-ui/core/Typography';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+    width: 500,
+    height: 450,
+  },
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
+  },
+  texto: {
+    margin: theme.spacing(1),
+  }
+}));
 function AreasRegistradas({match}){
 	let history = useHistory();
-	
+	const classes = useStyles();
 	const { getAccessTokenSilently } = useAuth0();
 	const [areaNum, setAreaNum] = useState()
-	const {propertyId} = match.params
+	const {propertyId, propertyName} = match.params
 	const [loading, setLoading] = useState(true)
 
 	const [data, setData] = useState()
 	
 	useEffect(() => {
-		console.log("por que chingados")
+		let mounted = true
 	    const getAreas = async () => {
     	try {
     	  const token = await getAccessTokenSilently();	  
@@ -42,36 +62,25 @@ function AreasRegistradas({match}){
     	  console.error(error);
     	}
     	};
-	 
-	    getAreas();
+
+	 	if (mounted) {
+            getAreas();
+        }
+        return function cleanup() {
+            mounted = false
+        }
+	    
 	  }, []);
-	
-
-
-	const useStyles = makeStyles((theme) => ({
-	  root: {
-	    display: 'flex',
-	    flexWrap: 'wrap',
-	    justifyContent: 'space-around',
-	    overflow: 'hidden',
-	    backgroundColor: theme.palette.background.paper,
-	  },
-	  gridList: {
-	    width: 500,
-	    height: 450,
-	  },
-	  icon: {
-	    color: 'rgba(255, 255, 255, 0.54)',
-	  },
-	}));
-	const classes = useStyles();
 
 	if(loading){
 		return <Loader />
 	}else{
 			return(	
 				<div>	
-					<h1>Areas Registradas</h1>	
+					<Typography variant="h3" className={classes.texto}gutterBottom>
+				       Areas Registradas de {propertyName}
+				     </Typography>		
+					
 					{areaNum > 0 ? <div className={classes.root}>
 									
 								        
@@ -83,7 +92,7 @@ function AreasRegistradas({match}){
 								        <GridListTile key={tile.propertyAreaId}>  
 								                                                     
 								        
-								        <Link to={`/Anfitrion/ElementosDeArea/${tile.propertyAreaId}`}>
+								        <Link to={`/Anfitrion/ElementosDeArea/${tile.propertyAreaId}/${tile.name}`}>
 								        	<img src={image} alt={tile.propertyAreaId} 			        		 
 								        		 className={"MuiGridListTile-tile"}
 								        	/>
@@ -107,11 +116,12 @@ function AreasRegistradas({match}){
 								    
 								</div>
 								:
-								<h1>No hay áreas para mostrar</h1>
+								<Typography variant="h3" className={classes.texto}gutterBottom>
+							       No hay áreas para mostrar
+							     </Typography>								
 							}
 					<div>
-						<Button onClick={() => history.goBack()}>Atras</Button>
-					    {/*<Button component={Link} to={`/AgregarArea/${propertyId}`}>Agregar Area</Button>*/}
+						<Button onClick={() => history.goBack()}>Atras</Button>					    
 					</div>
 
 

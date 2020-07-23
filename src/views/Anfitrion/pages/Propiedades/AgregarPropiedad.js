@@ -12,6 +12,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -39,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
   },
+  texto: {
+    margin: theme.spacing(1),
+  }
 }));
 
 
@@ -161,8 +165,10 @@ function AgregarPropiedad() {
     <div>
       <Backdrop className={classes.backdrop} open={loading} >
         <CircularProgress color="inherit" />
-      </Backdrop>
-      <h1 className={classes.root}>AgregarPropiedad</h1>
+      </Backdrop>      
+      <Typography variant="h3"className={classes.texto} gutterBottom>
+       Agregar Propiedad
+      </Typography>  
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
           {errorMsg}
