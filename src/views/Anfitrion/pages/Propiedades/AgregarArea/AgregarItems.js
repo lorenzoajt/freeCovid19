@@ -47,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
   },    
 }));
 
-function AgregarItems({handleAreasTerminadas, match}){
+function AgregarItems(props){
 	const { getAccessTokenSilently } = useAuth0();	
-	const {areaId, propertyId, areaType, areaName} = match.params
+	const {areaId, propertyId, areaType, areaName, handleAreasTerminadas, prevStep} = props
 	const [open, setOpen] = useState(false);//snackbar open hook
 	const [openError, setOpenError] = useState(false);//snackbar open hook
 	const [message, setMessage] = useState("")
@@ -203,7 +203,7 @@ function AgregarItems({handleAreasTerminadas, match}){
 		setOpen(true)
 		setMessage(responseData)	
 		setLoading(false)
-		history.goBack()		
+		prevStep()
 
 		} catch (error) {
 		console.error(error);
@@ -235,7 +235,7 @@ function AgregarItems({handleAreasTerminadas, match}){
 			<FormLabel component="legend">Elija elementos a desinfectar para {areaName} </FormLabel>
 			<FormGroup>
 			  <FormControlLabel
-			    control={<Checkbox checked={state.allChecked} onChange={handleChange} name="checkAll" />}
+			    control={<Checkbox checked={state.allChecked} onChange={handleChange} name="checkAll" color="primary"/>}
 			    label={"Seleccionar Todo"} />
 
 			  {state.list.map((item, index) => {
@@ -243,7 +243,7 @@ function AgregarItems({handleAreasTerminadas, match}){
 			                <Card key={index} className={classes.card}>
 			                <CardContent>      
 			                <FormControlLabel
-			                  control={<Checkbox checked={item.isChecked} onChange={handleChange} name={item.name} />}
+			                  control={<Checkbox checked={item.isChecked} onChange={handleChange} name={item.name} color="primary"/>}
 			                  label={item.name}
 			                  />  
 							<IconButton onClick={()=>handleDelete(index)}>
@@ -268,8 +268,8 @@ function AgregarItems({handleAreasTerminadas, match}){
 			</FormGroup>
 		</FormControl> 
 		<div>
-			<Button component={Link} to={`/Admin/ItemsAreasRegistradas/${propertyId}`}>Atrás</Button>
-			<Button disabled={selectedElements.length === 0} onClick={handlePost}>Confirmar</Button>
+			
+			<Button color="primary" variant="contained" className={classes.button} disabled={selectedElements.length === 0} onClick={handlePost}>Confirmar</Button>
 		</div>
 		<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 		  <Alert onClose={handleClose} severity={status=== 201 ? "success" : "warning" }>

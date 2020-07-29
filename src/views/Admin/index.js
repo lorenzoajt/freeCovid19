@@ -20,16 +20,11 @@ import SelectedListItem from './SelectedListItem'
 import AgregarAnfitrion from  './AgregarAnfitrion.js'
 import NuevoFolio from './NuevoFolio.js'
 import {
-  BrowserRouter as Router,
   Switch,
-  Route,
-  
+  Route,  
 } from "react-router-dom";
 import {Theme} from '../../components/Theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
-
-
-import Home from './Home';
 import Anfitriones from './Anfitriones';
 import Folios  from './Folios';
 import Logout from "../../components/Logout";
@@ -150,12 +145,7 @@ export default function DashboardAdmin() {
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Bienvenido
-            </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            </Typography>            
             <Logout />
           </Toolbar>
 

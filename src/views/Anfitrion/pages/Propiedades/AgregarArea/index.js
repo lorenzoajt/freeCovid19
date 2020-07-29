@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 
 import { DragDropContext } from "react-beautiful-dnd";
@@ -8,13 +8,12 @@ import TextField from '@material-ui/core/TextField';
 import columnData from './columnData'
 import Column from './Column'
 import { useAuth0 } from "@auth0/auth0-react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation, Prompt } from "react-router-dom";
 import Dropdown from './Dropdown.js'
 import {defaultAreas} from './defaultAreas'
 import Loader from '../../../../../components/Loader'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { Prompt } from 'react-router'
 import TipOrdenar from './TipOrdenar'
 import Typography from '@material-ui/core/Typography';
 
@@ -44,23 +43,24 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
 }));
-export default function AreasRegistradasDnD({match}) {
+let popEventListnerAdded = false  
+
+export default function AreasRegistradasDnD(props) {
   const defAreas = defaultAreas.items
   const [areas, setAreas] = useState(defAreas);
   const [newArea, setNewArea] = useState("")
   const { getAccessTokenSilently } = useAuth0();
-  const {propertyId} = match.params
+  const {propertyId, nextStep} = props
   const [areaType, setAreaType] = React.useState('');
   const classes = useStyles();
   const history = useHistory()
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const location = useLocation()
+  const [isLeaving, setIsLeaving] = useState(true)
 
-  // window.addEventListener('popstate', (event) => {
-    
-  //   alert("La propiedad está incompleta tendrá que empezar de nuevo");    
-  //   history.push('/Anfitrion')
-  // });
+
+
 
   const handleChangeAreaType = (event) => {
     setAreaType(event.target.value);
@@ -132,6 +132,7 @@ export default function AreasRegistradasDnD({match}) {
 
   async function sendToAPI (id, name){
     setLoading(true)
+    setIsLeaving(false)
     try {  
     const token = await getAccessTokenSilently();  
     const post = {
@@ -143,10 +144,11 @@ export default function AreasRegistradasDnD({match}) {
         headers: {
           Authorization: `Bearer ${token}`
         }
-    });
-    const responseData = response.text()    
+    });      
     setLoading(false)
-    history.push(`/Anfitrion/ItemsAreasRegistradas/${propertyId}`)
+
+    // history.push(`/Anfitrion/ItemsAreasRegistradas/${propertyId}`)
+    nextStep()
 
     
     
@@ -175,13 +177,16 @@ export default function AreasRegistradasDnD({match}) {
 
       setOpen(false);
     };
+    
+
   
   if(loading){
     return <Loader/>
 
   }else{
     return (
-      <>      
+      <>   
+            
       <Typography variant="h3" className={classes.texto}gutterBottom>
          Areas de propiedad
        </Typography>  

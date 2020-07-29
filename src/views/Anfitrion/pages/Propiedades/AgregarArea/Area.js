@@ -11,12 +11,12 @@ import WeekendIcon from '@material-ui/icons/Weekend';
 import "@atlaskit/css-reset";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BathtubIcon from '@material-ui/icons/Bathtub';
-import KitchenIcon from '@material-ui/icons/Kitchen';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
 import HotelIcon from '@material-ui/icons/Hotel';
 import TvIcon from '@material-ui/icons/Tv';
 import LocalFloristIcon from '@material-ui/icons/LocalFlorist';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import RoomIcon from '@material-ui/icons/Room';
+import HomeIcon from '@material-ui/icons/Home';
 import styled from "styled-components";
 
 var AreaIcon = ""
@@ -41,7 +41,7 @@ function Area(props) {
       AreaColor = "#2196f3"
       break;
     case "cocina":
-      AreaIcon = <KitchenIcon />
+      AreaIcon = <RestaurantIcon />
       AreaColor = "#ff9800"
       break;
     case "dormitorio":
@@ -49,7 +49,7 @@ function Area(props) {
       AreaColor = "#00bcd4"
       break;
     case "comunes":
-      AreaIcon = <TvIcon />
+      AreaIcon = <WeekendIcon />
       AreaColor = "#3f51b5"
       break;
     case "aireLibre":
@@ -61,7 +61,7 @@ function Area(props) {
       AreaColor = "#4caf50"
       break;
     case "otros":      
-      AreaIcon = <RoomIcon />
+      AreaIcon = <HomeIcon />
       AreaColor = "#9c27b0"
       break;
     default:

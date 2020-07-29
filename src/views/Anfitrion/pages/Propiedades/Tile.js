@@ -120,7 +120,7 @@ function Tile(props){
         "propertyName": propName,
         "address": propAdress
       }
-
+      console.log(post)
       const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propertyId}`, {
         method: 'PATCH',
         body: JSON.stringify(post),
@@ -134,6 +134,14 @@ function Tile(props){
       console.error(error);
       }
     };
+
+    const check = () => {
+        if(propName === "" || propAdress === ""){
+          return true
+        }else{
+          return false
+        }
+      }
 
     ///////////
     const handleCloseEdit = () => {

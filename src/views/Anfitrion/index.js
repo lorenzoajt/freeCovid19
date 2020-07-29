@@ -30,12 +30,11 @@ import Detalle from '../../components/Detalle'
 import DetalleUsed from '../../components/DetalleUsed'
 import ItemsAreasRegistradas from './pages/Propiedades/AgregarArea/ItemsAreasRegistradas'
 import AgregarItems from './pages/Propiedades/AgregarArea/AgregarItems'
+import Multistep from './pages/Propiedades/MultiStep'
 
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  
 } from "react-router-dom";
 
 
@@ -123,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DashboardAnfitrion() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const [areasTerminadas, setAreasTerminadas] = React.useState([])
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -131,13 +130,8 @@ export default function DashboardAnfitrion() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const handleClick = () => {
-    console.log("clicked")
-  }
 
-  const handleAreasTerminadas = (area) => {
-    setAreasTerminadas([...areasTerminadas, area])    
-  }
+ 
 
 
 
@@ -157,13 +151,8 @@ export default function DashboardAnfitrion() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+            Centro de control
+          </Typography>         
           <Logout />
         </Toolbar>
       </AppBar>
@@ -190,13 +179,14 @@ export default function DashboardAnfitrion() {
             <Route exact path ="/Anfitrion" component={PropiedadesRegistradas}/>
             <Route path = '/Anfitrion/AgregarPropiedad' component={AgregarPropiedad} />
             <Route path = "/Anfitrion/AreasRegistradas/:propertyId/:propertyName" component={AreasRegistradas}/>
-            <Route path = "/Anfitrion/ItemsAreasRegistradas/:propertyId" render = {props => <ItemsAreasRegistradas {...props} areasTerminadas={areasTerminadas} /> } />            
-            <Route path = "/Anfitrion/AgregarItems/:areaName/:areaType/:areaId/:propertyId" render = {props => <AgregarItems {...props} handleAreasTerminadas={handleAreasTerminadas} /> } />            
+            
+            
             <Route path = "/Anfitrion/ElementosDeArea/:areaId/:areaName" component = {ElementosDeArea} />
             
             <Route path = "/Anfitrion/AgregarArea/:propertyId" component = {AgregarArea} />
             <Route path = "/Anfitrion/Supervisores" component={Supervisores}/>
             <Route path = "/Anfitrion/historial" component={Historial}/>
+            <Route path = "/Anfitrion/Multistep" component={Multistep}/>
             
             <Route path = "/Anfitrion/Folios" component={Folios}/>    
             <Route path = "/Anfitrion/areasRegistradas" component={AreasRegistradas}/>

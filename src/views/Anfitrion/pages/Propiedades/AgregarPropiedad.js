@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function AgregarPropiedad() {
+function AgregarPropiedad(props) {
   let history = useHistory();
   const classes = useStyles();
 
@@ -61,6 +61,8 @@ function AgregarPropiedad() {
   const [adress, setAdress] = useState("")
   const [loading, setLoading] = useState(false)
   
+  const {nextStep, handlePropertyId} = props
+
   const fileSelectedHandler = event =>{
     setPreview(URL.createObjectURL(event.target.files[0]))
     setFile(event.target.files[0])  
@@ -99,7 +101,9 @@ function AgregarPropiedad() {
           }
           
           setLoading(false)
-          history.push(`/Anfitrion/AgregarArea/${propertyId}`);   
+          // history.push(`/Anfitrion/AgregarArea/${propertyId}`);   
+          nextStep()
+          handlePropertyId(propertyId)
 
         }
 

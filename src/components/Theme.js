@@ -12,9 +12,9 @@ export const Theme = createMuiTheme({
     },
     secondary: {
       light: '#0066ff',
-      main: '#fc1c8c',
+      main: '#ffffff',
       // dark: will be calculated from palette.secondary.main,
-      contrastText: '#ffcc00',
+      contrastText: '#354B63',
     },
   },
 });

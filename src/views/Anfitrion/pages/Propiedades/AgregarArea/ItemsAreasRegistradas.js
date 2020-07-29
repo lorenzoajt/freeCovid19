@@ -8,7 +8,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import DoneIcon from '@material-ui/icons/Done';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Prompt} from "react-router-dom";
 import { withRouter } from 'react-router-dom'
 import Loader from '../../../../../components/Loader'
 import Dialog from '@material-ui/core/Dialog';
@@ -44,33 +44,37 @@ const useStyles = makeStyles((theme) => ({
 	  }
 	}));
 
-function AreasRegistradas({areasTerminadas, match}){
+function AreasRegistradas(props){
 	
 	
 	const { getAccessTokenSilently } = useAuth0();
 	const [areaNum, setAreaNum] = useState()
-	const {propertyId} = match.params
+	const {propertyId, areasTerminadas, nextStep, handleName, handleType, handlePropertyAreaId, handleComplete} = props
 	const [loading, setLoading] = useState(true)
 	const [openTerminar, setOpenTerminar] = useState(false)
 	const [data, setData] = useState()
 	let history = useHistory()
 	const [areasArray, setAreasArray] = useState([])
+	
+	const [isComplete, setIsComplete] = useState(false)
 
 
 	useEffect(() => {
-		getAreas()	
+		getAreas()			
 	},[]);
 
-
+	
 	const getAreas = async () => {
 	try {
 	  const token = await getAccessTokenSilently();	  
+	  console.log(propertyId)
 	  const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/propertyareas/${propertyId}`, {
 	    headers: {
 	      Authorization: `Bearer ${token}`
 	    }
 	  });
-	  const responseData = await response.json();	  
+	  const responseData = await response.json();
+	  console.log(responseData)	  	 
 	  setData(responseData.items)	  
 	  setAreaNum(responseData.items.length)
 	  setLoading(false)
@@ -80,96 +84,97 @@ function AreasRegistradas({areasTerminadas, match}){
 	};
 	const handleClickTerminar = () => {
 	    setOpenTerminar(true);
+	    setIsComplete(true)
 	  };
 
-	const handleCloseTerminar = () => {
-		setOpenTerminar(false);
-	};
-	const handleAccept = () => {
+	// const handleCloseTerminar = () => {
+	// 	setOpenTerminar(false);
+	// };
+	const handleAccept = () => {		
 		history.push('/Anfitrion')
 	}
 
+	const handleClickToItems =(name, type, propertyAreaId) => {		
+		handleName(name)
+		handleType(type)
+		handlePropertyAreaId(propertyAreaId)
+		nextStep()
+	}
+	
 	
 	const classes = useStyles();
 	if(loading){
 		return <Loader />
 	}else{
 		return(	
-			<div>
+			<div>		
+				<Prompt when={!isComplete} message={"Los cambios no seran guardados"}/>			
 				<Typography variant="h3" className={classes.texto}gutterBottom>
 			       Areas Registradas
 			     </Typography>		
 				
-				{areaNum > 0 ? <div>
-								<div className={classes.root}>
-								    <GridList cellHeight={180} className={classes.gridList}>
-								      <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-								        
-								      </GridListTile>
-								      {data && data.map((tile) => (
-								        <GridListTile key={tile.orderIndex}>  
-								                                                     
-								        
-								        <Link className={areasTerminadas.includes(tile.name)? classes.disableLink : ""} to={`/Anfitrion/AgregarItems/${tile.name}/${tile.type}/${tile.propertyAreaId}/${propertyId}`}>
-								        	<img src={image} alt={tile.propertyAreaId} 			        		 
-								        		 className={"MuiGridListTile-tile"}
-								        	/>
-								        </Link>
-								        
-								          
-								          <GridListTileBar
-								            title={tile.name}						            
-		          							subtitle={<span> {tile.type}</span>}
-								            
-								            actionIcon={
-								              <IconButton aria-label={`info about ${tile.name}`} className={classes.icon}>
-								                {areasTerminadas.includes(tile.name) ? <DoneIcon /> : <CheckBoxOutlineBlankIcon/>}
-								              </IconButton>                  
-								            }
-								          />
-								        </GridListTile>
-								      ))
-								    }
-								    </GridList>
-								</div>
-								<div>
-									<Button 
-										disabled={areasTerminadas.length === data.length ? false : true }
-										variant="outlined" color="primary" 
-										onClick={handleClickTerminar}
-										className={classes.boton}
-										 >Terminar Registro</Button>
-										
-									
-									
-									
-									<Dialog
-									    open={openTerminar}
-									    onClose={handleCloseTerminar}
-									    aria-labelledby="alert-dialog-title"
-									    aria-describedby="alert-dialog-description"
-									  >
-									    <DialogTitle id="alert-dialog-title">{"Está seguro que desea terminar el registro?"}</DialogTitle>
-									    <DialogContent>
-									      <DialogContentText id="alert-dialog-description">
-									        Una vez terminado el registro, no podrá volver a editar la propiedad ni sus elementos
-									      </DialogContentText>
-									    </DialogContent>
-									    <DialogActions>
-									      <Button onClick={handleCloseTerminar} color="primary">
-									        Cancelar
-									      </Button>
-									      <Button onClick={handleAccept} color="primary" autoFocus>
-									        Aceptar
-									      </Button>
-									    </DialogActions>
-									  </Dialog>
+				<div>
+					<div className={classes.root}>
+					    <GridList cellHeight={180} className={classes.gridList}>
+					      <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+					        
+					      </GridListTile>
+					      {data && data.map((tile) => (
+					        <GridListTile key={tile.orderIndex} onClick={() => handleClickToItems(tile.name, tile.type, tile.propertyAreaId)}>  
+					                                                     
+					        
+					        
+					        	<img src={image} alt={tile.propertyAreaId} 			        		 
+					        		 className={"MuiGridListTile-tile"}
+					        		 
+					        	/>
+					        
+					        
+					          
+					          <GridListTileBar
+					            title={tile.name}						            
+      							subtitle={<span> {tile.type}</span>}
+					            
+					            actionIcon={
+					              <IconButton aria-label={`info about ${tile.name}`} className={classes.icon}>
+					                {areasTerminadas.includes(tile.name) ? <DoneIcon /> : <CheckBoxOutlineBlankIcon/>}
+					              </IconButton>                  
+					            }
+					          />
+					        </GridListTile>
+					      ))
+					    }
+					    </GridList>
+					</div>
+					<div>
+						<Button 
+							disabled={areasTerminadas.length === data.length ? false : true }
+							variant="outlined" color="primary" 
+							onClick={handleClickTerminar}
+							className={classes.boton}
+							 >Terminar Registro</Button>
+							
+						
+						
+						
+						<Dialog
+						    open={openTerminar}
+						    
+						    aria-labelledby="alert-dialog-title"
+						    aria-describedby="alert-dialog-description"
+						  >
+						    <DialogTitle id="alert-dialog-title">{"Gracias por contribuir"}</DialogTitle>
+						    
+						    <DialogActions>						      
+						      <Button onClick={handleAccept} color="primary" autoFocus>
+						        Aceptar
+						      </Button>
+						    </DialogActions>
+						  </Dialog>
 
-								</div>
-								</div>
-							:
-							<h1>No hay áreas para mostrar</h1>
-						}
+					</div>
+					</div>
+							
 				
 
 

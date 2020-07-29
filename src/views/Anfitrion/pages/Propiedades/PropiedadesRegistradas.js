@@ -66,7 +66,7 @@ function PropiedadesRegistradas(){
     if(data.length){
     return(
       <div>
-      <Button color= 'primary' className={classes.button} variant="contained" component={Link} to={'/Anfitrion/AgregarPropiedad'}>Agregar Propiedad</Button>
+      <Button color= 'primary' className={classes.button} variant="contained" component={Link} to={'/Anfitrion/Multistep'}>Agregar Propiedad</Button>
         <div className={classes.root}>
                 
             <GridList cellHeight={180} className={classes.gridList} cols={3}>                            
@@ -86,7 +86,7 @@ function PropiedadesRegistradas(){
   }else{
     return (
       <div>
-        <Button color= 'primary' className={classes.button} variant="contained" component={Link} to={'/Anfitrion/AgregarPropiedad'}>Agregar Propiedad</Button>
+        <Button color= 'primary' className={classes.button} variant="contained" component={Link} to={'/Anfitrion/Multistep'}>Agregar Propiedad</Button>
          <Typography variant="h3" className={classes.texto}gutterBottom>
            No hay propiedades Registradas
          </Typography>          

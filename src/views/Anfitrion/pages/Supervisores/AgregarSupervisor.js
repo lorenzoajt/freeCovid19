@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   boton: {
     margin: theme.spacing(1),
+    marginBottom: theme.spacing(1)
   }
 }));
 

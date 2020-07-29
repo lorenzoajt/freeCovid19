@@ -29,8 +29,7 @@ function Detalle({match}){
 			} catch (error) {
 			console.error(error);
 			}
-		};
-	 
+		};	 	
 	    fetchData();
 	  }, []);
 
