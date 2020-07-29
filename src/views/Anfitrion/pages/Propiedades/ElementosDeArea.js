@@ -78,21 +78,21 @@ function ElementosDeArea({match}){
 	  					   spacing={3}>    
 	  					   
 					{data.map(item => (
-						<Grid item xs={3}>
-						<Card key = {item.propertyAreaItemId} className={classes.root}>
-						      <CardContent>      
-						        <Typography variant="h5" component="h2">
-						        {item.name}
-						        </Typography>                       
-						      </CardContent>
-						      <CardActions>
-						        <Typography variant="body2" component="p">
-						          Requiere Evidencia 
-						        </Typography> 
-						        {item.evidence ? <CheckCircleIcon /> : <CancelIcon /> }
-						      </CardActions>
-						    </Card>
-						   </Grid>
+						<Grid key = {item.name} item xs={3}>
+							<Card  className={classes.root}>
+								<CardContent>      
+									<Typography variant="h5" component="h2">
+									{item.name}
+									</Typography>                       
+								</CardContent>
+								<CardActions>
+									<Typography variant="body2" component="p">
+									Requiere Evidencia 
+									</Typography> 
+									{item.evidence ? <CheckCircleIcon /> : <CancelIcon /> }
+								</CardActions>
+							</Card>
+						</Grid>
 
 					)					
 					)}

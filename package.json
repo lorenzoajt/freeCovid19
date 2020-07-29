@@ -2,7 +2,6 @@
   "name": "testloginnew",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://lorenzoajt.github.io/freeCovid19",
   "dependencies": {
     "@atlaskit/css-reset": "^6.0.0",
     "@auth0/auth0-react": "^1.0.0",
@@ -28,14 +27,11 @@
     "styled-components": "^5.1.1"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-
   "eslintConfig": {
     "extends": "react-app"
   },
