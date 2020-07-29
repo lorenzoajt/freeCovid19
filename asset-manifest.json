@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/freeCovid19/static/css/main.3de7864e.chunk.css",
+    "main.js": "/freeCovid19/static/js/main.cf029f47.chunk.js",
+    "main.js.map": "/freeCovid19/static/js/main.cf029f47.chunk.js.map",
+    "runtime-main.js": "/freeCovid19/static/js/runtime-main.3e64ada8.js",
+    "runtime-main.js.map": "/freeCovid19/static/js/runtime-main.3e64ada8.js.map",
+    "static/css/2.3107b260.chunk.css": "/freeCovid19/static/css/2.3107b260.chunk.css",
+    "static/js/2.719ddb57.chunk.js": "/freeCovid19/static/js/2.719ddb57.chunk.js",
+    "static/js/2.719ddb57.chunk.js.map": "/freeCovid19/static/js/2.719ddb57.chunk.js.map",
+    "index.html": "/freeCovid19/index.html",
+    "precache-manifest.c01f4346b1a3c1308c8f5bae987f8c42.js": "/freeCovid19/precache-manifest.c01f4346b1a3c1308c8f5bae987f8c42.js",
+    "service-worker.js": "/freeCovid19/service-worker.js",
+    "static/css/2.3107b260.chunk.css.map": "/freeCovid19/static/css/2.3107b260.chunk.css.map",
+    "static/css/main.3de7864e.chunk.css.map": "/freeCovid19/static/css/main.3de7864e.chunk.css.map",
+    "static/js/2.719ddb57.chunk.js.LICENSE.txt": "/freeCovid19/static/js/2.719ddb57.chunk.js.LICENSE.txt",
+    "static/media/ICONO con circulo_Mesa de trabajo 1.png": "/freeCovid19/static/media/ICONO con circulo_Mesa de trabajo 1.26512682.png",
+    "static/media/apartment-contemporary-couch-curtains-275484.jpg": "/freeCovid19/static/media/apartment-contemporary-couch-curtains-275484.63f34423.jpg",
+    "static/media/noImage.jpeg": "/freeCovid19/static/media/noImage.2ed590ec.jpeg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3e64ada8.js",
+    "static/css/2.3107b260.chunk.css",
+    "static/js/2.719ddb57.chunk.js",
+    "static/css/main.3de7864e.chunk.css",
+    "static/js/main.cf029f47.chunk.js"
+  ]
+}
