@@ -11,11 +11,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Detalle({match}){
 	const {servicio, hostId} = match.params
-	const classes = useStyles();
 	const { getAccessTokenSilently } = useAuth0();
+	const classes = useStyles();
+	
 	const [folios, setFolios] = useState([])
 	
 	useEffect(() => {
+
 	    const fetchData = async () => {
 			try {
 				const token = await getAccessTokenSilently();	      	      

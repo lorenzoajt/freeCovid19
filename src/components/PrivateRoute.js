@@ -6,8 +6,7 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function PrivateRoute({ children, ...rest }) {
-  const { isAuthenticated } = useAuth0();
-  console.log("isAuthenticated", isAuthenticated)
+  const { isAuthenticated } = useAuth0();  
   return (
     <Route
       {...rest}

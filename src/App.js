@@ -1,12 +1,12 @@
 import React from 'react';
-import Login from './components/Login'
+import HomePage from './components/HomePage'
 import Profile from './components/Profile'
 import { useAuth0 } from "@auth0/auth0-react";
-
+import './App.css'
 function App() {
   const { isAuthenticated } = useAuth0();
   return (
-    <div className="App">
+    <div>
       
       {isAuthenticated ? 
         (
@@ -14,8 +14,7 @@ function App() {
         )
         :
         <> 
-          <h1>HomePage</h1>
-          <Login />
+          <HomePage />          
         </>
       }
 

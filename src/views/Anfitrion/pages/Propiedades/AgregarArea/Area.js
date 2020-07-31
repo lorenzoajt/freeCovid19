@@ -13,7 +13,6 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BathtubIcon from '@material-ui/icons/Bathtub';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import HotelIcon from '@material-ui/icons/Hotel';
-import TvIcon from '@material-ui/icons/Tv';
 import LocalFloristIcon from '@material-ui/icons/LocalFlorist';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import HomeIcon from '@material-ui/icons/Home';

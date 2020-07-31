@@ -8,16 +8,18 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import DoneIcon from '@material-ui/icons/Done';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import { Link, useHistory, Prompt} from "react-router-dom";
+import { useHistory, Prompt} from "react-router-dom";
 import { withRouter } from 'react-router-dom'
 import Loader from '../../../../../components/Loader'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
 const useStyles = makeStyles((theme) => ({
 	  root: {
 	    display: 'flex',
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 	  },
 	  gridList: {
 	    width: 500,
-	    height: 450,
+    	height: 700,
 	  },
 	  icon: {
 	    color: 'rgba(255, 255, 255, 0.54)',
@@ -41,20 +43,28 @@ const useStyles = makeStyles((theme) => ({
 	  },
 	  boton: {
 	    margin: theme.spacing(1),
-	  }
+	  },
+	  cardStyle:{              
+		padding: "50px 0",    
+
+	  },
+	  cardContent:{    
+		whiteSpace: "nowrap",
+		overflow: "hidden",
+		textOverflow : "ellipsis",        
+	  }, 
 	}));
 
 function AreasRegistradas(props){
 	
 	
 	const { getAccessTokenSilently } = useAuth0();
-	const [areaNum, setAreaNum] = useState()
 	const {propertyId, areasTerminadas, nextStep, handleName, handleType, handlePropertyAreaId, handleComplete} = props
 	const [loading, setLoading] = useState(true)
 	const [openTerminar, setOpenTerminar] = useState(false)
 	const [data, setData] = useState()
 	let history = useHistory()
-	const [areasArray, setAreasArray] = useState([])
+	
 	
 	const [isComplete, setIsComplete] = useState(false)
 
@@ -76,7 +86,6 @@ function AreasRegistradas(props){
 	  const responseData = await response.json();
 	  console.log(responseData)	  	 
 	  setData(responseData.items)	  
-	  setAreaNum(responseData.items.length)
 	  setLoading(false)
 	} catch (error) {
 	  console.error(error);
@@ -100,7 +109,37 @@ function AreasRegistradas(props){
 		handlePropertyAreaId(propertyAreaId)
 		nextStep()
 	}
-	
+	const chooseColor = (type) => {
+		console.log(type)
+	    let AreaColor
+	    switch (type){
+	      case "bano":        
+	        return "#2196f3"
+	        break;
+	      case "cocina":  
+	      return "#ff9800"      
+	        break;
+	      case "dormitorio":
+	        return "#00bcd4"
+	        break;
+	      case "comunes":
+	        return "#3f51b5"
+	        break;
+	      case "aireLibre":
+	        return "#ffc107"
+	        break;
+	      case "entrada":      
+	        return "#4caf50"
+	        break;
+	      case "otros":      
+	        return "#9c27b0"
+	        break;
+	      default:   
+	      return  "green" 
+	    }   
+	    
+
+	  }
 	
 	const classes = useStyles();
 	if(loading){
@@ -121,26 +160,16 @@ function AreasRegistradas(props){
 					      </GridListTile>
 					      {data && data.map((tile) => (
 					        <GridListTile key={tile.orderIndex} onClick={() => handleClickToItems(tile.name, tile.type, tile.propertyAreaId)}>  
-					                                                     
-					        
-					        
-					        	<img src={image} alt={tile.propertyAreaId} 			        		 
-					        		 className={"MuiGridListTile-tile"}
-					        		 
-					        	/>
-					        
-					        
-					          
-					          <GridListTileBar
-					            title={tile.name}						            
-      							subtitle={<span> {tile.type}</span>}
-					            
-					            actionIcon={
-					              <IconButton aria-label={`info about ${tile.name}`} className={classes.icon}>
-					                {areasTerminadas.includes(tile.name) ? <DoneIcon /> : <CheckBoxOutlineBlankIcon/>}
-					              </IconButton>                  
-					            }
-					          />
+								<Card className={classes.cardStyle} style={{background: chooseColor(tile.type)}}>
+								  <CardContent >        
+								    <Typography className={classes.cardContent} variant="h4" component="h2">
+								      {tile.name}
+								    </Typography>                
+								  </CardContent>   
+								  <CardActions>
+								  	{areasTerminadas.includes(tile.name) ? <DoneIcon /> : <CheckBoxOutlineBlankIcon/>}
+								  </CardActions>   
+								</Card>
 					        </GridListTile>
 					      ))
 					    }

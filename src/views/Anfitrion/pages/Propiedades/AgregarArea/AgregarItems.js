@@ -7,7 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {bano, comunes, cocina, dormitorio, aireLibre, entrada, otros} from './defaultItems'
 import Button from '@material-ui/core/Button';
-import { Link, useHistory } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -56,7 +55,7 @@ function AgregarItems(props){
 	const [status, setStatus] = useState()
 	const [loading, setLoading] = useState(false)
 
-	let history = useHistory()
+	
 
 	const classes = useStyles();
 	let listType;
@@ -189,6 +188,7 @@ function AgregarItems(props){
 		      }
 		    ))
 	    let post = {items: listToAPI}
+	    console.log(post)
 	    handleAreasTerminadas(areaName)
 		const token = await getAccessTokenSilently();		
 		const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev//propertyareaitems/${areaId}/${propertyId}`, {

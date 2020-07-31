@@ -52,6 +52,7 @@ function ElementosDeArea({match}){
 	      });
 
 	      const responseData = await response.json();
+	      console.log("elementos", responseData)
 	      setData(responseData.items)
 	      setLoading(false)
 	    } catch (error) {

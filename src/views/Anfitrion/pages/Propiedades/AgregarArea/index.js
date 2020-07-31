@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 
 import { DragDropContext } from "react-beautiful-dnd";
@@ -8,7 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import columnData from './columnData'
 import Column from './Column'
 import { useAuth0 } from "@auth0/auth0-react";
-import { useHistory, useLocation, Prompt } from "react-router-dom";
 import Dropdown from './Dropdown.js'
 import {defaultAreas} from './defaultAreas'
 import Loader from '../../../../../components/Loader'
@@ -43,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
 }));
-let popEventListnerAdded = false  
 
 export default function AreasRegistradasDnD(props) {
   const defAreas = defaultAreas.items
@@ -53,11 +51,8 @@ export default function AreasRegistradasDnD(props) {
   const {propertyId, nextStep} = props
   const [areaType, setAreaType] = React.useState('');
   const classes = useStyles();
-  const history = useHistory()
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
-  const location = useLocation()
-  const [isLeaving, setIsLeaving] = useState(true)
 
 
 
@@ -80,13 +75,13 @@ export default function AreasRegistradasDnD(props) {
       if(areaIsRepeated()){
         setOpen(true)
       }else{
-        const newlist = [].concat(areas) 
+        const newlist = [].concat(areas)         
         newlist.push({
             name: newArea,
             orderIndex: areas.length.toString(),
             type: areaType
             
-          })
+          })        
         setAreas(newlist)  
         setNewArea("")   
         setAreaType("")      
@@ -132,13 +127,12 @@ export default function AreasRegistradasDnD(props) {
 
   async function sendToAPI (id, name){
     setLoading(true)
-    setIsLeaving(false)
     try {  
     const token = await getAccessTokenSilently();  
     const post = {
         items: areas
-    }
-    const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/propertyareas/${propertyId}`, {
+    }    
+    fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/propertyareas/${propertyId}`, {
       method: 'POST',
       body: JSON.stringify(post),
         headers: {

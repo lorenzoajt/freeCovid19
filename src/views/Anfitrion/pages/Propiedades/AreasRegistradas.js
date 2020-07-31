@@ -14,6 +14,9 @@ import { Link, useHistory} from "react-router-dom";
 import Loader from '../../../../components/Loader.js'
 import Typography from '@material-ui/core/Typography';
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -24,14 +27,23 @@ const useStyles = makeStyles((theme) => ({
   },
   gridList: {
     width: 500,
-    height: 450,
+    height: 700,
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
   texto: {
     margin: theme.spacing(1),
-  }
+  },
+ cardStyle:{              
+    padding: "50px 0",    
+    
+  },
+  cardContent:{    
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow : "ellipsis",        
+  }, 
 }));
 function AreasRegistradas({match}){
 	let history = useHistory();
@@ -55,6 +67,7 @@ function AreasRegistradas({match}){
     	  });
 
     	  const responseData = await response.json();
+    	  console.log(responseData)
     	  setData(responseData.items)	  
     	  setAreaNum(responseData.items.length)
     	  setLoading(false)
@@ -72,6 +85,39 @@ function AreasRegistradas({match}){
 	    
 	  }, []);
 
+
+	const chooseColor = (type) => {
+		console.log(type)
+	    let AreaColor
+	    switch (type){
+	      case "bano":        
+	        return "#2196f3"
+	        break;
+	      case "cocina":  
+	      return "#ff9800"      
+	        break;
+	      case "dormitorio":
+	        return "#00bcd4"
+	        break;
+	      case "comunes":
+	        return "#3f51b5"
+	        break;
+	      case "aireLibre":
+	        return "#ffc107"
+	        break;
+	      case "entrada":      
+	        return "#4caf50"
+	        break;
+	      case "otros":      
+	        return "#9c27b0"
+	        break;
+	      default:   
+	      return  "green" 
+	    }   
+	    
+
+	  }
+
 	if(loading){
 		return <Loader />
 	}else{
@@ -85,30 +131,20 @@ function AreasRegistradas({match}){
 									
 								        
 								    <GridList cellHeight={180} className={classes.gridList}>
-								      <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-								        
-								      </GridListTile>
+								      
 								      {data && data.map((tile) => (
-								        <GridListTile key={tile.propertyAreaId}>  
+								        <GridListTile key={tile.propertyAreaId} >  
 								                                                     
 								        
-								        <Link to={`/Anfitrion/ElementosDeArea/${tile.propertyAreaId}/${tile.name}`}>
-								        	<img src={image} alt={tile.propertyAreaId} 			        		 
-								        		 className={"MuiGridListTile-tile"}
-								        	/>
-								        </Link>
-								        
-								          
-								          <GridListTileBar
-								            title={tile.name}						            
-		          							subtitle={<span> {tile.orderIndex}</span>}
-								            
-								            actionIcon={
-								              <IconButton aria-label={`info about ${tile.name}`} className={classes.icon}>
-								                <InfoIcon />
-								              </IconButton>                  
-								            }
-								          />
+								        <Link style={{ textDecoration: 'none' }} to={`/Anfitrion/ElementosDeArea/${tile.propertyAreaId}/${tile.name}`}>
+								        	<Card className={classes.cardStyle} style={{background: chooseColor(tile.type)}}>
+							        	      <CardContent >        
+							        	        <Typography className={classes.cardContent} variant="h4" component="h2">
+							        	          {tile.name}
+							        	        </Typography>                
+							        	      </CardContent>      
+							        	    </Card>
+								        </Link>								       								          								        
 								        </GridListTile>
 								      ))
 								    }

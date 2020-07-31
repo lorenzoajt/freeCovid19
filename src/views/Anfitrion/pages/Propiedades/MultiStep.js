@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import { Prompt, useHistory } from "react-router-dom";
+import React, {useState} from 'react'
+import { Prompt } from "react-router-dom";
 import AgregarPropiedad from './AgregarPropiedad'
 import AgregarArea from './AgregarArea/'
 import ItemsAreasRegistradas from './AgregarArea/ItemsAreasRegistradas'
@@ -15,8 +15,7 @@ export default function Multistep(){
 	const [type, setType]= useState("")
 	const [propertyAreaId,setPropertyAreaId]= useState("")
 
-
-	const history = useHistory()
+	
 
 	const nextStep = e => {	
 		setStep(step + 1)
@@ -48,8 +47,7 @@ export default function Multistep(){
 	switch(step){
 		case 0:
 			return(
-				<div>
-					<Prompt message={"Los cambios no seran guardados"}/>
+				<div>					
 					<AgregarPropiedad nextStep= {nextStep} handlePropertyId={handlePropertyId}/>
 					
 				</div>

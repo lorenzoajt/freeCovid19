@@ -8,10 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import SelectedListItem from './listItems';
 import {Theme} from '../../components/Theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -28,8 +26,6 @@ import AgregarArea from './pages/Propiedades/AgregarArea/'
 import AgregarSupervisor from './pages/Supervisores/AgregarSupervisor'
 import Detalle from '../../components/Detalle'
 import DetalleUsed from '../../components/DetalleUsed'
-import ItemsAreasRegistradas from './pages/Propiedades/AgregarArea/ItemsAreasRegistradas'
-import AgregarItems from './pages/Propiedades/AgregarArea/AgregarItems'
 import Multistep from './pages/Propiedades/MultiStep'
 
 import {
