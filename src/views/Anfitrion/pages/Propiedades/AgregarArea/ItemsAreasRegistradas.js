@@ -76,15 +76,13 @@ function AreasRegistradas(props){
 	
 	const getAreas = async () => {
 	try {
-	  const token = await getAccessTokenSilently();	  
-	  console.log(propertyId)
+	  const token = await getAccessTokenSilently();	  	  
 	  const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/propertyareas/${propertyId}`, {
 	    headers: {
 	      Authorization: `Bearer ${token}`
 	    }
 	  });
-	  const responseData = await response.json();
-	  console.log(responseData)	  	 
+	  const responseData = await response.json();	  
 	  setData(responseData.items)	  
 	  setLoading(false)
 	} catch (error) {
@@ -109,8 +107,7 @@ function AreasRegistradas(props){
 		handlePropertyAreaId(propertyAreaId)
 		nextStep()
 	}
-	const chooseColor = (type) => {
-		console.log(type)
+	const chooseColor = (type) => {		
 	    let AreaColor
 	    switch (type){
 	      case "bano":        
@@ -159,7 +156,7 @@ function AreasRegistradas(props){
 					        
 					      </GridListTile>
 					      {data && data.map((tile) => (
-					        <GridListTile key={tile.orderIndex} onClick={() => handleClickToItems(tile.name, tile.type, tile.propertyAreaId)}>  
+					        <GridListTile key={tile.orderIndex} onClick={() => !areasTerminadas.includes(tile.name) && handleClickToItems(tile.name, tile.type, tile.propertyAreaId)}>  
 								<Card className={classes.cardStyle} style={{background: chooseColor(tile.type)}}>
 								  <CardContent >        
 								    <Typography className={classes.cardContent} variant="h4" component="h2">
