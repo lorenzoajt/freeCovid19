@@ -25,7 +25,7 @@ function Folios(){
 			  const token = await getAccessTokenSilently();		      
 			  var decoded = await jwt_decode(token);	      
 			  setHostId(decoded.sub)
-			  const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/retrieve/${decoded.sub}`, {
+			  const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/desinfectiontickets/retrieve/${decoded.sub}`, {
 			    headers: {
 			      Authorization: `Bearer ${token}`
 			    }

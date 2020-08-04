@@ -45,7 +45,7 @@ function ElementosDeArea({match}){
 	    const getItems = async () => {
 	    try {
 	      const token = await getAccessTokenSilently();	  
-	      const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/propertyareaitems/${areaId}`, {
+	      const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/propertyareaitems/${areaId}`, {
 	        headers: {
 	          Authorization: `Bearer ${token}`
 	        }

@@ -58,7 +58,7 @@ function Tile(props){
     const getFoto = async (propId) =>{          
       try{
         const token = await getAccessTokenSilently()    
-        const url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propId}/images`
+        const url = `https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties/${propId}/images`
         const response = await fetch(url, {
           method: 'GET',
           headers: {
@@ -95,7 +95,7 @@ function Tile(props){
       setOpen(true)
       handleCloseDelete() 
       try {
-        const URL = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propertyId}`
+        const URL = `https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties/${propertyId}`
         const token = await getAccessTokenSilently();       
         const response = await axios.delete(URL, {
           headers: {
@@ -121,7 +121,7 @@ function Tile(props){
         "address": propAdress
       }
       console.log(post)
-      const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propertyId}`, {
+      const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties/${propertyId}`, {
         method: 'PATCH',
         body: JSON.stringify(post),
           headers: {

@@ -58,7 +58,7 @@ export default function NuevoFolio({match}) {
       //Crear Folios de dengue
       if(numFoliosDengue > 0){
         console.log("numFoliosDengue",numFoliosDengue)
-        let url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/create/${numFoliosDengue}` //agregar el num de tickets
+        let url = `https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/desinfectiontickets/create/${numFoliosDengue}` //agregar el num de tickets
         const post = {
             createdFor: hostId,
             "tipoServicio": "Dengue" 
@@ -76,7 +76,7 @@ export default function NuevoFolio({match}) {
       //Crear Folios de desinfeccion
       if(numFoliosDesinfeccion > 0){
         console.log("numFoliosDesinfeccion",numFoliosDesinfeccion)
-        let url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/create/${numFoliosDesinfeccion}` //agregar el num de tickets
+        let url = `https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/desinfectiontickets/create/${numFoliosDesinfeccion}` //agregar el num de tickets
         const post = {
             createdFor: hostId, 
             "tipoServicio": "Desinfeccion" 
@@ -94,7 +94,7 @@ export default function NuevoFolio({match}) {
       //Crear Folios de Limpieza
       if(numFoliosLimpieza > 0){
         console.log("numFoliosLimpieza",numFoliosLimpieza)
-        let url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/desinfectiontickets/create/${numFoliosLimpieza}` //agregar el num de tickets
+        let url = `https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/desinfectiontickets/create/${numFoliosLimpieza}` //agregar el num de tickets
         const post = {
             createdFor: hostId, 
             "tipoServicio": "Limpieza" 

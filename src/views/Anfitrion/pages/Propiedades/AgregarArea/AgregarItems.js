@@ -191,7 +191,7 @@ function AgregarItems(props){
 	    console.log(post)
 	    handleAreasTerminadas(areaName)
 		const token = await getAccessTokenSilently();		
-		const response = await fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev//propertyareaitems/${areaId}/${propertyId}`, {
+		const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod//propertyareaitems/${areaId}/${propertyId}`, {
 			method: 'POST',
 			body: JSON.stringify(post),
 		  	headers: {

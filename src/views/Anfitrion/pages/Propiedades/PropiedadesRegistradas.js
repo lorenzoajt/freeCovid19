@@ -45,13 +45,14 @@ function PropiedadesRegistradas(){
       
         try {
           const token = await getAccessTokenSilently();  
-          const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties",{
+          const response = await fetch("https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties",{
             method: 'GET',        
               headers: {
                 Authorization: `Bearer ${token}`
               }
           });      
-          const responseData = await response.json();              
+          const responseData = await response.json(); 
+          console.log(responseData)             
           setData(responseData.items)  
           setLoading(false)
         } catch (error) {

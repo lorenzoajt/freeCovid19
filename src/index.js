@@ -5,11 +5,11 @@ import { Auth0Provider } from "@auth0/auth0-react";
 
 ReactDOM.render(
   <Auth0Provider
-    domain="desinfectapp.auth0.com"
-    clientId="Ghu2ZcC8PolabT6DJFKck5p3947Enr87"
-    audience="https://desinfectapp.auth0.com/api/v2/"
+    domain="desinfectapp-prod.us.auth0.com"
+    clientId="EAoNy02pVg5S69ed9OPO4mCarxkb1l4l"
     redirectUri={window.location.origin}
-    
+    audience="https://desinfectapp-prod.us.auth0.com/api/v2/"
+    scope="read:current_user update:current_user_metadata"
   >
     <App />
   </Auth0Provider>,

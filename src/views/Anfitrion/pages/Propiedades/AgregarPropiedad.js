@@ -80,7 +80,7 @@ function AgregarPropiedad(props) {
             "address": adress
         }
 
-        const response = await fetch("https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties", {
+        const response = await fetch("https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties", {
           method: 'POST',
           body: JSON.stringify(post),
           headers: {
@@ -116,7 +116,7 @@ function AgregarPropiedad(props) {
   const subirFoto = async (propId) =>{
     try{
       const token = await getAccessTokenSilently()    
-      const url = `https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/properties/${propId}/images`      
+      const url = `https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties/${propId}/images`      
       const response = await fetch(url, {
             method: 'POST',
               headers: {

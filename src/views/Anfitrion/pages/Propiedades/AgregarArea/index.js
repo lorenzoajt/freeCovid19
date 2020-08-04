@@ -132,7 +132,7 @@ export default function AreasRegistradasDnD(props) {
     const post = {
         items: areas
     }    
-    fetch(`https://8v2y1j7bf2.execute-api.us-east-1.amazonaws.com/dev/propertyareas/${propertyId}`, {
+    fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/propertyareas/${propertyId}`, {
       method: 'POST',
       body: JSON.stringify(post),
         headers: {
