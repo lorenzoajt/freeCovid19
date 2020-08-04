@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CardNoactions from './CardNoActions'
 
@@ -48,13 +48,13 @@ export default function NuevoFolio({match}) {
   const [numFoliosLimpieza, setNumFoliosLimpieza] = React.useState(0);
   const { getAccessTokenSilently } = useAuth0();
   const {hostId, hostName} = match.params
-
+  let history = useHistory()
 
   const agregarFolios = async () => {
 
     try {
       const token = await getAccessTokenSilently();
-
+      history.push('/Admin/folios')
       //Crear Folios de dengue
       if(numFoliosDengue > 0){
         console.log("numFoliosDengue",numFoliosDengue)
@@ -72,6 +72,7 @@ export default function NuevoFolio({match}) {
         }
         );
         console.log(response.status)
+        
       }
       //Crear Folios de desinfeccion
       if(numFoliosDesinfeccion > 0){
@@ -90,6 +91,7 @@ export default function NuevoFolio({match}) {
           }
         });
         console.log(response.status)
+        
       }
       //Crear Folios de Limpieza
       if(numFoliosLimpieza > 0){
@@ -108,6 +110,7 @@ export default function NuevoFolio({match}) {
           }
         });
         console.log(response.status)
+        
       }
       
     } catch (error) {

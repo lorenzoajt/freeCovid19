@@ -183,15 +183,16 @@ function AgregarItems(props){
 		try {		
 		const listToAPI = selectedElements.map(item =>( // removing unwanted property
 		      {
-		        name: item.name,     
-		        evidence: item.evidence 
+		        "name": item.name,     
+		        "evidence": `${item.evidence}` 
 		      }
 		    ))
-	    let post = {items: listToAPI}
-	    console.log(post)
+	    let post = {"items": listToAPI}
+	    
 	    handleAreasTerminadas(areaName)
 		const token = await getAccessTokenSilently();		
-		const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod//propertyareaitems/${areaId}/${propertyId}`, {
+		console.log(JSON.stringify(post))
+		const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/propertyareaitems/${areaId}/${propertyId}`, {
 			method: 'POST',
 			body: JSON.stringify(post),
 		  	headers: {
@@ -199,7 +200,8 @@ function AgregarItems(props){
 		  	}
 		});
 		setStatus(response.status)
-		const responseData = await response.text();		
+		const responseData = await response.text();	
+		console.log("responseData", responseData)	
 		setOpen(true)
 		setMessage(responseData)	
 		setLoading(false)
