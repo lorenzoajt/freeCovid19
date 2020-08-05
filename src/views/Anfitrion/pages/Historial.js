@@ -56,10 +56,8 @@ function Historial(){
               Authorization : `Bearer ${token}`
             }
         })
-        const responseData = await response.json()        
-        console.log(responseData)
-        const finished = responseData.filter(item => item.service.finished === false )/////cambiarlo a true
-        
+        const responseData = await response.json()                
+        const finished = responseData.filter(item => item.service.finished === false )/////cambiarlo a true        
         setData(finished)
         setLoading(false)
       }catch(error){
@@ -76,42 +74,49 @@ function Historial(){
   if(loading){
     return <Loader />
   }else{
-    return(
-      <div className={classes.root}>
-       <GridList cellHeight={400} className={classes.gridList}>        
-         {data.map((tile) => (
-          <GridListTile key={tile.service.serviceId}>
-            <Card className={classes.root}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image={image}
-                  title=""
-                  />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {tile.property.propertyName === undefined ? "Propiedad eliminada": tile.property.propertyName}                  
-                  </Typography>
-                  <Typography className={classes.cardStyle} variant="body2" color="textSecondary" component="p">
-                    {tile.property.address === undefined ? "Propiedad eliminada": tile.property.address}
-                  </Typography><br/>
-                  <Typography className={classes.cardStyle} variant="body2" color="textSecondary" component="p">
-                    {tile.service.createdAt.substr(0,10)}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>        
-                <Button size="small" color="primary">
-                Ver reporte
-                </Button>
-              </CardActions>
-            </Card>
-          </GridListTile>
-        ))}
-       </GridList>
-      </div>
-    )
-
+    if(data.length === 0){
+      return (
+        <Typography variant="h3" className={classes.texto}gutterBottom>
+          Aún no tiene servicios terminados
+        </Typography> 
+      )
+    }else{
+      return(
+        <div className={classes.root}>
+         <GridList cellHeight={400} className={classes.gridList}>        
+           {data.map((tile) => (
+            <GridListTile key={tile.service.serviceId}>
+              <Card className={classes.root}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={image}
+                    title=""
+                    />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {tile.property.propertyName === undefined ? "Propiedad eliminada": tile.property.propertyName}                  
+                    </Typography>
+                    <Typography className={classes.cardStyle} variant="body2" color="textSecondary" component="p">
+                      {tile.property.address === undefined ? "Propiedad eliminada": tile.property.address}
+                    </Typography><br/>
+                    <Typography className={classes.cardStyle} variant="body2" color="textSecondary" component="p">
+                      {tile.service.createdAt.substr(0,10)}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>        
+                  <Button size="small" color="primary">
+                  Ver reporte
+                  </Button>
+                </CardActions>
+              </Card>
+            </GridListTile>
+          ))}
+         </GridList>
+        </div>
+      )
+    }
   }
   
   

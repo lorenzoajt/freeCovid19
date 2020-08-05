@@ -18,8 +18,7 @@ function Folios(){
 	
 
 
-	useEffect(() => {
-		console.log("folios por que chingados")
+	useEffect(() => {		
 		const fetchData = async () => {    	
 			try {
 			  const token = await getAccessTokenSilently();		      

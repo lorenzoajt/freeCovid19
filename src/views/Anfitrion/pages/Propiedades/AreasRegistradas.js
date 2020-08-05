@@ -66,8 +66,7 @@ function AreasRegistradas({match}){
     	    }
     	  });
 
-    	  const responseData = await response.json();
-    	  console.log(responseData)
+    	  const responseData = await response.json();    	  
     	  setData(responseData.items)	  
     	  setAreaNum(responseData.items.length)
     	  setLoading(false)
@@ -86,8 +85,7 @@ function AreasRegistradas({match}){
 	  }, []);
 
 
-	const chooseColor = (type) => {
-		console.log(type)
+	const chooseColor = (type) => {		
 	    let AreaColor
 	    switch (type){
 	      case "bano":        

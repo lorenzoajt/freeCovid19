@@ -37,7 +37,7 @@ export default function AgregarSupervisor() {
       const post = {
           "email": email,		        
           "name": name		    
-      }	  
+      }	        
       const response = await fetch('https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/users/inspectors', {
         method: 'POST',
         body: JSON.stringify(post),
@@ -45,8 +45,7 @@ export default function AgregarSupervisor() {
           Authorization: `Bearer ${token}`
         }
       });
-      const responseData = await response.text()
-      
+      const responseData = await response.text()      
       setLoading(false)
       history.push('/Anfitrion/supervisores');       
 

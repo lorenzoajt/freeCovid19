@@ -52,7 +52,7 @@ function PropiedadesRegistradas(){
               }
           });      
           const responseData = await response.json(); 
-          console.log(responseData)             
+                  
           setData(responseData.items)  
           setLoading(false)
         } catch (error) {

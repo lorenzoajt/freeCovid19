@@ -120,7 +120,7 @@ function Tile(props){
         "propertyName": propName,
         "address": propAdress
       }
-      console.log(post)
+      
       const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties/${propertyId}`, {
         method: 'PATCH',
         body: JSON.stringify(post),

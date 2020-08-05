@@ -25,8 +25,7 @@ export default function Multistep(){
 	}
 
 	const handlePropertyId = (id) => {
-		setPropertyId(id)
-		console.log("property Id", id)
+		setPropertyId(id)		
 	}
 	const handleAreasTerminadas = (area) => {
 	  setAreasTerminadas([...areasTerminadas, area])    
