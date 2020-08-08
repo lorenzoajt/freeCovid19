@@ -48,7 +48,7 @@ export default function AreasRegistradasDnD(props) {
   const [areas, setAreas] = useState(defAreas);
   const [newArea, setNewArea] = useState("")
   const { getAccessTokenSilently } = useAuth0();
-  const {propertyId, nextStep} = props
+  const {propertyId, nextStep, handleNumAreas} = props
   const [areaType, setAreaType] = React.useState('');
   const classes = useStyles();
   const [loading, setLoading] = useState(false)
@@ -128,7 +128,8 @@ export default function AreasRegistradasDnD(props) {
   async function sendToAPI (id, name){
     setLoading(true)
     try {  
-    const token = await getAccessTokenSilently();  
+    const token = await getAccessTokenSilently(); 
+    handleNumAreas(areas.length) 
     const post = {
         items: areas
     }        
@@ -139,9 +140,7 @@ export default function AreasRegistradasDnD(props) {
           Authorization: `Bearer ${token}`
         }
     });      
-    setLoading(false)
-
-    // history.push(`/Anfitrion/ItemsAreasRegistradas/${propertyId}`)
+    setLoading(false)    
     nextStep()
 
     

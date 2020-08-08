@@ -59,13 +59,11 @@ function AreasRegistradas(props){
 	
 	
 	const { getAccessTokenSilently } = useAuth0();
-	const {propertyId, areasTerminadas, nextStep, handleName, handleType, handlePropertyAreaId} = props
+	const {propertyId, areasTerminadas, nextStep, handleName, handleType, handlePropertyAreaId, numAreas} = props
 	const [loading, setLoading] = useState(true)
 	const [openTerminar, setOpenTerminar] = useState(false)
 	const [data, setData] = useState()
-	let history = useHistory()
-	
-	
+	let history = useHistory()		
 	const [isComplete, setIsComplete] = useState(false)
 
 
@@ -74,29 +72,29 @@ function AreasRegistradas(props){
 	},[]);
 
 	
-	const getAreas = async () => {
-	try {
-	  const token = await getAccessTokenSilently();	  	  
-	  const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/propertyareas/${propertyId}`, {
-	    headers: {
-	      Authorization: `Bearer ${token}`
-	    }
-	  });
-	  const responseData = await response.json();	  
-	  setData(responseData.items)	  
-	  setLoading(false)
-	} catch (error) {
-	  console.error(error);
-	}
+	const getAreas = async () => {	
+	console.log("gettttt", numAreas)	
+		try {
+		  const token = await getAccessTokenSilently();	  	  
+		  const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/propertyareas/${propertyId}`, {
+		    headers: {
+		      Authorization: `Bearer ${token}`
+		    }
+		  });
+		  const responseData = await response.json();
+		  if(responseData.items.length !== numAreas){
+		  	getAreas()
+		  }	  
+		  setData(responseData.items)	  
+		  setLoading(false)
+		} catch (error) {
+		  console.error(error);
+		}
 	};
 	const handleClickTerminar = () => {
 	    setOpenTerminar(true);
 	    setIsComplete(true)
 	  };
-
-	// const handleCloseTerminar = () => {
-	// 	setOpenTerminar(false);
-	// };
 	const handleAccept = () => {		
 		history.push('/Anfitrion')
 	}

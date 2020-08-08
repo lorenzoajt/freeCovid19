@@ -16,6 +16,7 @@ export default function Multistep(){
 	const [propertyAreaId,setPropertyAreaId]= useState("")
 
 	
+	const [numAreas, setNumAreas] = useState(0)
 
 	const nextStep = e => {	
 		setStep(step + 1)
@@ -40,6 +41,10 @@ export default function Multistep(){
 	const handlePropertyAreaId = (propertyAreaId) => {
 		setPropertyAreaId(propertyAreaId)
 	}
+
+	const handleNumAreas = num => {
+		setNumAreas(num)
+	}
 	
 	
 
@@ -55,7 +60,11 @@ export default function Multistep(){
 			return(
 				<div>
 					<Prompt message={"Los cambios no seran guardados"}/>
-					<AgregarArea propertyId={propertyId} nextStep={nextStep}/>					
+					<AgregarArea 
+						propertyId={propertyId} 
+						nextStep={nextStep}
+						handleNumAreas={handleNumAreas}
+					/>					
 				</div>
 			)
 		case 2:
@@ -69,6 +78,7 @@ export default function Multistep(){
 						handleType={handleType} 
 						handleName={handleName} 
 						handlePropertyAreaId={handlePropertyAreaId}
+						numAreas = {numAreas}
 						/>															
 				</div>
 			)
