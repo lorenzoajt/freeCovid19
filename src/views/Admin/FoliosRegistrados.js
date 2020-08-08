@@ -10,9 +10,7 @@ import CardFoliosUsed from './components/CardFoliosUsed'
 
 function FoliosRegistrados({match}){
 	
-	const {hostId, hostName} = match.params
-	console.log(hostId)
-	console.log(hostName)
+	const {hostId, hostName} = match.params	
 	const { getAccessTokenSilently } = useAuth0();
 	const [folios, setFolios] = useState([])
 	const [loading, setLoading] = useState(true)
@@ -30,6 +28,7 @@ function FoliosRegistrados({match}){
 		      const responseData = await response.json();
 		      
 		      setFolios(responseData.items)
+		      console.log(responseData.items)
 		      setLoading(false)
 		    } catch (error) {
 		      console.error(error);

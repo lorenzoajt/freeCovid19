@@ -1,15 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
-
 import Button from '@material-ui/core/Button';
-import image from "./apartment-contemporary-couch-curtains-275484.jpg"
-
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 import { Link, useHistory} from "react-router-dom";
 import Loader from '../../../../components/Loader.js'
 import Typography from '@material-ui/core/Typography';
@@ -85,35 +79,35 @@ function AreasRegistradas({match}){
 	  }, []);
 
 
-	const chooseColor = (type) => {		
+	const chooseColor = (type) => {				
 	    let AreaColor
 	    switch (type){
 	      case "bano":        
-	        return "#2196f3"
+	        AreaColor = "#2196f3"
 	        break;
 	      case "cocina":  
-	      return "#ff9800"      
+	      	AreaColor = "#ff9800"      
 	        break;
 	      case "dormitorio":
-	        return "#00bcd4"
+	        AreaColor = "#00bcd4"
 	        break;
 	      case "comunes":
-	        return "#3f51b5"
+	        AreaColor = "#3f51b5"
 	        break;
 	      case "aireLibre":
-	        return "#ffc107"
+	        AreaColor = "#ffc107"
 	        break;
 	      case "entrada":      
-	        return "#4caf50"
+	        AreaColor = "#4caf50"
 	        break;
 	      case "otros":      
-	        return "#9c27b0"
+	        AreaColor = "#9c27b0"
 	        break;
 	      default:   
-	      return  "green" 
+	      AreaColor =  "green" 
 	    }   
 	    
-
+	    return AreaColor
 	  }
 
 	if(loading){

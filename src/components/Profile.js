@@ -3,14 +3,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from 'jwt-decode'
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-  
+  Switch,  
+  Redirect  
 } from "react-router-dom";
 import Admin from '../views/Admin/'
 import Anfitrion from '../views/Anfitrion/'
-import Inspector from '../views/Inspector/'
+
 import PrivateRoute from './PrivateRoute'
 const Profile = () => {
   const { getAccessTokenSilently } = useAuth0();

@@ -5,7 +5,7 @@ import {Button} from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
-import Loader from '../../components/Loader'
+
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -41,7 +41,7 @@ export default function AgregarAnfitrion() {
           "email": email,		        
           "name": name		    
       }	  
-      const response = await fetch('https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/users/hosts', {
+      await fetch('https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/users/hosts', {
         method: 'POST',
         body: JSON.stringify(post),
         headers: {

@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useAuth0 } from "@auth0/auth0-react";
-import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
@@ -47,8 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function AgregarPropiedad(props) {
-  let history = useHistory();
+function AgregarPropiedad(props) {  
   const classes = useStyles();
 
   const { getAccessTokenSilently } = useAuth0();
@@ -100,8 +98,7 @@ function AgregarPropiedad(props) {
             subirFoto(propertyId)      
           }
           
-          setLoading(false)
-          // history.push(`/Anfitrion/AgregarArea/${propertyId}`);   
+          setLoading(false)          
           nextStep()
           handlePropertyId(propertyId)
 

@@ -51,7 +51,7 @@ function ElementosDeArea({match}){
 	        }
 	      });
 
-	      const responseData = await response.json();	      
+	      const responseData = await response.json();	    	      
 	      setData(responseData.items)
 	      setLoading(false)
 	    } catch (error) {
@@ -89,7 +89,7 @@ function ElementosDeArea({match}){
 									<Typography variant="body2" component="p">
 									Requiere Evidencia 
 									</Typography> 
-									{item.evidence ? <CheckCircleIcon /> : <CancelIcon /> }
+									{item.evidence === "true" ? <CheckCircleIcon /> : <CancelIcon />}
 								</CardActions>
 							</Card>
 						</Grid>

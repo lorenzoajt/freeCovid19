@@ -2,11 +2,10 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 
-import { Link, useLocation} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function SelectedListItem() {  
   const [selectedIndex, setSelectedIndex] = React.useState(0);

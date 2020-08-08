@@ -13,7 +13,7 @@ export default function (){
 
 
 		}}>
-			<img src={logo} style={{width:"300px"}}/>
+			<img src={logo} style={{width:"300px"}} alt="Covid19Free Logo"/>
 			<h1 style={{color: "white"}}>Bienvenido</h1>
 			<Login /> 
 		</div>

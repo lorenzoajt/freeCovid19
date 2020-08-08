@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CardNoactions from './CardNoActions'
 
@@ -60,9 +60,9 @@ export default function NuevoFolio({match}) {
         console.log("numFoliosDengue",numFoliosDengue)
         let url = `https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/desinfectiontickets/create/${numFoliosDengue}` //agregar el num de tickets
         const post = {
-            createdFor: hostId,
+            "createdFor": hostId,
             "tipoServicio": "Dengue" 
-        }
+        }        
         const response = await fetch(url, {
           method: 'POST',
           body: JSON.stringify(post),

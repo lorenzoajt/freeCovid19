@@ -131,7 +131,7 @@ export default function AreasRegistradasDnD(props) {
     const token = await getAccessTokenSilently();  
     const post = {
         items: areas
-    }    
+    }        
     fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/propertyareas/${propertyId}`, {
       method: 'POST',
       body: JSON.stringify(post),

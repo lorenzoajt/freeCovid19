@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
-import image from "../../../../../assets/ICONO con circulo_Mesa de trabajo 1.png"
+
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
+
+
 import DoneIcon from '@material-ui/icons/Done';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import { useHistory, Prompt} from "react-router-dom";
@@ -59,7 +59,7 @@ function AreasRegistradas(props){
 	
 	
 	const { getAccessTokenSilently } = useAuth0();
-	const {propertyId, areasTerminadas, nextStep, handleName, handleType, handlePropertyAreaId, handleComplete} = props
+	const {propertyId, areasTerminadas, nextStep, handleName, handleType, handlePropertyAreaId} = props
 	const [loading, setLoading] = useState(true)
 	const [openTerminar, setOpenTerminar] = useState(false)
 	const [data, setData] = useState()
@@ -107,35 +107,35 @@ function AreasRegistradas(props){
 		handlePropertyAreaId(propertyAreaId)
 		nextStep()
 	}
-	const chooseColor = (type) => {		
+	const chooseColor = (type) => {				
 	    let AreaColor
 	    switch (type){
 	      case "bano":        
-	        return "#2196f3"
+	        AreaColor = "#2196f3"
 	        break;
 	      case "cocina":  
-	      return "#ff9800"      
+	      	AreaColor = "#ff9800"      
 	        break;
 	      case "dormitorio":
-	        return "#00bcd4"
+	        AreaColor = "#00bcd4"
 	        break;
 	      case "comunes":
-	        return "#3f51b5"
+	        AreaColor = "#3f51b5"
 	        break;
 	      case "aireLibre":
-	        return "#ffc107"
+	        AreaColor = "#ffc107"
 	        break;
 	      case "entrada":      
-	        return "#4caf50"
+	        AreaColor = "#4caf50"
 	        break;
 	      case "otros":      
-	        return "#9c27b0"
+	        AreaColor = "#9c27b0"
 	        break;
 	      default:   
-	      return  "green" 
+	      AreaColor =  "green" 
 	    }   
 	    
-
+	    return AreaColor
 	  }
 	
 	const classes = useStyles();

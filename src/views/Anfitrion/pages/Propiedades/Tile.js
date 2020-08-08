@@ -17,7 +17,7 @@ import axios from 'axios'
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
-
+import defaultHouse from '../../../../assets/defaultImage.jpeg'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,9 +44,8 @@ const useStyles = makeStyles((theme) => ({
 function Tile(props){
   const { getAccessTokenSilently } = useAuth0();
   const {tile, getPropiedades} = props  
-  const [imgSrc, setImgSrc] = useState('');
-  const [tilesNum, setTilesNum] = useState()
-  const defaultImage = "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+  const [imgSrc, setImgSrc] = useState('');  
+  const defaultImage = defaultHouse
   const [openDelete, setOpenDelete] = React.useState(false); // para el alert dialog
   const [openEdit, setOpenEdit] = React.useState(false); // para el alert dialog
   const [propName, setPropName] = useState("")
@@ -73,7 +72,7 @@ function Tile(props){
           setImgSrc(defaultImage)
         }
         
-        setTilesNum(responseData.items.length)
+        
       }catch(error){        
         console.log(error)
 
@@ -97,7 +96,7 @@ function Tile(props){
       try {
         const URL = `https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties/${propertyId}`
         const token = await getAccessTokenSilently();       
-        const response = await axios.delete(URL, {
+        await axios.delete(URL, {
           headers: {
             Authorization: `Bearer ${token}`
           }                    
@@ -121,7 +120,7 @@ function Tile(props){
         "address": propAdress
       }
       
-      const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties/${propertyId}`, {
+      await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/properties/${propertyId}`, {
         method: 'PATCH',
         body: JSON.stringify(post),
           headers: {
@@ -135,7 +134,7 @@ function Tile(props){
       }
     };
 
-    const check = () => {
+    const check = () => {      
         if(propName === "" || propAdress === ""){
           return true
         }else{
@@ -224,15 +223,15 @@ function Tile(props){
         <DialogTitle id="form-dialog-title">Editar Propiedad</DialogTitle>
         <DialogContent>
           
-        <TextField  onChange={e => setPropName(e.target.value)} id="standard-disabled1" margin="dense" label="Nombre" defaultValue={tile.propertyName} fullWidth/>
-        <TextField  onChange={e => setPropAdress(e.target.value)} id="standard-disabled2" margin="dense" label="Dirección" defaultValue={tile.address} fullWidth/>
+        <TextField onChange={e => setPropName(e.target.value)} id="standard-disabled1" margin="dense" label="Nombre" defaultValue={propName} fullWidth/>
+        <TextField   onChange={e => setPropAdress(e.target.value)} id="standard-disabled2" margin="dense" label="Dirección" defaultValue={propAdress} fullWidth/>
 
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseEdit} color="primary">
             Cancelar
           </Button>
-          <Button onClick={()=> editar(tile.propertyId)} color="primary">
+          <Button disabled={check()} onClick={()=> editar(tile.propertyId)} color="primary">
             Aceptar
           </Button>
         </DialogActions>
