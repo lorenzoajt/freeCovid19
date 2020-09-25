@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import CardFolios from '..//components/CardFolios.js'
-import CardFoliosUsed from '../components/CardFoliosUsed'
+// import CardFoliosUsed from '../components/CardFoliosUsed'
 import Loader from '../../../components/Loader.js'
 import * as jwt_decode from 'jwt-decode';
 
@@ -39,7 +39,7 @@ function Folios(){
 		}
 
 		fetchData();
-	}, []);
+	}, [getAccessTokenSilently]);
 
 
 
