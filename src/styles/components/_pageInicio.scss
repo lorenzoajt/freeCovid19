@@ -1,0 +1,45 @@
+
+body{
+    background-color: #EEEEEE;
+    height: auto;
+}
+
+#wrap-login{
+    display: flex;
+    margin: 0 auto; 
+    margin-top: 180px;
+    height: 100%;
+    width: 100%;
+
+    #login{
+        display: flex;
+        flex-flow: column wrap;
+        justify-items: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+
+        h1{
+            margin-top: -10px;
+            margin-bottom: 2%;
+            color:#1B7AB9;
+            font-size: 32px;
+        }
+
+        #img-login{
+            height: 200px;
+            width: 200px;
+        }
+
+        #boton-login{
+
+            border-radius: 10px;
+            background-color: #2CACE3;
+            color:white;
+            font-size: 17px;
+            padding: 8px 20px 8px 20px;
+        }
+    }
+
+}
+

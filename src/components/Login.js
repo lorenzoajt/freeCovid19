@@ -18,7 +18,7 @@ const LoginButton = () => {
 	const classes = useStyles();
 	return (
 		<ThemeProvider theme={Theme}>
-	  	<Button className={classes.root} variant="contained" color="secondary" onClick={() => loginWithRedirect()}>
+	  	<Button id="boton-login" variant="contained" onClick={() => loginWithRedirect()}>
 			Iniciar Sesión
 		</Button>
 	</ThemeProvider>
