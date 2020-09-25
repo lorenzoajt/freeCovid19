@@ -20,7 +20,8 @@ function Supervisores(){
 	const [loading, setLoading] = useState(true)	
 	const classes = useStyles();
 
-	
+	// TODO: Cambiar formato de fecha en tabla de supervisores
+	//TODO:Agregar supervisor en la misma página que la tabla
 	useEffect(() => {
 		const getSupervisores = async () => {
 		  try {

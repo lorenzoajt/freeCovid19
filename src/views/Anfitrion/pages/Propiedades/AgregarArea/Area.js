@@ -33,7 +33,7 @@ function Area(props) {
   const {area, index, removeItem} = props
 
   
-
+  // TODO:Cambio de Color de los rectángulos en Lista reordenable
   switch (area.type){
     case "bano":
       AreaIcon = <BathtubIcon />

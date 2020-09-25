@@ -56,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
 	}));
 
 function AreasRegistradas(props){
+	// TODO:Cambio de estilo en Página de lista reordenable. Mismo estilo que index.js
+	//TODO: Comenzar con rectángulos grises e ir iluminando conforme se va llenando la info.
 	
 	
 	const { getAccessTokenSilently } = useAuth0();

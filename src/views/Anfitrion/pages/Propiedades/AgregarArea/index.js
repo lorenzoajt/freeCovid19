@@ -179,7 +179,7 @@ export default function AreasRegistradasDnD(props) {
   }else{
     return (
       <>   
-            
+           {/* TODO:Agregar sugerencia (Prevención de contaminación cruzada)  */}
       <Typography variant="h3" className={classes.texto}gutterBottom>
          Areas de propiedad
        </Typography>  
