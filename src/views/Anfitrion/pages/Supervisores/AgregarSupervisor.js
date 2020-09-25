@@ -26,12 +26,12 @@ export default function AgregarSupervisor() {
   const classes = useStyles();
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [loading, setLoading ] = useState(false)
+  const [loading2, setLoading2 ] = useState(false)
 
   const { getAccessTokenSilently } = useAuth0();
   
   const postToAPI = async () => {
-    setLoading(true)
+    setLoading2(true)
     try {
       const token = await getAccessTokenSilently();	
       const post = {
@@ -45,11 +45,11 @@ export default function AgregarSupervisor() {
           Authorization: `Bearer ${token}`
         }
       });    
-      setLoading(false)
+      setLoading2(false)
       history.push('/Anfitrion/supervisores');       
 
     } catch (error) {
-      setLoading(false)
+      setLoading2(false)
       console.error(error);
     }
   };
@@ -63,7 +63,7 @@ export default function AgregarSupervisor() {
     }    
   }
 
-  if(loading){
+  if(loading2){
     return <Loader />
   }else{
     return (
