@@ -19,6 +19,10 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import ColumnStatic from './ColumnStatic'
+import { DragDropContext } from "react-beautiful-dnd";
+import columnData from './columnData'
+import {defaultAreas} from './defaultAreas'
 
 const useStyles = makeStyles((theme) => ({
 	  root: {
@@ -58,7 +62,10 @@ const useStyles = makeStyles((theme) => ({
 function AreasRegistradas(props){
 	// TODO:Cambio de estilo en Página de lista reordenable. Mismo estilo que index.js
 	//TODO: Comenzar con rectángulos grises e ir iluminando conforme se va llenando la info.
-	
+	//
+		const [state, setState] = useState(columnData)
+		
+	//
 	
 	const { getAccessTokenSilently } = useAuth0();
 	const {propertyId, areasTerminadas, nextStep, handleName, handleType, handlePropertyAreaId, numAreas} = props
@@ -67,6 +74,8 @@ function AreasRegistradas(props){
 	const [data, setData] = useState()
 	let history = useHistory()		
 	const [isComplete, setIsComplete] = useState(false)
+	const defAreas = defaultAreas.items
+  	const [areas, setAreas] = useState(defAreas);
 
 
 	useEffect(() => {
@@ -88,6 +97,7 @@ function AreasRegistradas(props){
 		  	getAreas()
 		  }	  
 		  setData(responseData.items)	  
+		  console.log("data",responseData.items)
 		  setLoading(false)
 		} catch (error) {
 		  console.error(error);
@@ -150,28 +160,14 @@ function AreasRegistradas(props){
 			     </Typography>		
 				
 				<div>
-					<div className={classes.root}>
-					    <GridList cellHeight={180} className={classes.gridList}>
-					      <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-					        
-					      </GridListTile>
-					      {data && data.map((tile) => (
-					        <GridListTile key={tile.orderIndex} onClick={() => !areasTerminadas.includes(tile.name) && handleClickToItems(tile.name, tile.type, tile.propertyAreaId)}>  
-								<Card className={classes.cardStyle} style={{background: chooseColor(tile.type)}}>
-								  <CardContent >        
-								    <Typography className={classes.cardContent} variant="h4" component="h2">
-								      {tile.name}
-								    </Typography>                
-								  </CardContent>   
-								  <CardActions>
-								  	{areasTerminadas.includes(tile.name) ? <DoneIcon /> : <CheckBoxOutlineBlankIcon/>}
-								  </CardActions>   
-								</Card>
-					        </GridListTile>
-					      ))
-					    }
-					    </GridList>
-					</div>
+				{/*Areas Registradas*/}
+				<div>
+					{state.columnOrder.map(columnId =>{
+						const column = state.columns[columnId];
+						return <ColumnStatic key={columnId} column={column} areas={data} />;
+					})}
+				</div>
+
 					<div>
 						<Button 
 							disabled={areasTerminadas.length === data.length ? false : true }
