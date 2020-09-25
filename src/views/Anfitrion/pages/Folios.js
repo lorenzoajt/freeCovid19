@@ -43,24 +43,53 @@ function Folios(){
 
 
 
-	const FoliosDengue = folios.filter(item => item.tipoServicio === "Dengue")
-	const FoliosLimpieza = folios.filter(item => item.tipoServicio === "Limpieza")
-	const FoliosDesinfeccion = folios.filter(item=> item.tipoServicio === "Desinfeccion" )
+	const FoliosDengue = folios.filter(item => item.tipoServicio === "Dengue" && item.used === true)
+	// const FoliosLimpieza = folios.filter(item => item.tipoServicio === "Limpieza")
+	const FoliosDesinfeccion = folios.filter(item=> item.tipoServicio === "Desinfeccion" && item.used === true)
 
-	const usado = folios.filter(item => item.used === true)
+	// const usado = folios.filter(item => item.used === true)
 	const sinUsar = folios.filter(item => item.used === false)
 	
+	const styleHeader = {
+		fontSize: "2rem",
+		textAlign: "center",
+		fontWeight: "bold",
+		marginTop: "30px",
+	}
+
+	const styleSubheader = {
+		fontSize: "1.5rem",
+		textAlign: "center",
+		fontWeight: "bold",
+		marginTop: "10px",
+	}
+
+	const styleRow = {
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-evenly"
+	}
 
 	if (loading){
 		return <Loader />
 	}else{
+		// TODO: Cambiar estilos de página de Folios
+		// ALMOST FINISHED
 		return(
-			<div>				
-				<CardFolios servicio={"Dengue"} numFolios={FoliosDengue.length} hostId={hostId}/>
-				<CardFolios servicio={"Limpieza"} numFolios={FoliosLimpieza.length} hostId={hostId}/>
-				<CardFolios servicio={"Desinfeccion"} numFolios={FoliosDesinfeccion.length} hostId={hostId}/>
-				<CardFoliosUsed servicio={"Usados"} numFolios={usado.length} hostId={hostId}/>
-				<CardFoliosUsed servicio={"Sin Usar"} numFolios={sinUsar.length} hostId={hostId}/>				
+			<div>		
+				<div style={ styleHeader }>
+					FOLIOS DISPONIBLES { sinUsar.length }
+				</div>	
+				<div style={ styleSubheader }>
+					Folios Utilizados
+				</div>
+				<div style={styleRow}>
+					<CardFolios servicio={"Desinfeccion"} numFolios={FoliosDesinfeccion.length} hostId={hostId}/>
+					<CardFolios servicio={"Dengue"} numFolios={FoliosDengue.length} hostId={hostId}/>
+					{/* <CardFolios servicio={"Limpieza"} numFolios={FoliosLimpieza.length} hostId={hostId}/> */}
+					{/* <CardFoliosUsed servicio={"Usados"} numFolios={usado.length} hostId={hostId}/> */}
+					{/* <CardFoliosUsed servicio={"Sin Usar"} numFolios={sinUsar.length} hostId={hostId}/>				 */}
+				</div>		
 			</div>
 		)
 
