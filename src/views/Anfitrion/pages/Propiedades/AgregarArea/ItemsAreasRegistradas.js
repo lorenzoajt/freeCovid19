@@ -112,6 +112,7 @@ function AreasRegistradas(props){
 	}
 
 	const handleClickToItems =(name, type, propertyAreaId) => {		
+		console.log("handlong")
 		handleName(name)
 		handleType(type)
 		handlePropertyAreaId(propertyAreaId)
@@ -164,7 +165,7 @@ function AreasRegistradas(props){
 				<div>
 					{state.columnOrder.map(columnId =>{
 						const column = state.columns[columnId];
-						return <ColumnStatic key={columnId} column={column} areas={data} />;
+						return <ColumnStatic key={columnId} column={column} areas={data} handleClickToItems={handleClickToItems} areasTerminadas={areasTerminadas}/>;
 					})}
 				</div>
 

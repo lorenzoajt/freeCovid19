@@ -21,7 +21,7 @@ export default function Column(props) {
       <AreasList>
         {props.areas.map((area, index) =>{
           const newIndex = props.areas.length - index - 1
-          return <AreaStatic key={props.areas[newIndex].orderIndex} area={props.areas[newIndex]} index={index}/>
+          return <AreaStatic key={props.areas[newIndex].orderIndex} area={props.areas[newIndex]} index={index} handleClickToItems={props.handleClickToItems} areasTerminadas={props.areasTerminadas}/>
         } 
           
         )}
