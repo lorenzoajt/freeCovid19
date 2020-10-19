@@ -165,8 +165,7 @@ export default function AreasRegistradasDnD(props) {
   } else {
     return (
       <>
-        {/* TODO:Agregar sugerencia (Prevención de contaminación cruzada)  */}
-        {/* FINISHED */}
+        {/* DONE:Agregar sugerencia (Prevención de contaminación cruzada)  */}
         <Typography variant="h3" className={classes.texto} gutterBottom>
           Areas de propiedad
         </Typography>
@@ -176,8 +175,7 @@ export default function AreasRegistradasDnD(props) {
             <br />
           </h4>
           <h5>
-            Selecciona en cada área elementos a desinfectar y registro
-            fotográfico
+            Seleccione, arrastre y ordene las propiedades en el orden que desea desinfectarlas
           </h5>
         </div>
         <TipOrdenar />

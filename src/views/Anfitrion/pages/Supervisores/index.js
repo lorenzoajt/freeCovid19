@@ -39,8 +39,8 @@ function Supervisores() {
   const [loading2, setLoading2] = useState(false);
   const [flag, setFlag] = useState(false)
 
-  // TODO: Cambiar formato de fecha en tabla de supervisores- ya estufas
-  //TODO:Agregar supervisor en la misma página que la tabla
+  // DONE: Cambiar formato de fecha en tabla de supervisores
+  //DONE:Agregar supervisor en la misma página que la tabla
   useEffect(() => {
     const getSupervisores = async () => {
       try {

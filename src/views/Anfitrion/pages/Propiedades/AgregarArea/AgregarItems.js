@@ -19,6 +19,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Typography } from '@material-ui/core';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -213,7 +214,15 @@ function AgregarItems(props){
 
 	return(
 
-		<div>
+		<div>	
+			<Typography variant="h4" className={classes.text} gutterBottom>
+				PROTOCOLO DE DESINFECCIÓN:
+			</Typography>		
+			<div style={{ paddingLeft: "10px" }}>				
+				<h5>
+					Seleccione cada elemento a desinfectar y toma de evidencia
+				</h5>
+			</div>	
 
 		
 		<TextField		            

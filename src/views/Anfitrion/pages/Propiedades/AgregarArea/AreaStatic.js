@@ -73,7 +73,7 @@ export default function Area (props){
  
   return(
     <Container
-      inputColor={areasTerminadas.includes(area.name) ?  "#D3D3D3": AreaColor}
+      inputColor={areasTerminadas.includes(area.name) ?  AreaColor : "#D3D3D3" }
       onClick={() => !areasTerminadas.includes(area.name) && handleClickToItems(area.name, area.type, area.propertyAreaId)}
     >
       <ListItem >
