@@ -38,6 +38,8 @@ const cardStyle = {
   boxShadow: "0px 4px 5px 0px grey"
 }
 
+
+
 export default function CardFolios(props) {
   const { numFolios, hostId } = props;
   let { servicio } = props;
@@ -51,7 +53,7 @@ export default function CardFolios(props) {
     <Card className={classes.bullet} style={ cardStyle }>
       <CardContent style={{ paddingBottom: "0" }}>
         <div className="cardContentDiv">
-          <div className="cardIcon"></div>
+          <div className="cardIcon" id={ servicio === "Dengue" ? "imgDengue" : "imgDesinfeccion" }></div>
           <div className="cardTypeText">
             <p>{ servicio } { numFolios }</p>
           </div>

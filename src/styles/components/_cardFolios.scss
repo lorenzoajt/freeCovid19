@@ -10,9 +10,19 @@
 }
 
 .cardIcon{
-    background-color: blue;
+
+    // background-image: url('../../assets/mosquito.png');
+    background-size: 100%;
     height: 120px;
     width: 120px;
+}
+
+#imgDengue{
+    background-image: url('../../assets/mosquito.png');
+}
+
+#imgDesinfeccion{
+    background-image: url('../../assets/aerosol-de-limpieza.png');
 }
 
 .cardTypeText p{
