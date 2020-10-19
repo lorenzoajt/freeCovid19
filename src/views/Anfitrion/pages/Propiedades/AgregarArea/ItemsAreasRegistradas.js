@@ -43,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
 	    pointerEvents: "none"
 	  },
 	  texto: {
-	    margin: theme.spacing(1),
+		margin: theme.spacing(1),
+		fontWeight: 400,
 	  },
 	  boton: {
 	    margin: theme.spacing(1),
@@ -60,8 +61,8 @@ const useStyles = makeStyles((theme) => ({
 	}));
 
 function AreasRegistradas(props){
-	// TODO:Cambio de estilo en Página de lista reordenable. Mismo estilo que index.js
-	//TODO: Comenzar con rectángulos grises e ir iluminando conforme se va llenando la info.
+	// DONE:Cambio de estilo en Página de lista reordenable. Mismo estilo que index.js
+	//DONE: Comenzar con rectángulos grises e ir iluminando conforme se va llenando la info.
 	//
 		const [state, setState] = useState(columnData)
 		
@@ -84,7 +85,7 @@ function AreasRegistradas(props){
 
 	
 	const getAreas = async () => {	
-	console.log("gettttt", numAreas)	
+	
 		try {
 		  const token = await getAccessTokenSilently();	  	  
 		  const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/propertyareas/${propertyId}`, {
@@ -112,6 +113,7 @@ function AreasRegistradas(props){
 	}
 
 	const handleClickToItems =(name, type, propertyAreaId) => {		
+		console.log("handlong")
 		handleName(name)
 		handleType(type)
 		handlePropertyAreaId(propertyAreaId)
@@ -154,17 +156,24 @@ function AreasRegistradas(props){
 	}else{
 		return(	
 			<div>		
-				<Prompt when={!isComplete} message={"Los cambios no seran guardados"}/>			
-				<Typography variant="h3" className={classes.texto}gutterBottom>
-			       Areas Registradas
-			     </Typography>		
+				<Prompt when={!isComplete} message={"Los cambios no seran guardados"}/>	
+				<Typography variant="h3" className={classes.texto} gutterBottom>
+					Areas de Registradas
+				</Typography>		
+				
+				<div style={{ paddingLeft: "10px" }}>
+				
+				<h4>
+					Selecciona el área a editar
+				</h4>
+				</div>	
 				
 				<div>
 				{/*Areas Registradas*/}
 				<div>
 					{state.columnOrder.map(columnId =>{
 						const column = state.columns[columnId];
-						return <ColumnStatic key={columnId} column={column} areas={data} />;
+						return <ColumnStatic key={columnId} column={column} areas={data} handleClickToItems={handleClickToItems} areasTerminadas={areasTerminadas}/>;
 					})}
 				</div>
 

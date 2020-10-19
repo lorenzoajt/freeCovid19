@@ -16,11 +16,11 @@ import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-	margin: theme.spacing(1),
-	'& .MuiTextField-root': {
-		margin: theme.spacing(1),
-		width: 200,
-	  },
+    margin: theme.spacing(1),
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
   },
   boton: {
     margin: theme.spacing(1),
@@ -34,8 +34,13 @@ function Supervisores() {
   const [loading, setLoading] = useState(true);
   const classes = useStyles();
 
-  // TODO: Cambiar formato de fecha en tabla de supervisores- ya estufas
-  //TODO:Agregar supervisor en la misma página que la tabla
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading2, setLoading2] = useState(false);
+  const [flag, setFlag] = useState(false)
+
+  // DONE: Cambiar formato de fecha en tabla de supervisores
+  //DONE:Agregar supervisor en la misma página que la tabla
   useEffect(() => {
     const getSupervisores = async () => {
       try {
@@ -57,8 +62,9 @@ function Supervisores() {
         console.log("error", error);
       }
     };
+    console.log("object")
     getSupervisores();
-  }, []);
+  }, [flag]);
 
   const columns = [
     { title: "Nombre", field: "name" },
@@ -67,9 +73,7 @@ function Supervisores() {
   ];
 
   let history = useHistory();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [loading2, setLoading2] = useState(false);
+
 
 
   const postToAPI = async () => {
@@ -90,8 +94,10 @@ function Supervisores() {
           },
         }
       );
+      history.push("/Anfitrion/supervisores");
       setLoading2(false);
-	  history.push("/Anfitrion/supervisores");
+      setFlag(!flag)
+
     } catch (error) {
       setLoading2(false);
       console.error(error);
@@ -106,7 +112,7 @@ function Supervisores() {
     }
   };
 
-  if (loading || loading2 ) {
+  if (loading || loading2) {
     return <Loader />;
   } else {
     return (

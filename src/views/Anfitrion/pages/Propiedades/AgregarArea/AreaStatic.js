@@ -28,7 +28,7 @@ const Container = styled.div`
   background-color: ${props => props.inputColor || "palevioletred"};
 `;
 export default function Area (props){
-  const {area, index} = props
+  const {area, areasTerminadas, index, handleClickToItems} = props
 
   
   // TODO:Cambio de Color de los rectángulos en Lista reordenable
@@ -68,19 +68,20 @@ export default function Area (props){
   }
 
   
-const finalIcon = AreaIcon
-const finalColor = AreaColor
+// const finalIcon = AreaIcon
+// const finalColor = AreaColor
  
   return(
     <Container
-      inputColor={finalColor}
+      inputColor={areasTerminadas.includes(area.name) ?  AreaColor : "#D3D3D3" }
+      onClick={() => !areasTerminadas.includes(area.name) && handleClickToItems(area.name, area.type, area.propertyAreaId)}
     >
       <ListItem >
           <ListItemIcon>
-            {finalIcon}
+            {AreaIcon}
           </ListItemIcon>
           <ListItemText
-            primary={props.area.name}          
+            primary={area.name}          
           />              
         </ListItem>
     </Container>
