@@ -13,6 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,7 +58,7 @@ function Historial(){
             }
         })
         const responseData = await response.json()                
-        const finished = responseData.filter(item => item.service.finished === false )/////cambiarlo a true        
+        const finished = responseData.filter(item => item.service.finished === true )/////cambiarlo a true        
         setData(finished)
         setLoading(false)
       }catch(error){
@@ -68,7 +69,29 @@ function Historial(){
     getServices()
   }, []);
   
-  
+  const getReporte = async(serviceId)=>{
+    setLoading(true);
+    try{
+      const token = await getAccessTokenSilently()
+      const response = await fetch(`https://qxtbqbuj4m.execute-api.us-east-1.amazonaws.com/prod/finalreports/${serviceId}`, {
+        method: 'GET', 
+          headers: {
+            Authorization : `Bearer ${token}`
+          }
+      })
+      const responseReport = await response.json()                
+       window.open(responseReport['finalReport']['reportUrl']) 
+       setLoading(false);     
+
+    }catch(error){
+      setLoading(false);   
+      Swal.fire({
+        icon:'error',
+        title:'Lo sentimos',
+        text:'Hubo un error al cargar el reporte'
+      });
+    }
+  }
 
  
   if(loading){
@@ -106,7 +129,7 @@ function Historial(){
                   </CardContent>
                 </CardActionArea>
                 <CardActions>        
-                  <Button size="small" color="primary">
+                  <Button size="small" color="primary" onClick={()=>getReporte(tile.service.serviceId)}>
                   Ver reporte
                   </Button>
                 </CardActions>
